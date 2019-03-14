@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script>
+    var linedata=[];
+    var i =0;
+    function runEvery10Sec() {
+        // 1000 * 10 = 10 秒钟
+{#        #}
+        //
+        i++;
+        $.post('/pointlat/', {'terminalid': '13826539847'}, function (data) {
+{#                console.log(data);#}
+            datas =  JSON.parse(data);
+            var oldCoordinate=datas["coordinates"];
+            oldCoordinate[0]=oldCoordinate[0]+0.00001*i
+            if(i==20){datas.accstate='false' }
+            if(datas.accstate=='true'){
+                setTimeout(runEvery10Sec,200);
+                var point = {"time":datas.time,"coordinates":oldCoordinate}
+                linedata.push(point)
+            }
+            else{
+                console.log(linedata)
+            }
+                 document.getElementById('box').innerHTML = datas
+        });
+    }
+
+    runEvery10Sec();
+    var arr=["first","second","last"];
+
+　　arr.pop();//arr→["first","second"],arr.length=2;
+
+{#　　arr.shift(arr[0])#}
+    console.log(arr)
+</script>
+</body>
+<div id ="box"></div>
+</html>

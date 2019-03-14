@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>map</title>
+    <meta charset="utf-8"/>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no'/>
+    <script src="{{ url_for('static',filename='dist/jquery.slim.min.js') }}"></script>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="{{ url_for('static',filename='dist/threebox.js') }}" type="text/javascript"></script>
+    <script src="{{ url_for('static',filename='dist/mapbox-gl-dev.js') }}"></script>
+    <script src="{{ url_for('static',filename='dist/turf.min.js') }}" charset='utf-8'></script>
+    <!-- <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script> -->
+    <link href="{{ url_for('static',filename='dist/mapbox-gl.css') }}" rel='stylesheet'/>
+    <script src="{{ url_for('static',filename='dist/GLTFLoader.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static',filename='bootstrap-3.3.7-dist/css/bootstrap.min.css') }}">
+    <style>
+        html,
+        body {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #map {
+            height: 100%;
+            z-index: 0;
+            position: absolute;
+            left: 15%;
+            width: 85%;
+            top: 0;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+<style type='text/css'>
+    .mapboxgl-popup {
+        max-width: 200px;
+    }
+
+    #info {
+        display: block;
+        position: absolute;
+        border: none;
+        font-size: 12px;
+        color: #222;
+        background: #fff;
+    }
+
+    .overlay {
+        box-shadow: 0 0 10px 2px rgba(31, 51, 73, .1);
+        flex-direction: column;
+    }
+
+    .overlay .item.active .title,
+    .overlay .item .title:hover {
+        color: #8cc63f;
+    }
+
+    #list button {
+        font: 700 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+        background-color: #337AB7;
+        color: #fff;
+        display: inline-block;
+        margin: 0;
+        line-height: 18px;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        border-radius: 3px;
+    }
+
+    .mapboxgl-popup-close-button {
+        display: none;
+    }
+
+    .mapboxgl-popup-content {
+        font: 300 15px 'Source Sans Pro', 'Helvetica Neue', Sans-serif;
+        padding: 0;
+        width: 140px;
+        box-shadow: 0 0 10px 2px rgba(31, 51, 73, .25) !important;
+    }
+
+    .mapboxgl-popup-content-wrapper {
+        padding: 1%;
+    }
+
+    .mapboxgl-popup-content h3 {
+        background: #D0E9C6;
+        /* color: #fff; */
+        margin: 0;
+        display: block;
+        padding: 5px;
+        border-radius: 2px 2px 0 0;
+        font-weight: 300;
+        /* margin-top: -15px; */
+    }
+
+    #showNumber p {
+        font-size: 18px;
+        font-weight: 300;
+    }
+
+    .mapboxgl-popup-content h4 {
+        margin: 0;
+        display: block;
+        padding: 5px;
+        font-weight: 300;
+    }
+
+    .mapboxgl-popup-content div {
+        padding: 5px;
+
+    }
+
+    .mapboxgl-container .leaflet-marker-icon {
+        cursor: pointer;
+    }
+
+    .mapboxgl-popup-anchor-top > .mapboxgl-popup-content {
+        margin-top: 15px;
+    }
+
+    .mapboxgl-popup-anchor-top > .mapboxgl-popup-tip {
+        border-bottom-color: #91c949;
+    }
+
+{# <link href="dist/zoom.css"/>.top {#}
+{#				height: 30%;#}
+{#			}#}
+
+    /* 	.bottom {
+        height: 70%;
+    } */
+
+    #top {
+        /* height: 300px; */
+        display: block;
+    }
+
+    #list {
+        /* margin: 8px; */
+        width: 15%;
+        float: left;
+        box-shadow: 0 0 10px 2px rgba(31, 51, 73, .1);
+        flex-direction: column;
+        background: #ECECEC;
+        height: 100%;
+        border-right: #0378AB 1px solid;
+    }
+
+    #center {
+        margin-left: 7%;
+        margin-right: 3%;
+        position: relative;
+        background: white;
+        background: #ECECEC;
+    }
+
+    .item {
+        border-radius: 3px 3px 3px 3px;
+        background: white;
+        display: block;
+        border-bottom: 4px solid #ECECEC;
+        padding: 1%;
+        text-indent: 10%;
+        text-decoration: none;
+    }
+
+    .item:last-child {
+        border-bottom: none;
+    }
+
+    .item .title {
+        display: block;
+        font-weight: 700;
+    }
+
+    .item .title small {
+        font-weight: 400;
+    }
+
+    .item.active .title,
+    .item .title:hover {
+        color: #8cc63f;
+    }
+
+    .item.active {
+        background-color: #f8f8f8;
+    }
+
+    ::-webkit-scrollbar {
+        width: 3px;
+        height: 3px;
+        border-left: 0;
+        background: rgba(0, 0, 0, 0.1);
+    }
+
+    ::-webkit-scrollbar-track {
+        background: none;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #00853e;
+        border-radius: 0;
+    }
+
+    .clearfix {
+        display: block;
+    }
+
+    .clearfix::after {
+        content: '.';
+        display: block;
+        height: 0;
+        clear: both;
+        visibility: hidden;
+    }
+
+    .title {
+        float: left;
+        width: 75%;
+    }
+
+    #hide {
+        width: 330px;
+        float: left;
+        box-shadow: 0 0 10px 2px rgba(31, 51, 73, .1);
+        flex-direction: column;
+        background: #ECECEC;
+        text-indent: 10%;
+        height: 98%;
+    }
+
+    #hide input {
+        border: 0;
+        outline: none;
+        margin-top: 2%;
+        background-color: rgba(0, 0, 0, 0);
+    }
+
+    #hide input:focus {
+        font-weight: 300;
+        border: 1px solid #1DA1F2 ;
+        outline: 1px solid #1DA1F2;
+        border-radius: 3px 3px 3px 3px;
+    }
+
+    .row2 .text-primary {
+        text-indent: 2em;
+    }
+
+    .state {
+        width: 5%;
+        height: 5%;
+        float: left;
+        border-radius: 100px;
+    }
+
+    .shortselect {
+        background: #fafdfe;
+        height: 28px;
+        /* width:180px;  */
+        line-height: 28px;
+        border: 1px solid #9bc0dd;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
+        border-radius: 2px;
+    }
+</style>
+<div id="list">
+    <div id="center">
+        <!-- <pre id='info'></pre> -->
+        <div id="top">
+            <div class="input-group input-group-sm" style="margin-top: 10%;">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-search"
+                                                      aria-hidden="true"></span></span>
+                <input type="text" id="search" class="form-control" placeholder="search" onkeypress="search()">
+                <!--  -->
+            </div>
+            <div class="middle"
+                 style="margin-bottom: 10%; margin-top: 10%; border-bottom: #0378AB 1px solid ;border-top: #0378AB 1px solid ; color: black;">
+                <button id='add' style=" margin-top:10% ;margin-bottom: 10%;margin-right: 10%;float: left;"
+                        onclick="addClick()"><span
+                        class="glyphicon glyphicon-plus"></span>添加
+                </button>
+                <div style="margin-top:15% ;margin-bottom: 10%;">
+                    <p><span class="glyphicon glyphicon-bed" style="float: left;margin-right: 4%;"></span>
+                    <p id="showNumber">0辆</p>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div id='overlay' class='overlay'>
+        </div>
+    </div>
+</div>
+
+<div id='map'>
+</div>
+<div id="hide" style="position: fixed;left: 15%;top: 1%; display: none;">
+    <div class="row1" style="height:5%;border-bottom: #0378AB 1px solid ;margin-left: 3%;margin-top: 5%;">
+        <form id="form1" onsubmit="return false" action="##" method="post">
+            <div class="input-group input-group-sm" style="float: left;width: 60%;">
+                <!-- 隐藏判断是否添加 -->
+                <input type="hidden" id="isAdd" name="add" value="no">
+                <input type="hidden" id="id" name="id" value="0">
+                <!-- 名称修改 -->
+                <input class="form-control" id="focusedInput" name="name"
+                       style="text-indent: 0.5em;font-weight:700;font-size: 18px;"
+                       type="text"
+                       placeholder="name"
+                       required
+                       onmouseover="{document.getElementById('pencil').style.display='block';}"
+                       onmouseout="{document.getElementById('pencil').style.display='none';}">
+            </div>
+            <div style="display: none;width: 1%; float: left;margin-top:2%;" id="pencil">
+                <a href="#">
+						<span class="glyphicon glyphicon-pencil" style="margin-left: -8%;"
+                              onclick="{document.getElementById('focusedInput').focus()}">
+						</span>
+                </a>
+            </div>
+
+            <!-- <button type="button" class="btn btn-success" style="float: right;">save</button> -->
+            <!-- 关闭按钮 -->
+            <a href="#" onclick="{document.getElementById('hide').style.display='none';}">
+					<span class="glyphicon glyphicon-remove" style="float: right;margin-right: 4%;">
+					 </span>
+            </a>
+            <!-- 保存按钮 -->
+            <a href="#" onclick="over()">
+					<span class="glyphicon glyphicon-ok" style="float: right;margin-right: 4%;">
+						
+					</span>
+            </a>
+        </form>
+    </div>
+    <!-- 隐藏信息框 -->
+    <div class="row2" style="height:90%; margin-top:3%; ">
+        <div style="width: 42%;float: left;height: 97%;border-right: #8CBDD3 1px solid ;">
+            <div>
+                <p class="text-succcess">里程数：(km)</p>
+                <p id="Mileage" class="text-primary">100</p>
+
+            </div>
+            <div>
+                <p class="text-succcess">车速：(km/h)</p>
+                <p id="Speed" class="text-primary">100</p>
+            </div>
+            <form id="form2" onsubmit="return false" action="##" method="post">
+            <div>
+                    <p class="text-succcess">修改状态：</p>
+                    <div class="input-group input-group-sm" style="width: 50%; margin-left: 20%;">
+                        <select id="changeState" name="state" class="shortselect">
+                            <option value="在线">在线</option>
+                            <option value="离线">离线</option>
+                        </select>
+                    </div>
+            </div>
+                <div style="margin-top:15px; ">
+                <p class="text-succcess">其他信息：</p>
+                <input class="form-control" id="terminalid"  name="terminalid"
+                       style="font-weight:300;font-size: 16px;margin-top: 3px;"
+                       type="text"
+                       placeholder="*终端号"
+                       required/>
+                    <input class="form-control" id ="driver" name="driver"
+                       style="font-weight:300;font-size: 14px;margin-top: 3px;"
+                       type="text"
+                       placeholder="司机"/>
+                   <input class="form-control" id="driverphone" name="driverphone"
+                       style="font-weight:300;font-size: 14px;margin-top: 3px;"
+                       type="text"
+                       placeholder="号码"/>
+                    <input class="form-control" id="starttime" name="starttime"
+                       style="font-weight:300;font-size: 14px;margin-top: 3px;"
+                       type="text"
+                       placeholder="始发车时间"/>
+                    <input class="form-control" id="endtime" name="endtime"
+                       style="font-weight:300;font-size: 14px;margin-top: 3px;"
+                       type="text"
+                       placeholder="末班车时间"/>
+                    <input class="form-control" id="cartype" name="cartype"
+                       style="font-weight:300;font-size: 14px;margin-top: 3px;"
+                       type="text"
+                       placeholder="型号"/>
+                    <input class="form-control" id="company" name="company"
+                       style="font-weight:300;font-size: 14px;margin-top: 3px;"
+                       type="text"
+                       placeholder="运营单位"/>
+                    <input class="form-control" id="team" name="team"
+                       style="font-weight:300;font-size: 14px;margin-top: 3px;"
+                       type="text"
+                       placeholder="车队"/>
+                </div>
+            </form>
+        </div>
+        <div style="width: 58%;float: right;height: 97%;">
+            <div id="filter-time" style="100%">
+                <a href="#">
+                    <span class="glyphicon glyphicon-filter"></span>时间段
+                </a>
+            </div>
+            <div id="times" style="border-top: #0378AB 1px solid ;border-bottom: #0378AB 1px solid ;margin-left: 5%;">
+                <div id="year" style="margin-bottom: 8%;margin-top: 8%;">
+                    <input id="date" type="date" value=""/>
+                </div>
+                <div id="time" style="margin-bottom: 8%;">
+                    <input type="time" value=""/>
+                    -
+                    <input type="time" value=""/>
+                </div>
+            </div>
+            <div style="margin-top: 5%; ">
+                <button id='replay' class="btn btn-success"><span class="glyphicon glyphicon-play"></span>回放</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+</script>
+<script src="{{ url_for('static',filename='dist/area_map.js') }}"></script>
+{#<script src="{{ url_for('static',filename='dist/roadL.js') }}"></script>#}
+{#<script src="{{ url_for('static',filename='dist/ha_map.js') }}"></script>#}
+{#<script src='{{ url_for('static',filename='dist/roadArrow.js') }}'></script>#}
+<script src="{{ url_for('static',filename='dist/addlist.js') }}"></script>
+<script src="{{ url_for('static',filename='dist/movecar.js') }}"></script>
+{#<script src="{{ url_for('static',filename='dist/text.js') }}"></script>#}
+<script type="text/javascript">
+</script>
+<!-- <script src="dist/3Dcar.js"></script> -->
+<script>
+ map.on('load', function() {list_car();})
+</script>
+</body>
+</html>
