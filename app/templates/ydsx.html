@@ -268,6 +268,9 @@
         -webkit-border-radius: 2px;
         border-radius: 2px;
     }
+    #line{
+				margin-top: 3px !important;margin-bottom: 0px !important; height: 4% !important;line-height: 0% !important;
+			}
 </style>
 <div id="list">
     <div id="center">
@@ -304,7 +307,7 @@
         <form id="form1" onsubmit="return false" action="##" method="post">
             <div class="input-group input-group-sm" style="float: left;width: 60%;">
                 <!-- 隐藏判断是否添加 -->
-                <input type="hidden" id="isAdd" name="add" value="no">
+                <input type="hidden" id="isAdd" name="add" value="">
                 <input type="hidden" id="id" name="id" value="0">
                 <!-- 名称修改 -->
                 <input class="form-control" id="focusedInput" name="name"
@@ -341,9 +344,12 @@
     <div class="row2" style="height:90%; margin-top:3%; ">
         <div style="width: 42%;float: left;height: 97%;border-right: #8CBDD3 1px solid ;">
             <div>
+                <p class="text-succcess">警告：</p>
+                <p id="waring" class="text-primary">--</p>
+            </div>
+            <div>
                 <p class="text-succcess">里程数：(km)</p>
                 <p id="Mileage" class="text-primary">100</p>
-
             </div>
             <div>
                 <p class="text-succcess">车速：(km/h)</p>
@@ -403,18 +409,22 @@
                     <span class="glyphicon glyphicon-filter"></span>时间段
                 </a>
             </div>
-            <div id="times" style="border-top: #0378AB 1px solid ;border-bottom: #0378AB 1px solid ;margin-left: 5%;">
-                <div id="year" style="margin-bottom: 8%;margin-top: 8%;">
-                    <input id="date" type="date" value=""/>
+            <form id="form3" onsubmit="return false" action="##" method="post">
+                <div id="times" style="border-top: #0378AB 1px solid ;border-bottom: #0378AB 1px solid ;margin-left: 5%;">
+                    <div id="year" style="margin-bottom: 8%;margin-top: 8%;">
+                        <input id="date" type="date" value=""/>
+                    </div>
+                    <div id="time" style="margin-bottom: 8%;">
+                        <input type="time" id="time1" value=""/>
+                        -
+                        <input type="time" id="time2" value=""/>
+                    </div>
                 </div>
-                <div id="time" style="margin-bottom: 8%;">
-                    <input type="time" value=""/>
-                    -
-                    <input type="time" value=""/>
-                </div>
-            </div>
+            </form>
             <div style="margin-top: 5%; ">
-                <button id='replay' class="btn btn-success"><span class="glyphicon glyphicon-play"></span>回放</button>
+                <button id='replay' class="btn btn-success" onclick="showHistory()"><span class="glyphicon glyphicon-play"></span>轨迹</button>
+            </div>
+            <div id="history" style=" overflow-y:auto; overflow-x:auto; width: 100%;height: 71%;margin-top: 4%;">
             </div>
         </div>
     </div>
@@ -424,11 +434,11 @@
 </script>
 <script src="{{ url_for('static',filename='dist/area_map.js') }}"></script>
 {#<script src="{{ url_for('static',filename='dist/roadL.js') }}"></script>#}
-{#<script src="{{ url_for('static',filename='dist/ha_map.js') }}"></script>#}
-{#<script src='{{ url_for('static',filename='dist/roadArrow.js') }}'></script>#}
+<script src="{{ url_for('static',filename='dist/ha_map.js') }}"></script>
+<script src='{{ url_for('static',filename='dist/roadArrow.js') }}'></script>
 <script src="{{ url_for('static',filename='dist/addlist.js') }}"></script>
 <script src="{{ url_for('static',filename='dist/movecar.js') }}"></script>
-{#<script src="{{ url_for('static',filename='dist/text.js') }}"></script>#}
+<script src="{{ url_for('static',filename='dist/text.js') }}"></script>
 <script type="text/javascript">
 </script>
 <!-- <script src="dist/3Dcar.js"></script> -->

@@ -1,3 +1,4 @@
+#!/usr/bin/python
 #coding:utf8
 
 from . import home
@@ -24,9 +25,6 @@ def get_state(terminalid):
     return dact
 # data = get_state(13826539847)
 
-def dealdata(terminalid):
-    car = Car.query.filter(Car.terminalid== terminalid).first()
-    Route.acc = car
 
 
 @home.route('/pointlat/',methods=['POST'])
@@ -34,9 +32,9 @@ def pointlat():
     terminalid=request.form.get('terminalid')
     # print terminalid
     data = get_state(terminalid)
+    # data['alarm'] = "警告"
     data['coordinates'] = [float(data['longitude'])/3600000,float(data['latitude'])/3600000]
     return json.dumps(data)
-
 
 
 @home.route("/")
@@ -88,8 +86,6 @@ def add():
         db.session.commit()
         return "成功"
 
-
-
 @home.route('/revise/',methods=['POST'])
 def revise():
     carname=request.form.get('carname')
@@ -125,3 +121,28 @@ def js_get():
         list.append(context)
     return json.dumps(list)
     # return str(context[0].id)
+
+@home.route('/showHistory/',methods=['POST'])
+def showHistory():
+    carId = request.form.get('id')
+    fliterDate = request.form.get('date')
+    fliterTtime1 =request.form.get('time1')
+    fliterTtime2 =request.form.get('time2')
+    if fliterTtime1=='':
+        fliterTtime1 = '0:0:0'
+    if fliterTtime2 == '':
+        fliterTtime2='23:59:59'
+    mintime = fliterDate + ' ' + fliterTtime1
+    maxtime = fliterDate + ' ' + fliterTtime2
+    # print mintime,maxtime
+    data_list = Route.query.filter(Route.terminalid==carId).filter(Route.create_time >= mintime).filter( Route.create_time <= maxtime).order_by(Route.create_time.desc()).all()
+    list = []
+    for obj in data_list:
+        context = {}
+        context["id"] = obj.id
+        context["terminalid"]=obj.terminalid
+        context["create_time"] = obj.create_time.strftime('%Y-%m-%d %H:%M').split(" ")[1]
+        context["finish_time"] = obj.finish_time.strftime('%Y-%m-%d %H:%M').split(" ")[1]
+        context["linejson"] = json.loads(obj.linejson)["listData"]
+        list.append(context)
+    return json.dumps(list)

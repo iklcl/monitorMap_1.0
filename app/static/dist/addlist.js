@@ -83,6 +83,7 @@ function tankuang(data) {
         $("#msg").remove();
     }
 }
+var DataList=[];
 //数据获取生成列表
 function showList(datas) {
     // test();
@@ -137,9 +138,11 @@ function showList(datas) {
                 "Routesour": "routesour" + i
             },
         });
+        DataList.push(car)
         car.run(); //生成
     }
 }
+//搜索功能
 function search() {
     if (event.keyCode == 13) {
         var keyword = document.getElementById('search').value;
@@ -151,7 +154,6 @@ function search() {
             if (data == "") {
                 item.style.display = 'block';
             }
-
             else if (data != text) {
                 item.style.display = 'none';
             }
@@ -164,21 +166,23 @@ function search() {
 //车辆列表
 function list_car() {
      // var layerlist = document.getElementById('layerid')
-
     // document.getElementById('overlay').innerHTML = '';
     $.get('/js_get/', {'method': 'GET'}, function (data) {
-        $("#overlay").empty();
         var arrayId = []
          $("input[id^='layerid']").each(function(){
             arrayId.push($(this).val());
             map.removeLayer($(this).val());
             map.removeImage('carimg' +$(this).val());
+            map.removeSource("source"+$(this).val());
         });
+        $("#overlay").empty();
         datas = JSON.parse(data);
         showList(datas);
         $('#showNumber').text(datas.length+'辆');
     })
 }
+
+//导入车信息
 function buildLocationList(data) {
     var currentFeature = data.features[0];
     var prop = currentFeature.properties;
@@ -197,22 +201,26 @@ function buildLocationList(data) {
     var link1 = listing1.appendChild(document.createElement('a'));
     link1.href = '#';
     link1.className = 'info';
-    link1.innerHTML = '<span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>';
+    link1.innerHTML = '<span class="glyphicon glyphicon-menu-hamburger" id="info'+ prop.layerid+'" aria-hidden="true"></span>';
+    //显示车信息
     link1.addEventListener('click', function (e) {
         var infoWindow = document.getElementById('hide');
         infoWindow.style.display = 'block';
         var inputAdd = document.getElementById('isAdd');
-        inputAdd.value = "no";
+        inputAdd.value = "";
         var carid = document.getElementById('id');
         carid.value = prop.carid;
         var inputName = document.getElementById('focusedInput');
         inputName.value = prop.name;
+        $("#history").empty();
         var mileage = document.getElementById('Mileage');
-        mileage.innerHTML = prop.name;
+        mileage.innerHTML = prop.mileage;
         var speed = document.getElementById('Speed');
+        speed.innerHTML = prop.Speed;
         var changeState = document.getElementById('changeState');
         changeState.value = prop.state;
-
+        var waring = document.getElementById('waring');
+        waring.innerHTML =  prop.alarm;
         var inputdriver = document.getElementById('driver');
         inputdriver.value = prop.driver;
         // var inputsteward = document.getElementById('steward');
@@ -251,8 +259,8 @@ function buildLocationList(data) {
         var postdata = {"carname": prop.name};
         $.post("/delete/", postdata, function (data) {
             if (data == "删除成功") {
-                list_car();
                 tankuang("删除成功！")
+                window.location.reload();
             }
             else {
                 tankuang("删除失败！")
@@ -280,9 +288,11 @@ function addClick() {
     infoWindow.style.display = 'block';
     var inputName = document.getElementById('isAdd');
     inputName.value = "yes";
-
     var inputName = document.getElementById('focusedInput');
     inputName.value = "";
+    $("#history").empty();
+    var waring = document.getElementById('waring');
+    waring.innerHTML = "--";
     var mileage = document.getElementById('Mileage');
     mileage.innerHTML = "--";
     var speed = document.getElementById('Speed');
@@ -335,11 +345,91 @@ function over() {
         $.post("/add/", param, function (data) {
             tankuang("添加" + data)
         });
-        list_car();
+        window.location.reload();
     }
     else {
-        $.post("/revise/", param, function (data) {
+        $.post("/add/", param, function (data) {
             tankuang("修改" + data)
         });
+         window.location.reload();
     }
 }
+
+
+function showHistory() {
+        var isadd = document.getElementById("isAdd").value;
+        if (!isadd) {
+            var tagId = $("#terminalid").val();
+            var param = {"id": tagId};
+            param["date"] = $("#date").val();
+            param["time1"] = $("#time1").val();
+            param["time2"] = $("#time2").val()
+            if(param.date&&param.time1<=param.time2) {
+                $.post("/showHistory/", param, function (data) {
+                    datas =  JSON.parse(data);
+                    for (i = 0; i < datas.length; i++) {
+                        var line = datas[i];
+                        var accId = line.terminalid;
+                        var listings = document.getElementById('history');
+                        var listing = listings.appendChild(document.createElement('div'));
+                        listing.className = 'alert alert-warning';
+                        listing.id = "line";
+                        var link = listing.appendChild(document.createElement('a'));
+                        link.href = "#";
+                        link.innerHTML=line.create_time+"-"+line.finish_time;
+                        link.addEventListener('click', function (e) {
+                            var point=line.linejson;
+                            var orgin = point[0].coordinates
+                            var coordinates=[];
+                            for (i = 0; i < point.length; i++) {
+                                coordinates.push(point[i].coordinates);
+                            }
+                            var route = {
+                                "type": "FeatureCollection",
+                                "features": [{
+                                    "type": "Feature",
+                                    "geometry": {
+                                        "type": "LineString",
+                                        "coordinates": coordinates,
+                                    }
+                                }]
+                            };
+                            if (!map.getSource("sour"+accId+i)) {
+                            map.addSource("sour"+accId+i, {
+                                "type": "geojson",
+                                "data": route
+                            });}
+                             else{map.removeLayer( "sour"+accId+i )}
+                            if (map.getLayer( "layer"+accId+i ) == undefined) {
+                            map.addLayer({
+                                "id": "layer"+accId+i ,
+                                "source":"sour"+accId+i,
+                                "type": "line",
+                                "paint": {
+                                    "line-width": 5,
+                                    "line-color": "#007cbf",
+                                    'line-opacity': {
+                                        'stops': [
+                                            [15, 1],
+                                            [18, 1]
+                                        ]
+                                    }
+                                },
+                                "layout": {
+                                    "line-join": "round",
+                                    /* 线条相交的形状 */
+                                    "line-cap": "round" /* 线条末端形状 */
+                                }
+                            });
+                            map.flyTo({center: orgin})
+                            }
+                            else{map.removeLayer( "layer"+accId+i )}
+                        })
+                    }
+                });
+            }
+            else {
+                alert("选择日期和正确时间")
+            }
+        }
+};

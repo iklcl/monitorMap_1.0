@@ -1,3 +1,4 @@
+#!/usr/bin/python
 #encoding:utf-8
 
 from app import db
@@ -32,10 +33,11 @@ class Route(db.Model):
     __tablename__ = 'route'
     id = db.Column(db.INTEGER,primary_key=True)
     linejson = db.Column(LONGTEXT)#线路信息
-    create_time = db.Column(db.DateTime, default=datetime.now)  #路线结束时间
-    finish_time = db.Column(db.DateTime)# 路线开始时间
-    car_id = db.Column(db.INTEGER,db.ForeignKey('car.id'))#所属行车
-    acc = db.relationship('Car', backref=db.backref('route'))  # 行车路线外键关系
+    finish_time = db.Column(db.DateTime, default=datetime.now)  #路线结束时间
+    create_time = db.Column(db.DateTime)# 路线开始时间
+    terminalid = db.Column(db.String(50), nullable=False)  # 终端号
+    # car_id = db.Column(db.INTEGER,db.ForeignKey('car.id'))#所属行车
+    # acc = db.relationship('Car', backref=db.backref('route'))  # 行车路线外键关系
 
 if __name__ == "__main__":
     db.create_all()

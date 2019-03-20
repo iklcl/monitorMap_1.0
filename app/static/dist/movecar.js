@@ -54,7 +54,7 @@ function Car(item) {
 	this.testname = item.information.testname; // "firstTest"	;
 	this.teststate = item.information.teststate; //"正常";
 	this.Pointid = item.infoCar.Pointid; // "point1";
-	this.Pointsour = item.infoCar.Pointsour; // "pointsour1";
+	// this.Pointsour = item.infoCar.Pointsour; // "pointsour1";
 	this.Routeid = item.infoRoute.Routeid; // "route1";
 	this.Routesour = item.infoRoute.Routesour; //"routesour1";
 	this.carid = item.information.carid;
@@ -77,7 +77,7 @@ Car.prototype.run = function() {
 	var testname = this.testname;
 	var teststate = this.teststate;
 	var Pointid = this.Pointid;
-	var Pointsour = this.Pointsour;
+	var Pointsour = "source"+Pointid;
 	var Routeid = this.Routeid;
 	var Routesour = this.Routesour;
 	var reangle = 90;
@@ -132,7 +132,10 @@ Car.prototype.run = function() {
 				"cartype":cartype,
 				"team":team,
 				"terminalid":terminalid,
-				"company":company
+				"company":company,
+				"mileage" : "",
+				"Speed" :"",
+				"alarm":"无报警"
 				// "angle":reangle,
 			},
 			"geometry": {
@@ -177,6 +180,7 @@ Car.prototype.run = function() {
 					},
 				}
 			});
+			runEvery10Sec();
 		}
 	})
 	//添加路线路层
@@ -206,7 +210,7 @@ Car.prototype.run = function() {
 	// 		"line-cap": "round" /* 线条末端形状 */
 	// 	}
 	// });}
-	var steps = 12;//把路线分割
+	var steps = 60;//把路线分割
 	function splitRoute() {
 		var lineDistance = turf.lineDistance(route.features[0], 'kilometers');
 		var arc = [];
@@ -226,8 +230,8 @@ Car.prototype.run = function() {
 			"line-color": "#007cbf",
 			'line-opacity': {
 				'stops': [
-					[17, 1],
-					[18, 1]
+					[17, 0],
+					[18, 0]
 				]
 			}
 		},
@@ -236,7 +240,8 @@ Car.prototype.run = function() {
 			/* 线条相交的形状 */
 			"line-cap": "round" /* 线条末端形状 */
 		}
-	});}
+	});
+	}
 	var counter = 0;
 	var isStop = true;
 	function animate() {
@@ -248,11 +253,14 @@ Car.prototype.run = function() {
 			"A": lat,
 			"B": oldlat
 		});
-		map.setLayoutProperty(Pointid, 'icon-rotate', reangle);
-		map.getSource(Pointsour).setData(point);
+		if(map.getLayer(Pointid) != undefined){
+		map.getSource(Pointsour).setData(point);}
 		// coordinates_line.push(lat);
 		}
 		// map.getSource(Routesour + "line").setData(route_line);
+		if (map.getLayer(Pointid) != undefined) {
+            map.setLayoutProperty(Pointid, 'icon-rotate', reangle);
+        }
 		if (counter < steps - 1) {
 			isStop = false;
 			requestAnimationFrame(animate);
@@ -264,20 +272,14 @@ Car.prototype.run = function() {
 		counter = counter + 1;
 	}
 
-	// document.getElementById('replay').addEventListener('click', function() {
-	// 	point.features[0].geometry.coordinates = origin;
-	// 	map.getSource(Pointsour).setData(point);
-	// 	map.setPaintProperty(Routeid, 'line-opacity', 0)
-	// 	counter = 0;
-	// 	animate(counter);
-	// });
 	var oldCoordinates=[];
 	var oldCoordinate;
-	var linedata=[];
+	// var linedata=[];
     var i =0;
 	function runEvery10Sec() {
         // 一秒五次请求
         // setTimeout(runEvery10Sec,200);
+		var tag = point.features[0].properties;
         $.post('/pointlat/', {'terminalid': '13826539847'}, function (data) {
         		datas= JSON.parse(data);
 				oldCoordinate=datas["coordinates"];
@@ -294,24 +296,32 @@ Car.prototype.run = function() {
         			oldCoordinates.push(oldCoordinate);
         			route.features[0].geometry.coordinates = oldCoordinates;
 				}
+				point.features[0].properties.mileage = datas["mileage"];
+				point.features[0].properties.Speed = datas["speed"];
+				if(datas["alarm"]!="无报警"){
+					point.features[0].properties.alarm = datas["alarm"];
+					document.getElementById("info"+tag.layerid).style.setProperty('box-shadow','0 0 8px 0px #C60000','important');
+				}
+				else{
+					if(map.getLayer(Pointid) != undefined){
+					document.getElementById("info"+tag.layerid).style.setProperty('box-shadow','none','important');}
+				}
 				map.getSource(Routesour).setData(route);
 				// map.setPaintProperty(Routeid, 'line-opacity', 0);
 				counter = 0;
 				animate(counter);
-				if(datas.accstate=='true'){
-					setTimeout(runEvery10Sec,200);
-					var point = {"time":datas.time,"coordinates":oldCoordinate}
-					linedata.push(point)
+				if(datas.accstate=='true' && map.getLayer(Pointid) != undefined){
+					setTimeout(runEvery10Sec,1000);
 				}
 				else{
 					isStop = true;
-					console.log(linedata)
+					// console.log(linedata)
 				}
-                // document.getElementById('box').innerHTML = data
+
 				});
 			}
-	runEvery10Sec();//请求
-	map.on('load', function() {})
+	//请求
+	runEvery10Sec();
 	// Start the animation.
 	//鼠标交互
 	var timer;
@@ -346,33 +356,29 @@ Car.prototype.run = function() {
 			offset: 25,
 			className: 'my-class'
 		});
-		if (features.length) {
+		if (features.length && map.getLayer(Pointid) != undefined) {
 			map.flyTo({
 				center: point.features[0].geometry.coordinates
 			});
 			popup.setLngLat(features[0].geometry.coordinates)
-				.setHTML('<h3>' + features[0].properties.name + '</h3><h4>' + features[0].properties.state + '</h4>')
+				.setHTML('<h3>' + features[0].properties.name + '</h3><h4>' + features[0].properties.alarm + '</h4>')
 				.addTo(map);
 			Isstop = 1;
 		} else {
 			Isstop = 0;
 		}
-
 		function fn(){
 			if (Isstop && !isStop) {
-				map.flyTo({
-					center: point.features[0].geometry.coordinates
-				});
+				// map.flyTo({
+				// 	center: point.features[0].geometry.coordinates
+				// });
 				popup.setLngLat(point.features[0].geometry.coordinates);
 				timer = requestAnimationFrame(fn);
-			} else {
-				cancelAnimationFrame(timer);
 			}
 		};
 		fn();
 	};
-	map.on('click', clickfunction);
+	map.on('click',Pointid,clickfunction);
 	var soursmark = map.getSource(Pointsour);
 	buildLocationList(point);
-
 }

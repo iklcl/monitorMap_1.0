@@ -19,7 +19,7 @@ map.on('load', function() {
 		'opacity': {
 			"stops": [
 				[16, 0],
-				[17, 1]
+				[17.5, 1]
 			],
 		},
 		'paint': {
@@ -60,15 +60,23 @@ map.on('load', function() {
 		'source': 'CLDSource',
 		'source-layer': 'ha_linksurface',
 		'type': 'fill',
-		'minzoom': 17.5,
+		'minzoom': 0,
 		'opacity': {
 			"stops": [
-				[17, 0],
+				[17, 1],
 				[17.5, 1]
 			],
 		},
 		paint: {
-			"fill-color": "#10112D",
+			"fill-color":{
+			"stops": [
+				[11,'#fff'],
+				[15,'#fff'],
+				[15,'#DFDC92'],
+				[17,"#10112D"],
+			],
+		},
+
 			"fill-opacity": 1
 		},
 		'interactive': true
@@ -215,7 +223,7 @@ map.on('load', function() {
 		'source-layer': 'ha_markingline',
 		'type': 'line',
 		'filter': ["==", "functionco", 11020101],
-		'minzoom': 17,
+		'minzoom': 17.5,
 		'maxzoom': 24,
 		'layout': {
 			"line-join": "round",
@@ -232,7 +240,7 @@ map.on('load', function() {
 		'source': 'CLDSource',
 		'source-layer': 'ha_markingline',
 		'type': 'line',
-		'minzoom': 17,
+		'minzoom': 17.5,
 		'maxzoom': 24,
 		'layout': {
 			"line-join": "round",
@@ -249,7 +257,7 @@ map.on('load', function() {
 		'source': 'CLDSource',
 		'source-layer': 'ha_markingline',
 		'type': 'line',
-		'minzoom': 17,
+		'minzoom': 17.5,
 		'maxzoom': 24,
 		'layout': {
 			"line-join": "round",
