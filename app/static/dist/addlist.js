@@ -270,6 +270,7 @@ function buildLocationList(data) {
     link.addEventListener('click', function (e) {
         var clickedListing = data.features[this.dataPosition];
         document.getElementById('map').click();
+        if(clickedListing.geometry.coordinates.length!=0){
         map.flyTo({
             center: clickedListing.geometry.coordinates,
             zoom: 17
@@ -278,10 +279,9 @@ function buildLocationList(data) {
         if (activeItem[0]) {
             activeItem[0].classList.remove('active');
         }
-        this.parentNode.classList.add('active');
+        this.parentNode.classList.add('active');}
     });
 }
-
 //点击添加按钮事件
 function addClick() {
     var infoWindow = document.getElementById('hide');
@@ -355,8 +355,17 @@ function over() {
     }
 }
 
-
+var mapLine=[]
 function showHistory() {
+        $("#history").empty();
+        for (i=0;i<mapLine.length;i++) {
+            if (map.getLayer( "layer" + mapLine[i])){
+                map.removeLayer( "layer"+mapLine[i] );
+                map.removeSource( "sour"+mapLine[i] );
+
+            }
+        }
+        mapLine=[]
         var isadd = document.getElementById("isAdd").value;
         if (!isadd) {
             var tagId = $("#terminalid").val();
@@ -366,9 +375,9 @@ function showHistory() {
             param["time2"] = $("#time2").val()
             if(param.date&&param.time1<=param.time2) {
                 $.post("/showHistory/", param, function (data) {
-                    datas =  JSON.parse(data);
-                    for (i = 0; i < datas.length; i++) {
-                        var line = datas[i];
+                    var datasHistory =  JSON.parse(data);
+                    for (i = 0; i < datasHistory.length; i++) {
+                        var line = datasHistory[i];
                         var accId = line.terminalid;
                         var listings = document.getElementById('history');
                         var listing = listings.appendChild(document.createElement('div'));
@@ -376,13 +385,15 @@ function showHistory() {
                         listing.id = "line";
                         var link = listing.appendChild(document.createElement('a'));
                         link.href = "#";
+                        link.id=i;
                         link.innerHTML=line.create_time+"-"+line.finish_time;
                         link.addEventListener('click', function (e) {
-                            var point=line.linejson;
+                            id = this.id;
+                            var point=datasHistory[id].linejson;
                             var orgin = point[0].coordinates
                             var coordinates=[];
-                            for (i = 0; i < point.length; i++) {
-                                coordinates.push(point[i].coordinates);
+                            for (il = 0; il < point.length; il++) {
+                                coordinates.push(point[il].coordinates);
                             }
                             var route = {
                                 "type": "FeatureCollection",
@@ -394,16 +405,15 @@ function showHistory() {
                                     }
                                 }]
                             };
-                            if (!map.getSource("sour"+accId+i)) {
-                            map.addSource("sour"+accId+i, {
+                            if (!map.getSource("sour"+accId+id)) {
+                            map.addSource("sour"+accId+id, {
                                 "type": "geojson",
                                 "data": route
                             });}
-                             else{map.removeLayer( "sour"+accId+i )}
-                            if (map.getLayer( "layer"+accId+i ) == undefined) {
+                            if (map.getLayer( "layer"+accId+id ) == undefined) {
                             map.addLayer({
-                                "id": "layer"+accId+i ,
-                                "source":"sour"+accId+i,
+                                "id": "layer"+accId+id ,
+                                "source":"sour"+accId+id,
                                 "type": "line",
                                 "paint": {
                                     "line-width": 5,
@@ -421,9 +431,13 @@ function showHistory() {
                                     "line-cap": "round" /* 线条末端形状 */
                                 }
                             });
+                            mapLine.push(accId+id);
                             map.flyTo({center: orgin})
                             }
-                            else{map.removeLayer( "layer"+accId+i )}
+                            else{map.removeLayer( "layer"+accId+id );
+                                map.removeSource( "sour"+accId+id );
+
+                            }
                         })
                     }
                 });

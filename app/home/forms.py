@@ -12,6 +12,7 @@ from lxml import etree
 import pymysql
 from app import db
 from app.models import Car, Route
+lock = threading.Lock()
 
 logging.basicConfig(level=logging.DEBUG,
     format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
@@ -26,42 +27,45 @@ class myThread(threading.Thread):
     def __init__(self, terminalid):
         threading.Thread.__init__(self)
         self.terminalid = terminalid
-
+        self. listData = []
+        self. second = 0
+        self.isAdd = True
+        self.stratTime=""
     def run(self):
-        listData = []
-        second = 0
         while True:
             try:
-                second += 1
-                # print second
-                isAdd = True
-                # list_car = read_sql()
+                self.second += 1
+                list_car = read_sql()
                 # print len(list_car)
                 if self.terminalid not in list_car:
-                    isAdd = False
-                if isAdd:
+                    self.isAdd = False
+                if self.isAdd:
                     try:
+                        lock.acquire()
                         data = get_state(self.terminalid)
+                        lock.release()
                     except Exception as e:
                         continue
-                    if second == 1:
-                        stratTime = data['time']
+                    if self.second == 1:
+                        self.stratTime = data['time']
                     # data['time'] = data['time']+datetime.timedelta(seconds=second)
                     data['time'] = data['time'].strftime('%Y-%m-%d %H:%M:%S')
-                    print data['time'], ",", data['coordinates']
-                    if data["accstate"] =="true" and data["gpsstate"] =="true" and isAdd:
-                        listData.append(data)
-                    if second == 3600 and len(listData)!=0:
-                        datas = {"listData": listData}
-                        route = Route(linejson=json.dumps(datas), terminalid=self.terminalid, create_time=stratTime)
+                    print data['time'], ",", data['coordinates'],self.second
+                    if data["accstate"] =="true" and data["gpsstate"] =="true" and self.isAdd:
+                        self.listData.append(data)
+                    if self.second>=10 :
+                        datas = {"listData": self.listData}
+                        route = Route(linejson=json.dumps(datas), terminalid=self.terminalid, create_time=self.stratTime)
                         db.session.add(route)
                         db.session.commit()
-                        listData=[]
-                        second=0
+                        self.listData=[]
+                        self.second=0
                     time.sleep(1)
             except Exception as e:
-                logging.info(u"线程异常"+terminalid+u"--:"+e)
+                logging.info(u"线程%s异常--:%s"%(terminalid,e))
+                lock.acquire()
                 id_list.remove(self.terminalid)
+                lock.release()
 
 
 def get_state(terminalid):
@@ -121,14 +125,15 @@ def always():
             for t in tl:
                 t.join()
         except Exception as e:
-            logging.info(u"检查异常" + "--:" + e)
+            logging.info(u"检查异常--:%s" %e)
             always()
 
 t1 = threading.Thread(target=always,) #创建线程，args传参必须以元组方式传入
 tasks.append(t1)
 if __name__ == '__main__':
-    for t in tasks:
-        t.start()
-    for t in tasks:
-        t.join()
-
+    # for t in tasks:
+    #     t.start()
+    # for t in tasks:
+    #     t.join()
+    data_list = Route.query.order_by(Route.finish_time.desc()).first()
+    print datetime.datetime.now() - data_list.finish_time,datetime.datetime.now() - data_list.finish_time>datetime.timedelta(hours=1)

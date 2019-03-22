@@ -152,65 +152,48 @@ Car.prototype.run = function() {
 		})
 	}
 
-	map.loadImage(getRootPath() + "Image/car.png", function(error, carimg) {
-		if (error) throw error;
-		// var img =
-		if ( !map.hasImage('carimg' + Pointid)) {
-        map.addImage('carimg' + Pointid, carimg);
-		}
+	// map.loadImage(getRootPath() + "Image/car.png", function(error, carimg) {
+	// 	if (error) throw error;
+	// 	if ( !map.hasImage('carimg' + Pointid)) {
+     //    map.addImage('carimg' + Pointid, carimg);
+	// 	}
 		//添加点图层
 		if (map.getLayer(Pointid) == undefined) {
 			map.addLayer({
 				'id': Pointid,
 				'source': Pointsour,
 				// 'maxzoom':,
-				"type": "symbol",
-				"layout": {
-					"icon-image": "carimg" + Pointid,
-					"icon-rotate": reangle,
-					"icon-rotation-alignment": "map",
-					"icon-allow-overlap": true,
-					"icon-ignore-placement": true,
-					"icon-size": {
-						'stops': [
-							[17.5, 0.05],
-							[20, 0.25],
-							[24, 1]
-						]
-					},
-				}
+				"type": "circle",
+				'minzoom': 15,
+				"paint": {
+				"circle-radius": 10,
+				"circle-color": "#C9021F"
+				},
+				// "layout": {
+					// "icon-image": "carimg" + Pointid,
+					// "icon-rotate": reangle,
+					// "icon-rotation-alignment": "map",
+					// "icon-allow-overlap": true,
+					// "icon-ignore-placement": true,
+					// "icon-size": {
+					// 	'stops': [
+					// 		[17.5, 0.05],
+					// 		[20, 0.25],
+					// 		[24, 1]
+					// 	]
+					// },
+				// }
 			});
 			runEvery10Sec();
 		}
-	})
+	// })
 	//添加路线路层
 	if (!map.getSource(Routesour)) {
 	map.addSource(Routesour, {
 		"type": "geojson",
 		"data": route
 	});}
-	// if (!map.getSource(Routesour+ "line")) {
-	// map.addSource(Routesour + "line", {
-	// 	'type': 'geojson',
-	// 	'data': route_line
-	// })}
-	// if (map.getLayer( Routeid + "line") == undefined) {
-	// map.addLayer({
-	// 	"id": Routeid + "line",
-	// 	"source": Routesour + "line",
-	// 	"type": "line",
-	// 	"paint": {
-	// 		"line-width": 3,
-	// 		"line-color": "#007cbf",
-	// 		// 'line-opacity':{'stops':[[17,0],[18,0]]}
-	// 	},
-	// 	"layout": {
-	// 		"line-join": "round",
-	// 		/* 线条相交的形状 */
-	// 		"line-cap": "round" /* 线条末端形状 */
-	// 	}
-	// });}
-	var steps = 60;//把路线分割
+	var steps = 62;//把路线分割
 	function splitRoute() {
 		var lineDistance = turf.lineDistance(route.features[0], 'kilometers');
 		var arc = [];
@@ -249,18 +232,12 @@ Car.prototype.run = function() {
 		var oldlat = point.features[0].geometry.coordinates;
 		if(lat!=undefined){
 		point.features[0].geometry.coordinates = lat;
-		reangle = calculate({
-			"A": lat,
-			"B": oldlat
-		});
+
 		if(map.getLayer(Pointid) != undefined){
-		map.getSource(Pointsour).setData(point);}
-		// coordinates_line.push(lat);
+			// map.setLayoutProperty(Pointid, 'icon-rotate', reangle);
+			map.getSource(Pointsour).setData(point);}
 		}
-		// map.getSource(Routesour + "line").setData(route_line);
-		if (map.getLayer(Pointid) != undefined) {
-            map.setLayoutProperty(Pointid, 'icon-rotate', reangle);
-        }
+		// map.getSource(Routesour + "line").setData(route_line)
 		if (counter < steps - 1) {
 			isStop = false;
 			requestAnimationFrame(animate);
@@ -277,14 +254,20 @@ Car.prototype.run = function() {
 	// var linedata=[];
     var i =0;
 	function runEvery10Sec() {
-        // 一秒五次请求
-        // setTimeout(runEvery10Sec,200);
+		if(point.features[0].properties.state!="在线"){
+			if (map.getLayer( Routeid ) != undefined) { map.removeLayer(Routeid)};
+			return;
+		}
 		var tag = point.features[0].properties;
-        $.post('/pointlat/', {'terminalid': '13826539847'}, function (data) {
-        		datas= JSON.parse(data);
+        $.post('/pointlat/', {'terminalid': tag.terminalid,'i':i}, function (data) {
+        		if(data=='{}'){
+        			point.features[0].properties.state="离线"
+        			if (map.getLayer( Routeid ) != undefined) { map.removeLayer(Routeid)};
+        			return;
+				}
+        		var datas= JSON.parse(data);
 				oldCoordinate=datas["coordinates"];
         		i++;
-        		oldCoordinate[0]=oldCoordinate[0]+0.00002*i
 				if(i==600){datas.accstate='false' }
         		oldCoordinates.push(oldCoordinate)
 				if(oldCoordinates.length>2)
@@ -309,6 +292,13 @@ Car.prototype.run = function() {
 				map.getSource(Routesour).setData(route);
 				// map.setPaintProperty(Routeid, 'line-opacity', 0);
 				counter = 0;
+				reangle = calculate({
+						"A": oldCoordinates[1],
+						"B": oldCoordinates[0]
+					});
+				if(map.getLayer(Pointid) != undefined){
+				// map.setLayoutProperty(Pointid, 'icon-rotate', reangle);
+				}
 				animate(counter);
 				if(datas.accstate=='true' && map.getLayer(Pointid) != undefined){
 					setTimeout(runEvery10Sec,1000);

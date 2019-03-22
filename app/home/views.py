@@ -8,13 +8,12 @@ from app import db
 import json
 import urllib2
 from lxml import etree
+import codecs,os,datetime
 
 def get_state(terminalid):
     url = "http://183.62.223.65:3380/LBSCommunicator/UserService.asmx/GetRealtimeData?userName=cld_test&password=1&terminalid=%s"%(terminalid)
-    # print url
     response = urllib2.urlopen(url)
     html = response.read()
-
     html=etree.HTML(html)
     # build_text_list = etree.XPath("//text()")
     child = html[0][0]
@@ -25,15 +24,43 @@ def get_state(terminalid):
     return dact
 # data = get_state(13826539847)
 
-
+def time_x():
+        datas = []
+        with codecs.open(u'data.csv', 'r') as f:
+            for i in f.readlines():
+                datas.append(i.split(','))
+        return datas
 
 @home.route('/pointlat/',methods=['POST'])
 def pointlat():
     terminalid=request.form.get('terminalid')
-    # print terminalid
     data = get_state(terminalid)
-    # data['alarm'] = "警告"
-    data['coordinates'] = [float(data['longitude'])/3600000,float(data['latitude'])/3600000]
+    if data=={}:
+        return json.dumps(data)
+    i = request.form.get('i')
+    dataw = time_x()
+    data['coordinates'] = dataw[6000 + int(i)]
+    # data['coordinates'] = [float(data['longitude'])/3600000,float(data['latitude'])/3600000]
+    route = Route.query.filter(Route.terminalid == terminalid).order_by(Route.finish_time.desc()).first()
+    if route==None:
+        datas = {"listData": [data]}
+        routeadd =Route(linejson=json.dumps(datas), terminalid=terminalid)
+        db.session.add(routeadd)
+        db.session.commit()
+    else:
+        if route.finish_time-route.create_time<datetime.timedelta(hours=1) and datetime.datetime.now()-route.create_time<=datetime.timedelta(hours=1):
+            secondData = json.loads(route.linejson)["listData"]
+            secondData.append(data)
+            datas = {"listData": secondData}
+            route.linejson = json.dumps(datas)
+            route.finish_time = datetime.datetime.now()
+            db.session.commit()
+        else:
+            datas = {"listData": [data]}
+            routeadd = Route(linejson=json.dumps(datas), terminalid=terminalid)
+            db.session.add(routeadd)
+            db.session.commit()
+
     return json.dumps(data)
 
 
@@ -63,7 +90,6 @@ def add():
     if isAdd=="yes":
         car = Car.query.filter(Car.carname == carName).first()
         carterminalid = Car.query.filter(Car.terminalid == terminalid).first()
-
         if (car or carterminalid):
             return u'名称或终端id已存在'
         else:
@@ -98,6 +124,8 @@ def delete():
     db.session.delete(car)
     db.session.commit()
     return '删除成功'
+
+
 
 @home.route('/js_get/',methods=['GET'])
 def js_get():
@@ -141,8 +169,10 @@ def showHistory():
         context = {}
         context["id"] = obj.id
         context["terminalid"]=obj.terminalid
-        context["create_time"] = obj.create_time.strftime('%Y-%m-%d %H:%M').split(" ")[1]
-        context["finish_time"] = obj.finish_time.strftime('%Y-%m-%d %H:%M').split(" ")[1]
+        context["create_time"] = obj.create_time.strftime('%Y-%m-%d %H:%M:%S').split(" ")[1]
+
+        context["finish_time"] = obj.finish_time.strftime('%Y-%m-%d %H:%M:%S').split(" ")[1]
+
         context["linejson"] = json.loads(obj.linejson)["listData"]
         list.append(context)
     return json.dumps(list)
