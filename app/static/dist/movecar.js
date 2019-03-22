@@ -193,7 +193,7 @@ Car.prototype.run = function() {
 		"type": "geojson",
 		"data": route
 	});}
-	var steps = 62;//把路线分割
+	var steps = 72;//把路线分割
 	function splitRoute() {
 		var lineDistance = turf.lineDistance(route.features[0], 'kilometers');
 		var arc = [];
@@ -261,7 +261,7 @@ Car.prototype.run = function() {
 		var tag = point.features[0].properties;
         $.post('/pointlat/', {'terminalid': tag.terminalid,'i':i}, function (data) {
         		if(data=='{}'){
-        			point.features[0].properties.state="离线"
+        			// point.features[0].properties.state="离线"
         			if (map.getLayer( Routeid ) != undefined) { map.removeLayer(Routeid)};
         			return;
 				}
