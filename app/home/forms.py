@@ -11,7 +11,7 @@ import logging
 from lxml import etree
 import pymysql
 from app import db
-from app.models import Car, Route
+# from app.models import Car, Route
 lock = threading.Lock()
 
 logging.basicConfig(level=logging.DEBUG,
@@ -83,6 +83,11 @@ def get_state(terminalid):
         dact['time'] = datetime.datetime.strptime(dact['time'].replace("T", " "), "%Y-%m-%d %H:%M:%S")
         return dact
 
+
+# def download(filename):
+#     if os.path.isfile(os.path.join('upload', filename)):
+#         return send_from_directory('upload',filename,as_attachment=True)
+#     abort(404)
 # def time_x():
 #         datas = []
 #         with codecs.open(u'data.csv', 'r') as f:

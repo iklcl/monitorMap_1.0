@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% endblock %}
+{% block  title %}
+    车辆管理
+{% endblock %}
+
+{% block main %}
+    <div class="content-wrapper" style="margin-left:5%;margin-right:5%;margin-top: 10px">
+        <!--内容-->
+        <section class="content-header" style="float: left">
+            <ol class="breadcrumb">
+                <li><a href="{{ url_for('home.detail') }}"><i class="fa fa-dashboard"></i> 车辆管理</a></li>
+                <li class="active">车辆列表</li>
+            </ol>
+        </section>
+        <section class="content" id="showcontent">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box-body table-responsive no-padding">
+                        <table class="table table-hover">
+                            <tbody>
+                            <tr>
+                                <th>编号</th>
+                                <th>车牌号</th>
+                                <th>终端id</th>
+                                <th>司机</th>
+                                <th>电话号码</th>
+                                <th>始发车时间</th>
+                                <th>末班车时间</th>
+                                <th>运营单位</th>
+                                <th>型号</th>
+                                <th>车队</th>
+                                <th>操作事项</th>
+                            </tr>
+                            {% for carInfo in data %}
+                                <tr>
+                                    <td>{{ carInfo.id }}</td>
+                                    <td>{{ carInfo.carname }}</td>
+                                    <td>{{ carInfo.terminalid }}</td>
+                                    <td>{{ carInfo.driver }}</td>
+                                    <td>{{ carInfo.driverphone }}</td>
+                                    <td>{{ carInfo.starttime }}</td>
+                                    <td>{{ carInfo.endtime }}</td>
+                                    <td>{{ carInfo.company }}</td>
+                                    <td>{{ carInfo.cartyoe }}</td>
+                                    <td>{{ carInfo.team }}</td>
+                                    <td>
+                                        <a class="label label-success"
+                                           href="{{ url_for('home.write',car_id =carInfo.terminalid) }} ">编辑</a>
+                                        &nbsp
+                                        <a class="label label-danger"
+                                           onclick="deleteInfo('{{ carInfo.carname }}')">删除</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                            <section class="content-header">
+            <button id='add' style="background:#337AB7;color: #fff;display: inline-block;margin: 0 0 0 10px;line-height: 14px;padding: 10px 20px;border: none;cursor: pointer; border-radius: 3px; ">
+                <a href="{{ url_for('home.write',car_id = 'add') }}" style="color:white;" target="view_window">
+                    <span class="glyphicon glyphicon-plus"></span>添加
+                </a>
+            </button>
+        </section>
+                    </div>
+                    {#                        <div class="box-footer clearfix">#}
+                    {#                            <ul class="pagination pagination-sm no-margin pull-right">#}
+                    {#                                <li><a href="#">首页</a></li>#}
+                    {#                                <li><a href="#">上一页</a></li>#}
+                    {#                                <li><a href="#">1</a></li>#}
+                    {#                                <li><a href="#">2</a></li>#}
+                    {#                                <li><a href="#">3</a></li>#}
+                    {#                                <li><a href="#">下一页</a></li>#}
+                    {#                                <li><a href="#">尾页</a></li>#}
+                    {#                            </ul>#}
+                    {#                        </div>#}
+                </div>
+            </div>
+        </section>
+        <!--内容-->
+    </div>
+    <script>
+        function deleteInfo(carName) {
+            var postdata = {"carname": carName};
+            var r = confirm("确认删除!");
+            if (r == true) {
+                $.post("/delete/", postdata, function (data) {
+                    if (data == "删除成功") {
+                        alert("删除成功！")
+                        window.location.reload();
+                    }
+                    else {
+                        alert("删除失败！")
+                    }
+                });
+            }
+            else {
+                return;
+            }
+        }
+    </script>
+{% endblock %}

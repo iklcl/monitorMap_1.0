@@ -9,7 +9,7 @@ map.on('load', function() {
 						'filter':[
 							'==',
 							'functionco',
-							11030301
+							'11030301'
 						],
 						'type': 'symbol',
 						'minzoom':18.5,
@@ -50,7 +50,7 @@ map.on('load', function() {
 						'filter':[
 							'==',
 							'functionco',
-							11030302
+							'11030302'
 						],
 						'type': 'symbol',
 						'minzoom':18.5,
@@ -60,7 +60,7 @@ map.on('load', function() {
 							"icon-rotation-alignment":"map",
 							'icon-padding':0,
 							'icon-ignore-placement':true,
-							'icon-rotate':['get','caangle'],
+							'icon-rotate':['get','reangle'],
 							'icon-allow-overlap':true,
 							"icon-size": {
 								'stops':[[18.5,0.02],[22,0.1]]
@@ -79,7 +79,7 @@ map.on('load', function() {
 						'filter':[
 							'==',
 							'functionco',
-							11030303
+							'11030303'
 						],
 						'type': 'symbol',
 						'minzoom':18.5,
@@ -108,7 +108,7 @@ map.on('load', function() {
 						'filter':[
 							'==',
 							'functionco',
-							11030304
+							'11030304'
 						],
 						'type': 'symbol',
 						'minzoom':18.5,
@@ -137,7 +137,7 @@ map.on('load', function() {
 						'filter':[
 							'==',
 							'functionco',
-							11030305
+							'11030305'
 						],
 						'type': 'symbol',
 						'minzoom':18.5,
@@ -166,7 +166,7 @@ map.on('load', function() {
 						'filter':[
 							'==',
 							'functionco',
-							11030306
+							'11030306'
 						],
 						'type': 'symbol',
 						'minzoom':18.5,
@@ -195,7 +195,7 @@ map.on('load', function() {
 						'filter':[
 							'==',
 							'functionco',
-							11030307
+							'11030307'
 						],
 						'type': 'symbol',
 						'minzoom':18.5,
@@ -224,7 +224,7 @@ map.on('load', function() {
 						'filter':[
 							'==',
 							'functionco',
-							11030308
+							'11030308'
 						],
 						'type': 'symbol',
 						'minzoom':18.5,
@@ -253,7 +253,7 @@ map.on('load', function() {
 				'filter':[
 					'==',
 					'functionco',
-					11030309
+					'11030309'
 				],
 				'type': 'symbol',
 				'minzoom':18.5,

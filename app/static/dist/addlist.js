@@ -2,17 +2,6 @@ function test() {
        //实例化点线运动
     var car1 = new Car({
         //路线坐标
-        "coordinates": [
-            [114.05241295632942, 22.53988188287974],
-            [114.05221967133855, 22.539878084577623],
-            [114.05218594929056, 22.53986668964926],
-            [114.05071410837286, 22.539831745347968],
-            [114.05060718476773, 22.539866689799382],
-            [114.05043117204468, 22.539869728441317],
-            [114.05033576329248, 22.539922904760843],
-            [114.05030368619703, 22.540018622082272],
-            [114.05029217077345, 22.54020186399147]
-        ],
         //车初始坐标
         "origin": [114.05241295632942, 22.53988188287974],
         "information": {
@@ -31,27 +20,6 @@ function test() {
     car1.run(); //生成
     var car2 = new Car({
         //路线坐标
-        "coordinates": [
-            [114.04957037866654, 22.540160458083406],
-            [114.04956640982994, 22.540392001068426],
-            [114.04956294805686, 22.540614897897385],
-            [114.04958948949519, 22.540734269801064],
-            [114.04961243145522, 22.540865251227316],
-            [114.04970698074555, 22.54096985087969],
-            [114.04983373917304, 22.541026469012863],
-            [114.049950440803, 22.541024521448776],
-            [114.05006957334922, 22.54097913347067],
-            [114.05012616131404, 22.540926868500037],
-            [114.0501808560619, 22.540845251099242],
-            [114.05019045775998, 22.5407271985451],
-            [114.05020407461882, 22.540070609277493],
-            [114.05018471928764, 22.539969241038918],
-            [114.05015864778062, 22.539923859515],
-            [114.05009948546552, 22.5398756995328],
-            [114.05001124336758, 22.539848841065336],
-            [114.04980467553298, 22.53981827852681],
-            [114.04921759154934, 22.53979405241509]
-        ],
         //车初始坐标
         "origin": [114.04957037866654, 22.540160458083406],
         "information": {
@@ -72,17 +40,17 @@ function test() {
 }
 
 
-function tankuang(data) {
-    $("#msg").remove();
-    var html =
-        '<div class="alert alert-success" id="msg" role="alert" style=" position:fixed;left:19%"><strong>' + data + '</strong> </div>'
-    $("body").append(html);
-    var t = setTimeout(next, 1000);
-
-    function next() {
-        $("#msg").remove();
-    }
-}
+// function tankuang(data) {
+//     $("#msg").remove();
+//     var html =
+//         '<div class="alert alert-success" id="msg" role="alert" style=" position:fixed;left:19%"><strong>' + data + '</strong> </div>'
+//     $("body").append(html);
+//     var t = setTimeout(next, 1000);
+//
+//     function next() {
+//         $("#msg").remove();
+//     }
+// }
 var DataList=[];
 //数据获取生成列表
 function showList(datas) {
@@ -92,25 +60,6 @@ function showList(datas) {
         var car = new Car({
             //路线坐标
             "coordinates": [
-                [114.04957037866654, 22.540160458083406],
-                [114.04956640982994, 22.540392001068426],
-                [114.04956294805686, 22.540614897897385],
-                [114.04958948949519, 22.540734269801064],
-                [114.04961243145522, 22.540865251227316],
-                [114.04970698074555, 22.54096985087969],
-                [114.04983373917304, 22.541026469012863],
-                [114.049950440803, 22.541024521448776],
-                [114.05006957334922, 22.54097913347067],
-                [114.05012616131404, 22.540926868500037],
-                [114.0501808560619, 22.540845251099242],
-                [114.05019045775998, 22.5407271985451],
-                [114.05020407461882, 22.540070609277493],
-                [114.05018471928764, 22.539969241038918],
-                [114.05015864778062, 22.539923859515],
-                [114.05009948546552, 22.5398756995328],
-                [114.05001124336758, 22.539848841065336],
-                [114.04980467553298, 22.53981827852681],
-                [114.04921759154934, 22.53979405241509]
             ],
             //车初始坐标
             "origin": [],
@@ -206,12 +155,12 @@ function buildLocationList(data) {
     link1.addEventListener('click', function (e) {
         var infoWindow = document.getElementById('hide');
         infoWindow.style.display = 'block';
-        var inputAdd = document.getElementById('isAdd');
-        inputAdd.value = "";
-        var carid = document.getElementById('id');
-        carid.value = prop.carid;
+        var ahref = document.getElementById('ahref');
+        ahref.href = "/write/" +prop.terminalid ;
         var inputName = document.getElementById('focusedInput');
-        inputName.value = prop.name;
+        inputName.innerHTML = prop.name;
+         var inputterminalid= document.getElementById('terminalid');
+        inputterminalid.innerHTML = prop.terminalid;
         $("#history").empty();
         var mileage = document.getElementById('Mileage');
         mileage.innerHTML = prop.mileage;
@@ -222,24 +171,19 @@ function buildLocationList(data) {
         var waring = document.getElementById('waring');
         waring.innerHTML =  prop.alarm;
         var inputdriver = document.getElementById('driver');
-        inputdriver.value = prop.driver;
-        // var inputsteward = document.getElementById('steward');
-        // inputsteward.value = prop.steward;
+        inputdriver.innerHTML = prop.driver;
         var inputPhone = document.getElementById('driverphone');
-        inputPhone.value = prop.driverphone;
+        inputPhone.innerHTML = prop.driverphone;
         var inputstarttime = document.getElementById('starttime');
-        inputstarttime.value = prop.starttime;
+        inputstarttime.innerHTML = prop.starttime;
         var inputendtime= document.getElementById('endtime');
-        inputendtime.value = prop.endtime;
+        inputendtime.innerHTML = prop.endtime;
         var inputcartype = document.getElementById('cartype');
-        inputcartype.value = prop.cartype;
-        var inputcompany = document.getElementById('company');
-        inputcompany.value = prop.company;
+        inputcartype.innerHTML = prop.cartype;
         var inputteam= document.getElementById('team');
-        inputteam.value = prop.team;
-        var inputterminalid= document.getElementById('terminalid');
-        inputterminalid.value = prop.terminalid;
-
+        inputteam.innerHTML = prop.team;
+        var inputcompany = document.getElementById('company');
+        inputcompany.innerHTML = prop.company;
     })
     var details = listing.appendChild(document.createElement('div'));
     details.className = 'stateA';
@@ -257,15 +201,23 @@ function buildLocationList(data) {
     //delete
     delspan.addEventListener('click', function (e) {
         var postdata = {"carname": prop.name};
-        $.post("/delete/", postdata, function (data) {
+        var r=confirm("确认删除!");
+        if (r==true)
+          {
+            $.post("/delete/", postdata, function (data) {
             if (data == "删除成功") {
-                tankuang("删除成功！")
+                alert("删除成功！")
                 window.location.reload();
             }
             else {
-                tankuang("删除失败！")
+                alert("删除失败！")
             }
-        });
+            });
+          }
+        else
+          {
+          return;
+          }
     });
     link.addEventListener('click', function (e) {
         var clickedListing = data.features[this.dataPosition];
@@ -273,87 +225,54 @@ function buildLocationList(data) {
         if(clickedListing.geometry.coordinates.length!=0){
         map.flyTo({
             center: clickedListing.geometry.coordinates,
-            zoom: 17
+            zoom: 19
         });
         var activeItem = document.getElementsByClassName('active');
         if (activeItem[0]) {
             activeItem[0].classList.remove('active');
         }
         this.parentNode.classList.add('active');}
+        else {
+            alert("车辆不在线！")
+        }
     });
 }
 //点击添加按钮事件
-function addClick() {
-    var infoWindow = document.getElementById('hide');
-    infoWindow.style.display = 'block';
-    var inputName = document.getElementById('isAdd');
-    inputName.value = "yes";
-    var inputName = document.getElementById('focusedInput');
-    inputName.value = "";
-    $("#history").empty();
-    var waring = document.getElementById('waring');
-    waring.innerHTML = "--";
-    var mileage = document.getElementById('Mileage');
-    mileage.innerHTML = "--";
-    var speed = document.getElementById('Speed');
-    speed.innerHTML = "--"
-    var changeState = document.getElementById('changeState');
-    changeState.value = "在线";
-    var inputdriver = document.getElementById('driver');
-    inputdriver.value =null;
-    // var inputsteward = document.getElementById('steward');
-    // inputsteward.value =null;
-    var inputPhone = document.getElementById('driverphone');
-    inputPhone.value = null;
-    var inputstarttime = document.getElementById('starttime');
-    inputstarttime.value = null;
-    var inputendtime= document.getElementById('endtime');
-    inputendtime.value = null;
-    var inputcartype = document.getElementById('cartype');
-    inputcartype.value = null;
-    var inputcompany = document.getElementById('company');
-    inputcompany.value = null;
-    var inputteam= document.getElementById('team');
-    inputteam.value =null;
-    var inputterminalid= document.getElementById('terminalid');
-    inputterminalid.value = null;
-}
-
-//修改添加完成
-function over() {
-    var param = {};
-
-    function appendInfo(id) {
-        var formData = $("#" + id).serializeArray();//把form里面的数据序列化成数组
-        formData.forEach(function (e) {
-            if (e.value != '00') {
-                param[e.name] = e.value;
-            }
-        });
-    }
-
-    appendInfo("form1");
-    appendInfo("form2");
-    if(
-        param.terminalid.replace(/\s*/g, "")==""||param.name.replace(/\s*/g, "")==""
-    ){
-        alert("名称和终端号不能为空！")
-        return false;
-    }
-    var isadd = document.getElementById("isAdd").value;
-    if (isadd) {
-        $.post("/add/", param, function (data) {
-            tankuang("添加" + data)
-        });
-        window.location.reload();
-    }
-    else {
-        $.post("/add/", param, function (data) {
-            tankuang("修改" + data)
-        });
-         window.location.reload();
-    }
-}
+// function addClick() {
+    // var infoWindow = document.getElementById('hide');
+    // infoWindow.style.display = 'block';
+    // var inputName = document.getElementById('isAdd');
+    // inputName.value = "yes";
+    // var inputName = document.getElementById('focusedInput');
+    // inputName.value = "";
+    // $("#history").empty();
+    // var waring = document.getElementById('waring');
+    // waring.innerHTML = "--";
+    // var mileage = document.getElementById('Mileage');
+    // mileage.innerHTML = "--";
+    // var speed = document.getElementById('Speed');
+    // speed.innerHTML = "--"
+    // var changeState = document.getElementById('changeState');
+    // changeState.value = "在线";
+    // var inputdriver = document.getElementById('driver');
+    // inputdriver.value =null;
+    // // var inputsteward = document.getElementById('steward');
+    // // inputsteward.value =null;
+    // var inputPhone = document.getElementById('driverphone');
+    // inputPhone.value = null;
+    // var inputstarttime = document.getElementById('starttime');
+    // inputstarttime.value = null;
+    // var inputendtime= document.getElementById('endtime');
+    // inputendtime.value = null;
+    // var inputcartype = document.getElementById('cartype');
+    // inputcartype.value = null;
+    // var inputcompany = document.getElementById('company');
+    // inputcompany.value = null;
+    // var inputteam= document.getElementById('team');
+    // inputteam.value =null;
+    // var inputterminalid= document.getElementById('terminalid');
+    // inputterminalid.value = null;
+// }
 
 var mapLine=[]
 function showHistory() {
@@ -362,13 +281,13 @@ function showHistory() {
             if (map.getLayer( "layer" + mapLine[i])){
                 map.removeLayer( "layer"+mapLine[i] );
                 map.removeSource( "sour"+mapLine[i] );
-
             }
         }
         mapLine=[]
-        var isadd = document.getElementById("isAdd").value;
-        if (!isadd) {
-            var tagId = $("#terminalid").val();
+        // var isadd = document.getElementById("isAdd").value;
+        // if (!isadd) {
+            var tagId = document.getElementById('terminalid').textContent;
+                // $("#terminalid").val();
             var param = {"id": tagId};
             param["date"] = $("#date").val();
             param["time1"] = $("#time1").val();
@@ -417,7 +336,7 @@ function showHistory() {
                                 "type": "line",
                                 "paint": {
                                     "line-width": 5,
-                                    "line-color": "#007cbf",
+                                    "line-color": "#7A297B",
                                     'line-opacity': {
                                         'stops': [
                                             [15, 1],
@@ -445,5 +364,5 @@ function showHistory() {
             else {
                 alert("选择日期和正确时间")
             }
-        }
+        // }
 };

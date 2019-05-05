@@ -1,8 +1,7 @@
 var bounds = [
-	[113.73361883714733, 22.29996893682818], // Southwest coordinates
-	[114.63017998306674, 22.89938075277307] // Northeast coordinates
+	[113.877, 22.503], // Southwest coordinates
+	[114.14024, 22.586] // Northeast coordinates
 ];
-
 function getRootPath() {
 
 			    var pathName = window.location.pathname.substring(1);
@@ -15,14 +14,15 @@ function getRootPath() {
 //创建对象传值
 var map = new mapboxgl.Map({
 	container: 'map',
-	center: [114.04945667020581,22.539536883349115],//初始中心点
+	center: [114.044,22.542],//初始中心点
 	zoom: 17,//初始空间层次
 	maxBounds: bounds,
 	minZoom: 11,
-	pitch: 45,
+	maxZoom: 20,
+	// pitch: 60,
+    localIdeographFontFamily: "'Noto Sans', 'Noto Sans CJK SC', sans-serif",
 	style: {
 		"version": 8,
-		// "sprite": "http://127.0.0.1:8848/xiangmihu/mapboxTuBiao/sprite",
 		"glyphs":"static/mapboxZITI/{fontstack}/{range}.pbf", //字体
 		//数据源引用
 		"sources": {
@@ -30,13 +30,14 @@ var map = new mapboxgl.Map({
 				'type': 'vector',
 				'scheme': 'tms',
 				'tiles': [
-					'http://localhost:8090/geoserver/gwc/service/tms/1.0.0/area_sz@EPSG%3A900913@pbf/{z}/{x}/{y}.pbf',
+					// http://116.77.32.197:8080/geoserver/gwc/service/tms/1.0.0/ydsx@EPSG%3A900913@pbf
+					'http://116.77.32.197:8080/geoserver/gwc/service/tms/1.0.0/ydsx@EPSG%3A900913@pbf/{z}/{x}/{y}.pbf',
+					// window.location.protocol + '//' +'1116.77.32.19'+':8080/geoserver/gwc/service/tms/1.0.0/ydsx@EPSG%3A900913@pbf/{z}/{x}/{y}.pbf',
 				]
 			}
 		},
 		//图层添加
 		"layers": [
-
 			{
 				"id": "background",
 				"type": "background",
@@ -45,43 +46,38 @@ var map = new mapboxgl.Map({
 					"background-color": {
 						"base": 1,
 						"stops": [
-							[11, "#78BCED"],
-							[13, "#78BCED"]
+							[11, "#fff"],
+							[13, "#fff"]
 						]
 					}
 				}
 			},
 		]
-
 	},
 });
-map.addControl(new mapboxgl.FullscreenControl());
-var isZooming = map.isZooming();
+var scale = new mapboxgl.ScaleControl({
+	// maxWidth:80,
+	unit:'metric'
+});
+map.addControl(scale)
+// map.addControl(new mapboxgl.FullscreenControl());
+// var isZooming = map.isZooming();
 map.on('load', function() {
 
+
 	map.addLayer({
-		'id': 'procince',
+		'id': 'Iland1',
 		'source': 'areaSource',
-		'source-layer': 'district_4_a',
+		'source-layer': 'bgd_area',
 		'type': 'fill',
-		'paint': {
-			"fill-color": "#F7F7F7",
-			'fill-antialias': true,
-		}
-	})
-	
-	map.addLayer({
-		'id': 'districta',
-		'source': 'areaSource',
-		'source-layer': 'dsitrict_2_shenzhen_a',
-		'type': 'fill',
+		'filter': ["in", "type", '21','22','23','34','35'],
 		'paint': {
 			"fill-color":
 			 {
 			 	'stops': [
-					[15,'#ECE0CA'],
-			 		[17.5, "#B3B3B3"],
-			 		[17.5, '#B3B3B3']
+					[15,'#fff'],
+
+			 		[17.5, '#fff']
 			 	]
 			 },
 			'fill-antialias': true,
@@ -89,58 +85,108 @@ map.on('load', function() {
 	})
 
 
+	//公园，绿地
 	map.addLayer({
-		'id': 'greenland',
+		'id': 'greenland1',
 		'source': 'areaSource',
-		'source-layer': 'm_bkareaa',
-		'filter': ['in', 'orderid', 113, 120, 121, 122, ],
+		'source-layer': 'bgd_area',
+		'filter': ["in", "type", '31','32','33'],
 		'type': 'fill',
 		'paint': {
 			"fill-color": {
 				'stops': [
-					[17.5, '#CADF9B'],
-					[17.5, '#2E8B57']
+					[11, '#C7E7B6'],
+					[17, '#C7E7B6']
 				]
 			},
 			'fill-antialias': true,
 		}
 	})
+	// //高尔夫球场
+	// map.addLayer({
+	// 	'id': 'greenland2',
+	// 	'source': 'areaSource',
+	// 	'source-layer': 'bgd_area_32',
+	// 	'type': 'fill',
+	// 	'paint': {
+	// 		"fill-color": {
+	// 			'stops': [
+	// 				[11, '#C7E7B6'],
+	// 				[17, '#C7E7B6']
+	// 			]
+	// 		},
+	// 		'fill-antialias': true,
+	// 	}
+	// })
+	// //交通绿化
+	// map.addLayer({
+	// 	'id': 'greenland3',
+	// 	'source': 'areaSource',
+	// 	'source-layer': 'bgd_area_33',
+	// 	'type': 'fill',
+	// 	'paint': {
+	// 		"fill-color": {
+	// 			'stops': [
+	// 				[11, '#C7E7B6'],
+	// 				[17, '#C7E7B6']
+	// 			]
+	// 		},
+	// 		'fill-antialias': true,
+	// 	}
+	// })
+	// //运动场跑到
+	// map.addLayer({
+	// 	'id': 'greenland4',
+	// 	'source': 'areaSource',
+	// 	'source-layer': 'bgd_area_34',
+	// 	'type': 'fill',
+	// 	'paint': {
+	// 		"fill-color": {
+	// 			'stops': [
+	// 				[11, '#C7E7B6'],
+	// 				[17, '#C7E7B6']
+	// 			]
+	// 		},
+	// 		'fill-antialias': true,
+	// 	}
+	// })
+	//运动球场
+	// map.addLayer({
+	// 	'id': 'greenland5',
+	// 	'source': 'areaSource',
+	// 	'source-layer': 'bgd_area_35',
+	// 	'type': 'fill',
+	// 	'paint': {
+	// 		"fill-color": {
+	// 			'stops': [
+	// 				[17, '#C7E7B6'],
+	// 				[17, '#C7E7B6']
+	// 			]
+	// 		},
+	// 		'fill-antialias': true,
+	// 	}
+	// })
+	//海洋
 	map.addLayer({
-		'id': 'water_deal',
+		'id': 'water1',
 		'source': 'areaSource',
-		'source-layer': 'water_deal',
-		'filter': ['!=', 'orderid', 119],
+		'source-layer': 'bgd_area',
+		'filter': ["in", "type", '11','12'],
 		'type': 'fill',
 		'paint': {
 			"fill-color": '#78BCED',
 			'fill-antialias': true,
 		}
 	})
-	map.addLayer({
-		'id': 'island',
-		'source': 'areaSource',
-		'source-layer': 'water_deal',
-		'filter': ['!=', 'orderid', 119],
-		'type': 'fill',
-		'paint': {
-			"fill-color": '#78BCED',
-			'fill-antialias': true,
-		}
-	})
-// 	map.addLayer({
-// 		'id': 'dsitrict_2_shenzhen_l',
-// 		'source': 'areaSource',
-// 		'source-layer': 'dsitrict_2_shenzhen_l',
-// 		'type': 'line',
-// 		'paint': {
-// 			"line-color": "rgb(147,147,147)",
-// 			'line-width': {
-// 				'stops': [
-// 					[11, 2],
-// 					[22, 1.5]
-// 				]
-// 			},
-// 		}
-// 	})
-	
+	// //水系
+	// map.addLayer({
+	// 	'id': 'water2',
+	// 	'source': 'areaSource',
+	// 	'source-layer': 'bgd_area_12',
+	// 	'type': 'fill',
+	// 	'paint': {
+	// 		"fill-color": '#78BCED',
+	// 		'fill-antialias': true,
+	// 	}
+	// })
 });

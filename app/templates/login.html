@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/login_regist.css') }}">
+{% endblock %}
+{% block  title  %}
+登录
+{% endblock %}
+
+{% block main %}
+    {% if erro %}
+        <script>
+        alert('{{ erro }}');
+        </script>
+     {% endif %}
+    <h3 class="page-title" style="text-align:center;margin-top: 10px">登录</h3>
+    <form action="" method="post">
+        <div class="form-container">
+            <div class="form-group">
+                <input type="text" name="telephone" placeholder="用户名" class="form-control">
+            </div>
+            <div class="form-group">
+                <input type="password" name="password" placeholder="密码" class="form-control">
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary btn-block">立即登录</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}

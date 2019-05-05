@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="{{ url_for('static',filename='dist/jquery.slim.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='jquery-2.1.4/jquery.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static',filename='bootstrap-3.3.7-dist/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='bootstrap-3.3.7-dist/js/bootstrap.min.js') }}">
+    {% block head %}{% endblock %}
+    <title>{% block title %}{% endblock %}</title>
+    <style>
+        #bs-example-navbar-collapse-2 a {
+            color: white !important;
+        }
+        #bs-example-navbar-collapse-2 a:hover {
+            color: white !important;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-default" id="" style="background: #3C8DBC;color: white;margin-bottom: 0 !important;height: 6% !important;">
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2" style="margin-right: 5%;padding: 0 !important;">
+            <ul class="nav navbar-nav" id="lii"  style="height:100%;margin-top: 3px; text-align: center;width: 15.7%;display: block; background: #337AB7">
+                <section class="content-header">
+                    <h3 style="margin-top: 8px !important;"><a href="{{ url_for('home.index') }}" id="h3" target="view_window" style="text-decoration:none;">平台地图</a></h3>
+                </section>
+            </ul>
+{#            <ul class="nav navbar-nav" style="margin-left: 2%;line-height: 50px;">#}
+{#                    <span class="glyphicon glyphicon-menu-hamburger" id="toggle" aria-hidden="true" style="cursor:pointer;"></span>#}
+{#            </ul>#}
+            <ul class="nav navbar-nav navbar-right">
+                {% if user %}
+                    <li><a href="{{ url_for('home.login') }}">{{ user.username }}</a></li>
+                    <li><a href="{{ url_for('home.logout') }}">注销</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('home.login') }}">登录</a></li>
+                    <!-- <li><a href=" {{ url_for('home.regist') }}">注册</a></li> -->
+                {% endif %}
+            </ul>
+        </div>
+</nav>
+<div class="main" style="margin: 0 auto;width: 100%">
+    {% block main %}{% endblock %}
+</div>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+# Max2Mtl Version 4.0 Mar 10th, 2001
+#
+newmtl 整体贴图
+Ka  0.6 0.6 0.6
+Kd  0.6 0.6 0.6
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  0.0
+illum 2
+map_Kd B0001-d2.bmp
+#
+newmtl Material__240536
+Ka  0.6 0.6 0.6
+Kd  0.6 0.6 0.6
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  0.0
+illum 2
+map_Kd T0001-d0.tga
+map_d T0001-d0.tga
+#
+newmtl 中间镂空
+Ka  0.6 0.6 0.6
+Kd  0.6 0.6 0.6
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  0.0
+illum 2
+map_Kd T0002-d0.tga
+map_d T0002-d0.tga
+#
+# EOF

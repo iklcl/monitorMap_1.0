@@ -1,6 +1,9 @@
 #!/usr/bin/python
 #encoding:utf-8
-
+import sys
+sys.path.append("..")
+import sys
+sys.path.append("..")
 from app import db
 from datetime import datetime
 import os
@@ -15,6 +18,7 @@ from sqlalchemy.dialects.mysql import LONGTEXT
 
 class Car(db.Model):
     __tablename__ = 'car'
+    __table_args__ = {"useexisting": True}
     id = db.Column(db.INTEGER,primary_key=True)
     carname = db.Column(db.String(500),nullable=False)#车牌号
     terminalid = db.Column(db.String(50),nullable=False)#终端号
@@ -31,6 +35,7 @@ class Car(db.Model):
 
 class Route(db.Model):
     __tablename__ = 'route'
+    __table_args__ = {"useexisting": True}
     id = db.Column(db.INTEGER,primary_key=True)
     linejson = db.Column(LONGTEXT)#线路信息
     finish_time = db.Column(db.DateTime, default=datetime.now)  #路线结束时间
@@ -38,7 +43,13 @@ class Route(db.Model):
     terminalid = db.Column(db.String(50), nullable=False)  # 终端号
     # car_id = db.Column(db.INTEGER,db.ForeignKey('car.id'))#所属行车
     # acc = db.relationship('Car', backref=db.backref('route'))  # 行车路线外键关系
-
+class User(db.Model):
+    __tablename__ = 'user'
+    __table_args__ = {"useexisting": True}
+    id = db.Column(db.INTEGER,primary_key=True)
+    username = db.Column(db.String(100),nullable=False)
+    telephone = db.Column(db.String(11),nullable=False)
+    password = db.Column(db.String(100),nullable=False)
 if __name__ == "__main__":
     db.create_all()
 

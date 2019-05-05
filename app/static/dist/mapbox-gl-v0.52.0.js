@@ -20161,9 +20161,9 @@
                 var o = this;
                 this.options = t.extend({}, ko, e), this._container = i.create("div", "mapboxgl-ctrl mapboxgl-ctrl-group"), this._container.addEventListener("contextmenu", function (t) {
                     return t.preventDefault()
-                }), this.options.showZoom && (this._zoomInButton = this._createButton("mapboxgl-ctrl-icon mapboxgl-ctrl-zoom-in", "Zoom in", function () {
+                }), this.options.showZoom && (this._zoomInButton = this._createButton("mapboxgl-ctrl-icon mapboxgl-ctrl-zoom-in", "放大", function () {
                     return o._map.zoomIn()
-                }), this._zoomOutButton = this._createButton("mapboxgl-ctrl-icon mapboxgl-ctrl-zoom-out", "Zoom out", function () {
+                }), this._zoomOutButton = this._createButton("mapboxgl-ctrl-icon mapboxgl-ctrl-zoom-out", "缩小", function () {
                     return o._map.zoomOut()
                 })), this.options.showCompass && (t.bindAll(["_rotateCompassArrow"], this), this._compass = this._createButton("mapboxgl-ctrl-icon mapboxgl-ctrl-compass", "Reset bearing to north", function () {
                     return o._map.resetNorth()
