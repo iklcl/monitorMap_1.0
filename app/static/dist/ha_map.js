@@ -322,30 +322,50 @@ map.on('load', function () {
 			}
 		}
 	});
+        //
+	     // map.addLayer({
+        //     'id': 'buildfilter_jwa',
+        //     'source': 'CLDSource',
+        //     'source-layer': 'building_wgs84',
+        //     'type': 'fill-extrusion',
+        //     'minzoom': 16,
+        //     'maxzoom': 24,
+        //     'paint': {
+			// "fill-extrusion-color": ['interpolate', ['linear'],
+			// 	['get', 'height'],
+			// 	0, '#BFBFBF', 50, '#BFBFBF', 150, "#BFBFBF",
+			// ],
+			// 'fill-extrusion-height': ['get', 'height'],
+			// 'fill-extrusion-opacity': .6
+        // },
+        //     "interactive": true
+        // });
 
 	     map.addLayer({
-            'id': 'buildfilter_jwa',
-            'source': 'CLDSource',
-            'source-layer': 'building_wgs84',
-            'type': 'fill-extrusion',
-            'minzoom': 16,
-            'maxzoom': 24,
-            'paint': {
-			"fill-extrusion-color": ['interpolate', ['linear'],
-				['get', 'height'],
-				0, '#fff', 30, '#fff', 50, "#fff",
-			],
-			'fill-extrusion-height': ['get', 'height'],
-			'fill-extrusion-opacity': {
-				"stops": [
-					[15, 0.7],
-					[17, 0.8]
-				],
-			},
-		},
-            "interactive": true
-        });
+			'id': '3d-buildings',
+			'source': 'CLDSource',
+			'source-layer': 'building_wgs84',
+			// 'filter': ['==', 'extrude', 'true'],
+			'type': 'fill-extrusion',
+			'minzoom': 15,
+			'paint': {
+			'fill-extrusion-color': '#aaa',
 
+			// use an 'interpolate' expression to add a smooth transition effect to the
+			// buildings as the user zooms in
+			'fill-extrusion-height': [
+			"interpolate", ["linear"], ["zoom"],
+			15, 0,
+			16, ["get", "height"]
+			],
+			'fill-extrusion-base': [
+			"interpolate", ["linear"], ["zoom"],
+			15, 0,
+			16, ["get", "min_height"]
+			],
+			'fill-extrusion-opacity': .6
+			}
+			});
 });
 
 map.addControl(new mapboxgl.NavigationControl());

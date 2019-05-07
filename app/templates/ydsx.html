@@ -6,12 +6,12 @@
     <script src="{{ url_for('static',filename='jquery-2.1.4/jquery.min.js') }}" ></script>
     <script src="{{ url_for('static',filename='dist/mapbox-gl-dev.js') }}"></script>
     <script src="{{ url_for('static',filename='dist/turf.min.js') }}" charset='utf-8'></script>
-    <!-- <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script> -->
+     <script src="{{ url_for('static',filename = 'dist/threebox.js') }}"></script>
     <link href="{{ url_for('static',filename='dist/mapbox-gl.css') }}" rel='stylesheet'/>
     <script src="{{ url_for('static',filename='dist/GLTFLoader.js') }}"></script>
     <script src="{{ url_for('static',filename = 'dist/OBJLoader.js') }}"></script>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.js'></script>
     <script src="{{ url_for('static',filename = 'dist/MTLLoader.js') }}"></script>
-{#    <script src="{{ url_for('static',filename = 'dist/threebox.js') }}"></script>#}
     <link rel="stylesheet" href="{{ url_for('static',filename='bootstrap-3.3.7-dist/css/bootstrap.min.css') }}">
     <style>
         html,
@@ -23,21 +23,15 @@
         }
 
         #map {
-            height: 94%;
+            height: 93.2%;
             z-index: 0;
             position: absolute;
-            left: 15%;
-            width: 85%;
+            left: 12.2%;
+{#            top:1px;#}
+            width: 87.5%;
             bottom: 0;
         }
-        #map2 {
-            height: 94%;
-            z-index: 0;
-            position: absolute;
-            left: 0%;
-            width: 100%;
-            bottom: 0;
-        }
+
     </style>
 {% endblock %}
 
@@ -152,12 +146,12 @@
 
     #list {
         /* margin: 8px; */
-        width: 15%;
+        width: 12%;
         float: left;
         box-shadow: 0 0 10px 2px rgba(31, 51, 73, .1);
         flex-direction: column;
         background: #ECECEC;
-        height: 94% !important;
+        height: 93% !important;
         position: absolute;
         bottom: 0;
         border-right: #0378AB 1px solid;
@@ -326,7 +320,7 @@
 
 <div id='map'>
 </div>
-<div id="hide" style="position: fixed;left: 15%;top: 1%; display: none;">
+<div id="hide" style="position: fixed;left: 12%;top: 1%; display: none;">
     <div class="row1" style="height:5%;border-bottom: #0378AB 1px solid ;margin-left: 3%;margin-top: 5%;">
 {#        <form id="form1" onsubmit="return false" action="##" method="post">#}
             <div class="input-group input-group-sm" style="float: left;width: 60%;">
@@ -477,5 +471,7 @@ $(document).ready(function(){
     $('#h3').attr('href','{{ url_for('home.detail') }}')
     $('#h3').text('平台管理')
   });
+
+
 </script>
 {% endblock %}

@@ -1,30 +1,39 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html>
+	<head>
 
-{% block head %}
-    <link rel="stylesheet" href="{{ url_for('static',filename='css/login_regist.css') }}">
-{% endblock %}
-{% block  title  %}
-登录
-{% endblock %}
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script> -->
+    <!-- <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+		<script src="http://code.jquery.com/jquery-1.8.0.min.js"></script>
+		<style>
 
-{% block main %}
-    {% if erro %}
-        <script>
-        alert('{{ erro }}');
-        </script>
-     {% endif %}
-    <h3 class="page-title" style="text-align:center;margin-top: 10px">登录</h3>
-    <form action="" method="post">
-        <div class="form-container">
-            <div class="form-group">
-                <input type="text" name="telephone" placeholder="用户名" class="form-control">
-            </div>
-            <div class="form-group">
-                <input type="password" name="password" placeholder="密码" class="form-control">
-            </div>
-            <div class="form-group">
-                <button class="btn btn-primary btn-block">立即登录</button>
-            </div>
-        </div>
-    </form>
-{% endblock %}
+/* box-shadow: 0 0 10px 2px rgba(31, 51, 73, .25) !important; */
+		</style>
+	</head>
+	<body style="">
+		<div style="">
+		<img src="{{  url_for('static',filename='Image/login2.jpg')  }}" style="height: 100%; width: 75%;margin:6% 12.5%;"/>
+		</div>
+		<div class="login" style="position: fixed;left:35%;top:25%;background: white;padding: 10px 30px 20px 30px;width: 400px;">
+				<h3 class="page-title" style="text-align:center;">登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录</h3>
+				<form action="" method="post">
+					<div class="form-container">
+						<div class="form-group">
+							<input type="text" name="telephone" placeholder="用户名" class="form-control">
+						</div>
+						<div class="form-group">
+							<input type="password" name="password" placeholder="密码" class="form-control">
+						</div>
+						<div class="form-group">
+							<button class="btn btn-primary btn-block">立即登录</button>
+						</div>
+					</div>
+				</form>
+
+			<!-- </div> -->
+		</div>
+	</body>
+</html>

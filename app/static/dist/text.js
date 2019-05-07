@@ -18,7 +18,7 @@ map.on('load',function(){
 			'text-field':"{stext}",
 			'text-size':12,
 			'text-font':["MicrosoftYaHeiRegular"],
-			'text-anchor':'top',
+			'text-anchor':'center',
 			"icon-size":0.006
 		},
 		'paint': {
@@ -46,7 +46,7 @@ map.on('load',function(){
 					'text-field':"{stext}",
 					'text-size':12,
 					'text-font':["MicrosoftYaHeiRegular"],
-					'text-anchor':'top',
+					'text-anchor':'center',
 					"icon-size":0.006
 				},
 				'paint': {
@@ -74,7 +74,7 @@ map.on('load',function(){
 					'text-field':"{stext}",
 					'text-size':12,
 					'text-font':["MicrosoftYaHeiRegular"],
-					'text-anchor':'top',
+					'text-anchor':'center',
 					"icon-size":0.006
 				},
 				'paint': {
@@ -102,7 +102,7 @@ map.on('load',function(){
 					'text-field':"{stext}",
 					'text-size':12,
 					'text-font':["MicrosoftYaHeiRegular"],
-					'text-anchor':'top',
+					'text-anchor':'center',
 					"icon-size":0.006
 				},
 				'paint': {
@@ -130,7 +130,7 @@ map.on('load',function(){
 					'text-field':"{stext}",
 					'text-size':12,
 					'text-font':["MicrosoftYaHeiRegular"],
-					'text-anchor':'top',
+					'text-anchor':'center',
 					"icon-size":0.006
 				},
 				'paint': {
@@ -158,7 +158,7 @@ map.on('load',function(){
 					'text-field':"{stext}",
 					'text-size':12,
 					'text-font':["MicrosoftYaHeiRegular"],
-					'text-anchor':'top',
+					'text-anchor':'center',
 					"icon-size":0.006
 				},
 				'paint': {
@@ -186,7 +186,7 @@ map.on('load',function(){
 					'text-field':"{stext}",
 					'text-size':12,
 					'text-font':["MicrosoftYaHeiRegular"],
-					'text-anchor':'top',
+					'text-anchor':'center',
 					"icon-size":0.006
 				},
 				'paint': {
@@ -214,7 +214,7 @@ map.on('load',function(){
 					'text-field':"{stext}",
 					'text-size':12,
 					'text-font':["MicrosoftYaHeiRegular"],
-					'text-anchor':'top',
+					'text-anchor':'center',
 					"icon-size":0.006
 				},
 				'paint': {
@@ -264,7 +264,7 @@ map.on('load',function(){
 					'text-size':12,
 					'text-font':["MicrosoftYaHeiBold"],
 					'text-offset':[0,0.2],
-					'text-anchor':'top'
+					'text-anchor':'center'
 				},
 				'paint': {
 					'text-color':'rgb(110,66,13)',
@@ -290,7 +290,7 @@ map.on('load',function(){
 					'text-size':12,
 					'text-font':["MicrosoftYaHeiBold"],
 					'text-offset':[0,0.2],
-					'text-anchor':'top'
+					'text-anchor':'center'
 				},
 				'paint': {
 					'text-color':'rgb(110,66,13)',
@@ -315,7 +315,7 @@ map.on('load',function(){
 			'text-size':12,
 			'text-font':["MicrosoftYaHeiBold"],
 			'text-offset':[0,0.2],
-			'text-anchor':'top'
+			'text-anchor':'center'
 		},
 		'paint': {
 			'text-color':'rgb(110,66,13)',
@@ -340,7 +340,7 @@ map.on('load',function(){
 					'text-size':12,
 					'text-font':["MicrosoftYaHeiBold"],
 					'text-offset':[0,0.2],
-					'text-anchor':'top'
+					'text-anchor':'center'
 				},
 				'paint': {
 					'text-color':'#808080',

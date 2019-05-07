@@ -19,7 +19,7 @@ var map = new mapboxgl.Map({
 	maxBounds: bounds,
 	minZoom: 11,
 	maxZoom: 20,
-	// pitch: 60,
+	pitch: 30,
     localIdeographFontFamily: "'Noto Sans', 'Noto Sans CJK SC', sans-serif",
 	style: {
 		"version": 8,

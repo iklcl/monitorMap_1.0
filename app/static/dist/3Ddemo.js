@@ -119,82 +119,71 @@ map.on('load', function () {
     }
     ;
 })
+
+map.on('load', function () {
+    var dataroot = "static/dist/json/ha_attachment1.json";
+    $.getJSON(dataroot, function (data) {
+        var HA_Attachment2 = data[1];
+        var HA_Attachment1 = data[0];
+        map.addLayer({
+            id: "custom_layer_H",
+            type: "custom",
+            onAdd: function (e, t) {
+                window.threebox = new Threebox(e);
+                window.threebox.setupDefaultLights();
+                var i = window.threebox.addSymbolLayer({
+                        id: "red_green_lamp",
+                        source: HA_Attachment1,
+                        modelName: {
+                            property: "ModelNumbe"
+                        },
+                        modelDirectory: getRootPath()+"3Ddemo/64201003/",
+                        rotation: {generator: e => new THREE.Euler(Math.PI / 2, 0, (e.properties["Angle"] + 90) * Math.PI / 180 + Math.PI / 2, "ZXY")},
+                        scale:1,
+                        scaleWithMapProjection: true,
+                        key: {property: "Attachment"}
+            });
+                var n = window.threebox.addSymbolLayer({
+                        id: "road_lamp",
+                        source: HA_Attachment2,
+                        modelName: {
+                            property: "ModelNumbe"
+                        },
+                        modelDirectory: getRootPath()+"3Ddemo/64201003/",
+                        rotation: {generator: e => new THREE.Euler(Math.PI / 2, 0, (e.properties["Angle"] + 90) * Math.PI / 180 + Math.PI / 2, "ZXY")},
+                        scale:15,
+                    scaleWithMapProjection:true,
+                    key:{
+                    property: "Attachment"}
+            })
+            },
+            render: function (e, t) {
+                window.threebox.update(true)
+            }
+        })
+    })
+})
+
+
 map.on('zoom', function () {
     if (map.getZoom() < 16) {
+
         for (var index in t) {
             map.setLayoutProperty('custom_layer_building' + index, 'visibility', 'none');
         }
     } else {
+
         for (var index in t) {
             map.setLayoutProperty('custom_layer_building' + index, 'visibility', 'visible');
         }
     }
+    if(map.getZoom()<17){
+         map.setLayoutProperty('custom_layer_H', 'visibility', 'none');
+    }
+    else{
+        map.setLayoutProperty('custom_layer_H', 'visibility', 'visible');
+    }
 });
-// map.on('load', function () {
-//     var dataroot = "static/dist/json/ha_attachment1.json";
-//     $.getJSON(dataroot, function (data) {
-//         var HA_Attachment2 = data[1];
-//         var HA_Attachment1 = data[0];
-//         map.addLayer({
-//             id: "custom_layer_H",
-//             type: "custom",
-//             onAdd: function (e, t) {
-//                 window.threebox = new Threebox(e);
-//                 window.threebox.setupDefaultLights();
-//                 var i = window.threebox.addSymbolLayer({
-//                         id: "red_green_lamp",
-//                         source: HA_Attachment1,
-//                         modelName: {
-//                             property: "ModelNumbe"
-//                         },
-//                         modelDirectory: "static/3Ddemo/64201003/",
-//                         rotation: {
-//                             generator: e => new THREE.Euler(Math.PI / 2, 0, (e.properties["Angle"] + 90) * Math.PI / 180 + Math.PI /
-//                             2, "ZXY")
-//                     },
-//                     scale
-//                 :
-//                 1,
-//                     scaleWithMapProjection
-//                 :
-//                 true,
-//                     key
-//                 :
-//                 {
-//                     property: "Attachment"
-//                 }
-//             })
-//                 ;
-//                 var n = window.threebox.addSymbolLayer({
-//                         id: "road_lamp",
-//                         source: HA_Attachment2,
-//                         modelName: {
-//                             property: "ModelNumbe"
-//                         },
-//                         modelDirectory: "static/3Ddemo/64201003/",
-//                         rotation: {
-//                             generator: e => new THREE.Euler(Math.PI / 2, 0, (e.properties["Angle"] + 90) * Math.PI / 180 + Math.PI /
-//                             2, "ZXY")
-//                     },
-//                     scale
-//                 :
-//                 15,
-//                     scaleWithMapProjection
-//                 :
-//                 true,
-//                     key
-//                 :
-//                 {
-//                     property: "Attachment"
-//                 }
-//             })
-//             },
-//             render: function (e, t) {
-//                 window.threebox.update(true)
-//             }
-//         })
-//     })
-// })
 
 // map.on('load', function () {
 // for(var index in t){

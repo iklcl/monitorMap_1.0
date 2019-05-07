@@ -23,7 +23,7 @@ def login_required(func):
         if session.get('user_id'):
             return func(*args,**kwargs)
         else:
-            return redirect(url_for('home.login',q_code='权限错误！请先登录！'))
+            return redirect(url_for('home.login'))
     return wrapper
 #登入页面
 @home.route('/login/',methods=['GET','POST'])
@@ -121,6 +121,7 @@ def time_x(filename):
         return datas
 
 @home.route("/")
+@login_required
 def index():
     "主页面"
     if os.path.isfile("count.csv")!=True:

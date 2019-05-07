@@ -18,7 +18,7 @@ Ks  0.9 0.9 0.9
 d  1.0
 Ns  0.0
 illum 2
-map_Kd 100413-1-1145987.jpg
+#map_Kd 100413-1-1145987.jpg
 #
 newmtl Material__94
 Ka  0.6 0.6 0.6
@@ -37,7 +37,7 @@ Ks  0.9 0.9 0.9
 d  1.0
 Ns  0.0
 illum 2
-map_Kd 100413-1-1145987-1.bmp
+#map_Kd 100413-1-1145987-1.bmp
 #
 newmtl Material__87
 Ka  0.6 0.6 0.6
@@ -46,7 +46,7 @@ Ks  0.9 0.9 0.9
 d  1.0
 Ns  0.0
 illum 2
-map_Kd 100413-1-1145927.bmp
+#map_Kd 100413-1-1145927.bmp
 #
 newmtl Material__91
 Ka  0.6 0.6 0.6
@@ -55,7 +55,7 @@ Ks  0.9 0.9 0.9
 d  1.0
 Ns  0.0
 illum 2
-map_Kd ¶¥ÕýÃæ01.bmp
+#map_Kd ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½01.bmp
 #
 newmtl Material__92
 Ka  0.6 0.6 0.6
@@ -64,7 +64,7 @@ Ks  0.9 0.9 0.9
 d  1.0
 Ns  0.0
 illum 2
-map_Kd ±êÖ¾01.bmp
+#map_Kd ï¿½ï¿½Ö¾01.bmp
 #
 # Multi/Sub Material__105 done 
 #
