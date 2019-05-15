@@ -157,7 +157,7 @@ Car.prototype.run = function () {
     function runEvery10Sec() {
         if (point.features[0].properties.state != "在线") {
             if (map.getLayer(Pointid) != undefined) {
-                map.removeLayer(Pointid)
+                // map.removeLayer(Pointid)
             }
             ;
             return;
@@ -165,15 +165,17 @@ Car.prototype.run = function () {
         var tag = point.features[0].properties;
         $.post('/pointlat/', {'terminalid': tag.terminalid, 'i': i}, function (data) {
             if (data == '{}') {
-                // point.features[0].properties.state="离线";
+                point.features[0].properties.state="离线";
+                var param = {"terminalid": point.features[0].properties.terminalid,
+                                "status": "离线"};
+                $.post("/revise/", param, function (data) {
+                   window.location.reload();
+                })
                 return;
             }
             var datas = JSON.parse(data);
             oldCoordinate = datas["coordinates"];
             i++;
-            // if (i == 600) {
-            //     datas.accstate = 'false'
-            // }
             point.features[0].geometry.coordinates = oldCoordinate;
             point.features[0].properties.mileage = datas["mileage"];
             point.features[0].properties.Speed = datas["speed"];
@@ -194,7 +196,6 @@ Car.prototype.run = function () {
             }
             ;
             counter = 0;
-
             if (datas.accstate != 'false' && map.getLayer(Pointid) != undefined) {
                 setTimeout(runEvery10Sec, 1000);
             }

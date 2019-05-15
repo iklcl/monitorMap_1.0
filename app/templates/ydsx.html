@@ -22,16 +22,24 @@
             overflow: hidden;
         }
 
-        #map {
-            height: 93.2%;
+        #map-box {
+            height: 93.7%;
             z-index: 0;
             position: absolute;
-            left: 12.2%;
-{#            top:1px;#}
-            width: 87.5%;
-            bottom: 0;
+            left: 14.7%;
+            width: 84.9%;
+            bottom: 1px;
+{#            border-top: #909090 1.5px solid;#}
+            background: white;
+{#            border-right: #6575A9 1px solid;#}
+            box-shadow: -1px 2px 10px #6575A9 inset !important;
         }
-
+        #map {
+            height: 100%;
+            z-index: 0;
+            margin-top: 2px;
+            margin-right: 2px;
+        }
     </style>
 {% endblock %}
 
@@ -84,7 +92,6 @@
         font: 300 15px 'Source Sans Pro', 'Helvetica Neue', Sans-serif;
         padding: 0;
         width: 140px;
-        box-shadow: 0 0 10px 2px rgba(31, 51, 73, .25) !important;
     }
 
     .mapboxgl-popup-content-wrapper {
@@ -146,20 +153,21 @@
 
     #list {
         /* margin: 8px; */
-        width: 12%;
+        width: 14.2%;
         float: left;
-        box-shadow: 0 0 10px 2px rgba(31, 51, 73, .1);
         flex-direction: column;
         background: #ECECEC;
-        height: 93% !important;
+        height: 93.8% !important;
         position: absolute;
+        margin-left: 0.5%;
         bottom: 0;
-        border-right: #0378AB 1px solid;
+{#        border-right: #6575A9 1px solid;#}
+        box-shadow: 0px 1px 5px #6575A9 inset;
     }
 
     #center {
         margin-left: 7%;
-        margin-right: 3%;
+        margin-right: 9%;
         position: relative;
         background: white;
         background: #ECECEC;
@@ -282,6 +290,13 @@
     #line{
 				margin-top: 3px !important;margin-bottom: 0px !important; height: 4% !important;line-height: 0% !important;
 			}
+    body{background: #ECECEC;
+     box-shadow: 0 0 10px 3px #354B91 inset;
+    }
+.navbar-collapse.collapse {
+    display: block!important;
+    height: 40px !important;}
+
 </style>
 <div id="list">
     <div id="center">
@@ -296,7 +311,7 @@
             <div class="middle"
                  style="margin-bottom: 10%; margin-top: 10%; border-bottom: #0378AB 1px solid ;border-top: #0378AB 1px solid ; color: black;">
                 <button id='add' style=" margin-top:10% ;margin-bottom: 10%;margin-right: 10%;float: left;" >
-                    <a href="{{url_for('home.write',car_id = 'add')}}" style="color:white;" target="view_window">
+                    <a href="{{url_for('home.write',car_id = 'add')}}" style="color:white;">
                     <span class="glyphicon glyphicon-plus"></span>添加
                 </a>
                 </button>
@@ -317,10 +332,11 @@
         </div>
     </div>
 </div>
-
+<div id="map-box">
 <div id='map'>
 </div>
-<div id="hide" style="position: fixed;left: 12%;top: 1%; display: none;">
+</div>
+<div id="hide" style="position: fixed;left: 14%;top: 1%; display: none;">
     <div class="row1" style="height:5%;border-bottom: #0378AB 1px solid ;margin-left: 3%;margin-top: 5%;">
 {#        <form id="form1" onsubmit="return false" action="##" method="post">#}
             <div class="input-group input-group-sm" style="float: left;width: 60%;">
@@ -336,12 +352,12 @@
 
             <!-- <button type="button" class="btn btn-success" style="float: right;">save</button> -->
             <!-- 关闭按钮 -->
-            <a href="#" onclick="{document.getElementById('hide').style.display='none';}">
+            <a href="javascript:void(0);" onclick="{document.getElementById('hide').style.display='none';}">
 					<span class="glyphicon glyphicon-remove" style="float: right;margin-right: 4%;">
 					 </span>
             </a>
             <!-- 编辑按钮 -->
-            <a href="#" id ="ahref" title="编辑" target="view_window">
+            <a href="javascript:void(0);" id ="ahref" title="编辑">
 					<span class="glyphicon glyphicon-pencil" style="float: right;margin-right: 4%;">
 					</span>
             </a>
@@ -389,7 +405,6 @@
 
                 <p class="text-succcess">运营单位：</p>
                 <p class="text-primary" id="company" >1</p>
-
                 <p class="text-succcess">车队：</p>
                 <p class="text-primary" id="team" >1</p>
                 </div>
@@ -428,7 +443,7 @@
         </div>
         <div style="width: 58%;float: right;height: 97%;">
             <div id="filter-time" style="100%">
-                <a href="#">
+                <a href="javascript:void(0);">
                     <span class="glyphicon glyphicon-filter"></span>时间段
                 </a>
             </div>
@@ -438,9 +453,9 @@
                         <input id="date" type="date" value=""/>
                     </div>
                     <div id="time" style="margin-bottom: 8%;">
-                        <input type="time" id="time1" value=""/>
+                        <input type="time" id="time1" value="00:00"/>
                         -
-                        <input type="time" id="time2" value=""/>
+                        <input type="time" id="time2" value="23:59"/>
                     </div>
                 </div>
             </form>
@@ -454,24 +469,19 @@
 </div>
 <script>
 </script>
-<script src="{{ url_for('static',filename='dist/area_map.js') }}"></script>
-<script src="{{ url_for('static',filename='dist/roadL.js') }}"></script>
-<script src="{{ url_for('static',filename='dist/ha_map.js') }}"></script>
-<script src='{{ url_for('static',filename='dist/roadArrow.js') }}'></script>
-<script src="{{ url_for('static',filename='dist/text.js') }}"></script>
-<script src="{{ url_for('static',filename='dist/addlist.js') }}"></script>
-<script src="{{ url_for('static',filename='dist/movecar.js') }}"></script>
-<script src="{{ url_for('static',filename='dist/3Ddemo.js') }}"></script>
+<script type="text/javascript" defer="defer"  src="{{ url_for('static',filename='dist/area_map.js') }}"></script>
+<script type="text/javascript" defer="defer"  src="{{ url_for('static',filename='dist/roadL.js') }}"></script>
+<script type="text/javascript" defer="defer"  src="{{ url_for('static',filename='dist/ha_map.js') }}"></script>
+<script type="text/javascript" defer="defer"  src='{{ url_for('static',filename='dist/roadArrow.js') }}'></script>
+<script type="text/javascript" defer="defer"  src="{{ url_for('static',filename='dist/text.js') }}"></script>
+<script type="text/javascript" defer="defer"  src="{{ url_for('static',filename='dist/addlist.js') }}"></script>
+<script type="text/javascript" defer="defer"  src="{{ url_for('static',filename='dist/movecar.js') }}"></script>
+<script type="text/javascript" defer="defer"  src="{{ url_for('static',filename='dist/3Ddemo.js') }}"></script>
 <script type="text/javascript">
+ $(document).ready(function(){
+        $('#h3').attr('href','{{ url_for('home.detail') }}')
+        $('small').html('平台管理')
+    });
 </script>
-<script>
-    document.getElementById('date').valueAsDate = new Date();
-    map.on('load', function() {list_car();});
-$(document).ready(function(){
-    $('#h3').attr('href','{{ url_for('home.detail') }}')
-    $('#h3').text('平台管理')
-  });
 
-
-</script>
 {% endblock %}

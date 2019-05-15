@@ -43,10 +43,11 @@ for line in a:
 
   lines = json.loads(line[1])
   for data in lines['listData']:
-      if len(data)==0:
-          continue
-      lat = data['coordinates']
-    # time = data['']
-      with codecs.open(u'ydsx.csv','ab') as f:
-          w = csv.writer(f)
-          w.writerow([data['time'],lat[0],lat[1]])
+      print data
+    #   if len(data)==0:
+    #       continue
+    #   lat = data['coordinates']
+    # # time = data['']
+    #   with codecs.open(u'ydsx.csv','ab') as f:
+    #       w = csv.writer(f)
+    #       w.writerow([data['time'],lat[0],lat[1]])

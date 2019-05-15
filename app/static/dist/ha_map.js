@@ -5,9 +5,8 @@ map.on('load', function () {
             'type': 'vector',
             'scheme': 'tms',
             'tiles': [
-              // window.location.protocol + '//' +'1116.77.32.19'+':8080/geoserver/gwc/service/tms/1.0.0/ydsx@EPSG%3A900913@pbf/{z}/{x}/{y}.pbf',
-                'http://116.77.32.197:8080/geoserver/gwc/service/tms/1.0.0/ydsx@EPSG%3A900913@pbf/{z}/{x}/{y}.pbf',
-				// window.location.protocol + '//' + window.location.hostname+':8080/geoserver/gwc/service/tms/1.0.0/ydsx_test%3Aydsx_test@EPSG%3A900913@pbf/{z}/{x}/{y}.pbf'
+                // 'http://116.77.32.197:8080/geoserver/gwc/service/tms/1.0.0/ydsx@EPSG%3A900913@pbf/{z}/{x}/{y}.pbf',
+				'http://192.168.85.38:8080/geoserver/gwc/service/tms/1.0.0/ydsxdb%3Aydsxdb@EPSG%3A900913@pbf/{z}/{x}/{y}.pbf',
             ]
         }
     );
@@ -110,18 +109,25 @@ map.on('load', function () {
 		},
 		'filter': ["==", "functionco", 11030314]
 	});
-	map.addLayer({
+map.loadImage(getRootPath()+'Image/ll.png', function(error, ll) {
+
+		map.addImage('ll', ll);
+		map.addLayer({
 		'id': "MarkingArea_12030301",
 		'type': "fill",
 		'source': 'CLDSource',
 		'source-layer': 'ha_markingarea',
-		'minzoom': 17,
+		'minzoom': 18,
 		'paint': {
-			"fill-color": "#e5e619",
-			"fill-opacity": 0.8
+			// "fill-color": "#e5e619",
+			"fill-opacity": 0.9,
+			"fill-pattern":'ll',
+			'fill-antialias':true,
+			"fill-outline-color":"#FFDA23",
 		},
 		'filter': ["==", "functionco", 12030301]
 	});
+	})
 	map.addLayer({
 		'id': "MarkingArea_11020102",
 		'type': "fill",
@@ -148,15 +154,36 @@ map.on('load', function () {
 	});
 	//
 	map.addLayer({
-		'id': 'singleWhiteSolidLine', //车行道边缘线
+		'id': 'singleWhiteSolidLine',
 		'source': 'CLDSource',
 		'source-layer': 'ha_laneline',
 		'filter': [
 			'all',
 			['==', 'linecolor', 1],
 			['==', 'solidtype', 2],
-			['==', 'issingle', 1]
+			['==', 'issingle', 1],
+			// ['!=', 'functionco',11010104]
 		],
+		'type': 'line',
+		'minzoom': 17,
+		'layout': {
+			"line-join": "round",
+			"line-cap": "round"
+		},
+		'paint': {
+			"line-opacity": 1,
+			"line-color": "#CCCCCC",
+			"line-width": 1.5,
+			// "line-gap-width": 1.5
+		},
+	})
+		map.addLayer({
+		'id': 'singleWhiteSolidLine3', //车行道边缘线
+		'source': 'CLDSource',
+		'source-layer': 'ha_laneline',
+		'filter':['all',
+			['!=', 'solidtype', 1],
+			['==', 'functionco',11010104]],
 		'type': 'line',
 		'minzoom': 17,
 		'layout': {
@@ -214,7 +241,7 @@ map.on('load', function () {
 			"line-opacity": 1,
 			"line-color": "#ebb505",
 			"line-width": 1.5,
-			"line-gap-width": 1.5
+			// "line-gap-width": 1.5
 		},
 		"interactive": true
 	});
@@ -242,7 +269,52 @@ map.on('load', function () {
 		},
 		"interactive": true
 	});
-
+		//增加线
+		map.addLayer({
+		"id": "doubleYellowsolidLine2",
+		"type": "line",
+		"source": "CLDSource",
+		"source-layer": "laneline",
+		'filter': [
+			'all',
+			['==', 'solidtype', 2],
+			['==', 'issingle', 1]
+		],
+		'minzoom': 17,
+		'layout': {
+			"line-join": "round",
+			"line-cap": "round"
+		},
+		'paint': {
+			"line-opacity": 1,
+			"line-color": "#fff",
+			"line-width": 1.5,
+			// "line-gap-width": 1.5
+		},
+		"interactive": true
+	});
+		//增加线
+	map.addLayer({
+		'id': 'ha_laneline2',
+		'source': 'CLDSource',
+		'source-layer': 'laneline',
+		'type': 'line',
+		'minzoom': 17,
+		'filter': [
+			'all',
+			['==', 'solidtype', 1],
+			['==', 'issingle', 1]
+		],
+		'layout': {
+			"line-join": "round",
+			"line-cap": "round"
+		},
+		'paint': {
+			"line-color": "#CCCCCC",
+			"line-width": 2,
+			"line-dasharray": [20, 20]
+		},
+	})
 
 	//路障线
 	map.addLayer({
@@ -258,7 +330,7 @@ map.on('load', function () {
 			"line-cap": "butt"
 		},
 		'paint': {
-			"line-color": "white",
+			"line-color": "#CCCCCC",
 			"line-width": 25,
 			"line-dasharray": [.1, .4]
 		},

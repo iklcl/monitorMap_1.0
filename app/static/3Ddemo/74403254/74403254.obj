@@ -2,7 +2,7 @@
 #
 mtllib ./74403254.mtl
 g
-# object Material__2675 to come ...
+# object Material__2713 to come ...
 #
 v  75.806961 0.000000 -51.237602
 v  75.806961 14.318382 -51.237602
@@ -1609,8 +1609,8 @@ vn  0.454115 0.000000 0.890943
 vn  0.000000 1.000000 0.000000
 # 310 vertex normals
 
-g Material__2675
-usemtl Material__2675
+g Material__2713
+usemtl Material__2713
 s 4
 f 9/15/9 11/18/11 260/578/260
 f 259/577/259 9/15/9 260/578/260

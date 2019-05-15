@@ -18,11 +18,12 @@
     </style>
 </head>
 <body>
-<nav class="navbar navbar-default" id="" style="background: #3C8DBC;color: white;margin-bottom: 0 !important;height: 5.5% !important;">
+<nav class="navbar navbar-default" id="" style="background: #6575A9;color: white;margin-bottom: 0 !important;height:40px !important;">
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2" style="margin-right: 5%;padding: 0 !important;">
-            <ul class="nav navbar-nav" id="lii"  style="height:100%;margin-top: 3px; text-align: center;width: 12.7%;display: block; background: #337AB7">
-                <section class="content-header">
-                    <h3 style="margin-top: 8px !important;"><a href="{{ url_for('home.index') }}" id="h3" target="view_window" style="text-decoration:none;">平台地图</a></h3>
+            <ul class="nav navbar-nav" id="lii"  style="height:100%;margin-top: 3px; text-align: center;width: 16.7%;display: block;">
+                <section class="content-header" style="margin-right: 40%">
+                    <h3 style="margin-top: 6px !important;float: right"><a href="{{ url_for('home.index') }}" id="h3" target="view_window" style="text-decoration:none;"><small style="cursor:pointer;color: white;">平台地图</small></a></h3>
+                     <img class="img-circle" src="{{ url_for('static',filename='Image/logo.png') }}" alt=""  style="width:30px;color: white;float: right; margin-top: 6px !important;">
                 </section>
             </ul>
 {#            <ul class="nav navbar-nav" style="margin-left: 2%;line-height: 50px;">#}

@@ -175,8 +175,6 @@ map.on('load',function(){
 				'filter':[
 					'all',
 					['==','levelid',3],
-					// ['>','typecode',16000000],
-					// ['<','typecode',17000000]
 					],
 				'type': 'symbol',
 				'minzoom':16,
@@ -224,31 +222,31 @@ map.on('load',function(){
 					'text-halo-blur':1,
 				},
 	})
-	// map.addLayer({
-	// 				'id': 'roadSymbol',
-	// 				'source': 'areaSource',
-	// 				'source-layer':'road',
-	// 				'type': 'symbol',
-	// 				'minzoom':11,
-	// 				// 'maxzoom':17,
-	// 				'layout':{
-	// 					'symbol-placement':"line",
-	// 					'text-field':"{roadname}",
-	// 					'symbol-avoid-edges':true,
-	// 					'text-size':10,
-	// 					'text-font':["MicrosoftYaHeiRegular"],
-	// 					'text-offset':[0,0.2],
-	// 					'text-anchor':'top'
-	// 				},
-	// 				'paint': {
-	// 					'text-color':'#595959',
-	// 					'text-halo-color':'rgb(245,245,245)',
-	// 					'text-halo-width':1,
-	// 					'text-halo-blur':1,
-	// 				},
-	// 				"interactive":true,
-	//
-	// })
+
+	//新增文本
+	map.addLayer({
+				'id': 'text_n',
+				'source': 'areaSource',
+				'source-layer':'text_n',
+				'type': 'symbol',
+				'minzoom':15,
+				// 'maxzoom':18,
+				"layout": {
+					"icon-image": "point",
+					'text-field':"{stext}",
+					'text-size':12,
+					'text-font':["MicrosoftYaHeiRegular"],
+					'text-anchor':'center',
+					"icon-size":0.006
+				},
+				'paint': {
+					'text-color':'rgb(101,135,162)',
+					'text-halo-color':'rgb(245,245,245)',
+					'text-halo-width':1,
+					'text-halo-blur':1,
+				},
+	})
+	//道路名
 	map.addLayer({
 				'id': 'roadSymbol_sn3',
 				'source': 'CLDSource15',
@@ -330,8 +328,12 @@ map.on('load',function(){
 				'source': 'CLDSource15',
 				'source-layer':'road',
 				'type': 'symbol',
-		        'filter':['in','showgrade',10,11,12,13],
-				'minzoom':16,
+		        'filter':[
+		        	'all',
+		        	['in','showgrade',10,11,12,13],
+					['!in','roadclass','24','25','26','27','28','29','32']
+				],
+				'minzoom':15,
 				'maxzoom':22,
 				'layout':{
 					'symbol-placement':"line",

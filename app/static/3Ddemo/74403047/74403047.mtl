@@ -1,13 +1,13 @@
 # Max2Mtl Version 4.0 Mar 10th, 2001
 #
-newmtl Material__202656
+newmtl Material__203010
 Ka  0.6 0.6 0.6
 Kd  0.6 0.6 0.6
 Ks  0.9 0.9 0.9
 d  1.0
 Ns  0.0
 illum 2
-map_Kd B0002-d3.bmp
+map_Kd B0002-d2.bmp
 #
 newmtl Material__962
 Ka  0.6 0.6 0.6
@@ -19,40 +19,40 @@ illum 2
 map_Kd T0001-d0.tga
 map_d T0001-d0.tga
 #
-newmtl Material__202659
+newmtl Material__203013
 Ka  0.6 0.6 0.6
 Kd  0.6 0.6 0.6
 Ks  0.9 0.9 0.9
 d  1.0
 Ns  0.0
 illum 2
-map_Kd B0005-d3.bmp
+map_Kd B0005-d2.bmp
 #
-newmtl Material__202657
+newmtl Material__203011
 Ka  0.6 0.6 0.6
 Kd  0.6 0.6 0.6
 Ks  0.9 0.9 0.9
 d  1.0
 Ns  0.0
 illum 2
-map_Kd B0003-d3.bmp
+map_Kd B0003-d2.bmp
 #
-newmtl Material__202655
+newmtl Material__203009
 Ka  0.6 0.6 0.6
 Kd  0.6 0.6 0.6
 Ks  0.9 0.9 0.9
 d  1.0
 Ns  0.0
 illum 2
-map_Kd B0001-d3.bmp
+map_Kd B0001-d2.bmp
 #
-newmtl Material__202658
+newmtl Material__203012
 Ka  0.6 0.6 0.6
 Kd  0.6 0.6 0.6
 Ks  0.9 0.9 0.9
 d  1.0
 Ns  0.0
 illum 2
-map_Kd B0004-d3.bmp
+map_Kd B0004-d2.bmp
 #
 # EOF

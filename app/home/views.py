@@ -161,8 +161,8 @@ def pointlat():
     if data=={}:
         return json.dumps(data)
     i = request.form.get('i',0)
-    dataw = time_x(u'data.csv')
-    re = int(terminalid[-1])/2*1000+3000
+    #dataw = time_x(u'data.csv')
+    #re = int(terminalid[-1])/2*1000+3000
     # data['coordinates'] = dataw[int(re) + int(i)]
     data['coordinates'] = [float(data['longitude'])/3600000,float(data['latitude'])/3600000]
     # print data
@@ -239,8 +239,13 @@ def add():
 
 @home.route('/revise/',methods=['POST'])
 def revise():
-    carname=request.form.get('carname')
-    return carname
+    terminalid = request.form.get('terminalid')
+    carState=request.form.get('status')
+    car = Car.query.filter(Car.terminalid == terminalid).first()
+    car.carstate = carState
+    db.session.commit()
+    return '修改状态'
+
 
 @home.route('/delete/',methods=['POST'])
 @login_required

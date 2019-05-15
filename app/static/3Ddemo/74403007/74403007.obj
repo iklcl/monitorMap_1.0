@@ -2,7 +2,7 @@
 #
 mtllib ./74403007.mtl
 g
-# object Material__490 to come ...
+# object Material__528 to come ...
 #
 v  -34.335762 -0.000004 -25.765400
 v  -34.335773 0.000002 -2.229632
@@ -2001,8 +2001,8 @@ vn  0.000000 -0.864186 -0.000000
 vn  -0.000001 0.000001 -2.043674
 # 472 vertex normals
 
-g Material__490
-usemtl Material__490
+g Material__528
+usemtl Material__528
 s 4
 f 4/450/4 35/452/35 34/451/34
 f 34/451/34 1/2/1 4/450/4

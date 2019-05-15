@@ -1,6 +1,6 @@
 var bounds = [
 	[113.877, 22.503], // Southwest coordinates
-	[114.14024, 22.586] // Northeast coordinates
+	[114.13024, 22.586] // Northeast coordinates
 ];
 function getRootPath() {
 
@@ -30,9 +30,7 @@ var map = new mapboxgl.Map({
 				'type': 'vector',
 				'scheme': 'tms',
 				'tiles': [
-					// http://116.77.32.197:8080/geoserver/gwc/service/tms/1.0.0/ydsx@EPSG%3A900913@pbf
-					'http://116.77.32.197:8080/geoserver/gwc/service/tms/1.0.0/ydsx@EPSG%3A900913@pbf/{z}/{x}/{y}.pbf',
-					// window.location.protocol + '//' +'1116.77.32.19'+':8080/geoserver/gwc/service/tms/1.0.0/ydsx@EPSG%3A900913@pbf/{z}/{x}/{y}.pbf',
+					'http://192.168.85.38:8080/geoserver/gwc/service/tms/1.0.0/ydsxdb%3Aydsxdb@EPSG%3A900913@pbf/{z}/{x}/{y}.pbf',
 				]
 			}
 		},
@@ -46,8 +44,8 @@ var map = new mapboxgl.Map({
 					"background-color": {
 						"base": 1,
 						"stops": [
-							[11, "#fff"],
-							[13, "#fff"]
+							[11, "#BFBFBF"],
+							[13, "#BFBFBF"]
 						]
 					}
 				}
@@ -63,7 +61,23 @@ map.addControl(scale)
 // map.addControl(new mapboxgl.FullscreenControl());
 // var isZooming = map.isZooming();
 map.on('load', function() {
+	map.addLayer({
+		'id': 'Iland2',
+		'source': 'areaSource',
+		'source-layer': 'bg_low',
+		'type': 'fill',
+		'paint': {
+			"fill-color":
+			 {
+			 	'stops': [
+					[15,'#fff'],
 
+			 		[17.5, '#fff']
+			 	]
+			 },
+			'fill-antialias': true,
+		}
+	})
 
 	map.addLayer({
 		'id': 'Iland1',

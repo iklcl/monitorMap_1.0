@@ -113,18 +113,13 @@ class CustomLayer {
         this.map.triggerRepaint();
     }
 }
-map.on('load', function () {
-    for (var index in t) {
-        map.addLayer(new CustomLayer(index, t[index]))
-    }
-    ;
-})
 
 map.on('load', function () {
     var dataroot = "static/dist/json/ha_attachment1.json";
     $.getJSON(dataroot, function (data) {
         var HA_Attachment2 = data[1];
         var HA_Attachment1 = data[0];
+        var HA_POI=data[2];
         map.addLayer({
             id: "custom_layer_H",
             type: "custom",
@@ -155,16 +150,61 @@ map.on('load', function () {
                     scaleWithMapProjection:true,
                     key:{
                     property: "Attachment"}
-            })
+            });
+                 var i = window.threebox.addSymbolLayer({
+                        id: "poi_bus",
+                        source: HA_POI,
+                        modelName: "20190514",
+                        modelDirectory: getRootPath()+"3Ddemo/20190514/",
+                        rotation: {generator: e => new THREE.Euler(Math.PI / 2, 0, (e.properties["Angle"] + 90) * Math.PI / 180 + Math.PI / 2, "ZXY")},
+                        scale:1.4,
+                        scaleWithMapProjection: true,
+                        key: {property: "POIUID"}
+            });
             },
             render: function (e, t) {
                 window.threebox.update(true)
             }
         })
     })
+    	//公交站名称
+		map.addLayer({
+				'id': 'text_busstation',
+				'source': 'areaSource',
+				'source-layer':'poi_bus',
+				'type': 'symbol',
+				'minzoom':18,
+				// 'maxzoom':18,
+				"layout": {
+					"icon-image": "point",
+					'text-field':"{name}",
+					'text-size':12,
+					'text-font':["MicrosoftYaHeiRegular"],
+					'text-anchor':'top',
+                    'text-offset':{
+                            "stops": [
+                                [17, [0,0.5]],
+                                [20, [0,2]]
+                            ],
+                        },
+
+				},
+				'paint': {
+					'text-color':'rgb(124,76,174)',
+					'text-halo-color':'rgb(245,245,245)',
+					'text-halo-width':1,
+					'text-halo-blur':1,
+                    'text-translate':[0,0],
+                     'text-translate-anchor':'map'
+				},
+	})
 })
-
-
+map.on('load', function () {
+    for (var index in t) {
+        map.addLayer(new CustomLayer(index, t[index]))
+    }
+    ;
+})
 map.on('zoom', function () {
     if (map.getZoom() < 16) {
 
@@ -184,6 +224,8 @@ map.on('zoom', function () {
         map.setLayoutProperty('custom_layer_H', 'visibility', 'visible');
     }
 });
+   document.getElementById('date').valueAsDate = new Date();
+    map.on('load', function() {list_car();});
 
 // map.on('load', function () {
 // for(var index in t){
