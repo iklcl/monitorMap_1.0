@@ -150,7 +150,10 @@ def index():
         with codecs.open('count.csv', 'ab') as f:
             w = csv.writer(f)
             w.writerow(line)
-    return render_template('ydsx.html')
+    context = {
+        'dataOrder': Car.query.order_by('id').all()
+    }
+    return render_template('ydsx.html',**context)
 
 
 @home.route('/pointlat/',methods=['POST'])
@@ -161,17 +164,15 @@ def pointlat():
     if data=={}:
         return json.dumps(data)
     i = request.form.get('i',0)
-    #dataw = time_x(u'data.csv')
-    #re = int(terminalid[-1])/2*1000+3000
-    # data['coordinates'] = dataw[int(re) + int(i)]
     data['coordinates'] = [float(data['longitude'])/3600000,float(data['latitude'])/3600000]
-    # print data
+    data['state']=''
     route = Route.query.filter(Route.terminalid == terminalid).order_by(Route.finish_time.desc()).first()
     if route==None:
         datas = {"listData": [data]}
         routeadd =Route(linejson=json.dumps(datas), terminalid=terminalid)
         db.session.add(routeadd)
         db.session.commit()
+        data['state'] = '在线'
     else:
         if route.finish_time-route.create_time<datetime.timedelta(minutes=30) and datetime.datetime.now()-route.create_time<=datetime.timedelta(minutes=30):
             secondData = json.loads(route.linejson)["listData"]
@@ -181,6 +182,12 @@ def pointlat():
                 route.linejson = json.dumps(datas)
                 route.finish_time = datetime.datetime.now()
                 db.session.commit()
+                data['state'] = '在线'
+            else:
+                st = secondData[-1]['timew'].replace("T", ' ').split('.')[0]
+                dateSt = datetime.datetime.strptime(st, "%Y-%m-%d %H:%M:%S")
+                if datetime.datetime.now() -dateSt>datetime.timedelta(seconds=15):
+                    data['state'] = '离线'
         else:
             if  datetime.datetime.now() - route.create_time <= datetime.timedelta(hours=2):
                 lastData = json.loads(route.linejson)["listData"][-1]
@@ -190,6 +197,19 @@ def pointlat():
             routeadd = Route(linejson=json.dumps(datas), terminalid=terminalid)
             db.session.add(routeadd)
             db.session.commit()
+            data['state'] = '在线'
+    if data['devicecount']=="4":
+        data['devicecount']="RTK FIX"
+    elif data['devicecount']=="1":
+        data['devicecount'] = "单点定位"
+    elif data['devicecount'] == "2":
+        data['devicecount'] = "差分定位"
+    elif data['devicecount']=="5":
+        data['devicecount'] = "RTK FLOAT"
+    elif data['devicecount']=="6":
+        data['devicecount'] = "惯导"
+    else:
+        data['devicecount'] = "无效"
     return json.dumps(data)
 
 
@@ -201,10 +221,8 @@ def add():
     carName = request.form.get('name')
     carId =  request.form.get('id')
     carState = request.form.get('state')
-
     driver = request.form.get('driver',None)
     driverphone = request.form.get('driverphone',None)
-
     starttime = request.form.get('starttime')
     endtime = request.form.get('endtime')
     cartype = request.form.get('cartype')
@@ -215,7 +233,7 @@ def add():
         car = Car.query.filter(Car.carname == carName).first()
         carterminalid = Car.query.filter(Car.terminalid == terminalid).first()
         if (car or carterminalid):
-            return u'名称或终端id已存在'
+            return u'失败,名称或终端id已存在'
         else:
             car = Car(carname=carName, carstate=carState, driver=driver,driverphone=driverphone,starttime =starttime,endtime=endtime,cartype =cartype,team=team,terminalid=terminalid,company = company)
             db.session.add(car)
@@ -223,7 +241,11 @@ def add():
             return u'成功'
     else:
         car = Car.query.filter(Car.id == carId).first()
-        # print car
+        # carname = Car.query.filter(Car.carname == carName).first()
+        # carterminalid = Car.query.filter(Car.terminalid == terminalid).first()
+        # if (carname and car!=carname) or (carterminalid and car!=carterminalid):
+        #     return u'失败,名称或终端id已存在'
+        # else:
         car.carname = carName
         car.carstate = carState
         car.driver = driver
@@ -266,15 +288,28 @@ def detail():
     }
     return render_template('detail.html',**context)
 
-@home.route('/write/<car_id>',methods=['GET'])
+@home.route('/write/',methods=['POST'])
 @login_required
-def write(car_id):
+def write():
     '''添加页面'''
-    if car_id =='add':
-        return render_template('write.html')
-    else:
-        car_target=Car.query.filter(Car.terminalid == car_id).first()
-        return render_template('write.html',car_target=car_target)
+    car_id =  request.form.get('terminalid')
+
+    car_target=Car.query.filter(Car.terminalid == int(car_id)).first()
+
+    context = {}
+    context["id"] = car_target.id
+    context["carname"] = car_target.carname
+    context["carstate"] = car_target.carstate
+    context["driver"] = car_target.driver
+    context["driverphone"] = car_target.driverphone
+    context["steward"] = car_target.steward
+    context["starttime"] = car_target.starttime
+    context["endtime"] = car_target.endtime
+    context["cartype"] = car_target.cartype
+    context["company"] = car_target.company
+    context["terminalid"] = car_target.terminalid
+    context["team"] = car_target.team
+    return json.dumps(context)
 
 
 @home.route('/js_get/',methods=['GET'])
@@ -299,7 +334,7 @@ def js_get():
         context["team"] = obj.team
         list.append(context)
     return json.dumps(list)
-    # return str(context[0].id)
+
 
 @home.route('/showHistory/',methods=['POST'])
 def showHistory():
@@ -314,10 +349,8 @@ def showHistory():
         fliterTtime2='23:59:59'
     mintime = fliterDate + ' ' + fliterTtime1
     maxtime = fliterDate + ' ' + fliterTtime2
-    # print mintime,maxtime
     data_list = Route.query.filter(Route.terminalid==carId).filter(Route.create_time >= mintime).filter( Route.create_time <= maxtime).order_by(Route.create_time.desc()).all()
     list = []
-    # print len(data_list)
     for obj in data_list:
         context = {}
         context["id"] = obj.id

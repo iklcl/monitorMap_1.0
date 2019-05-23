@@ -136,7 +136,7 @@ function buildLocationList(data) {
     var listings = document.getElementById('overlay');
     var listing = listings.appendChild(document.createElement('div'));
     listing.className = 'item';
-    listing.id = "listing-" + 1;
+    listing.id = "listing-" +prop.layerid ;
     var listing1 = listing.appendChild(document.createElement('div'));
     listing1.innerHTML = '<input type="hidden" id="layerid"  value="' + prop.layerid + '"> '
     listing1.className = 'item1';
@@ -154,7 +154,6 @@ function buildLocationList(data) {
         var infoWindow = document.getElementById('hide');
         infoWindow.style.display = 'block';
         var ahref = document.getElementById('ahref');
-        ahref.href = "/write/" + prop.terminalid;
         var inputName = document.getElementById('focusedInput');
         inputName.innerHTML = prop.name;
         var inputterminalid = document.getElementById('terminalid');
@@ -164,8 +163,8 @@ function buildLocationList(data) {
         mileage.innerHTML = prop.mileage;
         var speed = document.getElementById('Speed');
         speed.innerHTML = prop.Speed;
-        var changeState = document.getElementById('changeState');
-        changeState.value = prop.state;
+        // var changeState = document.getElementById('changeState');
+        // changeState.value = prop.state;
         var waring = document.getElementById('waring');
         waring.innerHTML = prop.alarm;
         var inputdriver = document.getElementById('driver');
@@ -185,17 +184,20 @@ function buildLocationList(data) {
     })
     var details = listing.appendChild(document.createElement('div'));
     details.className = 'stateA';
-    details.innerHTML = prop.state;
+    stateB = details.appendChild(document.createElement('div'));
+    stateB.className = 'stateB';
+    stateB.innerHTML = prop.state;
     if (prop.state == "在线") {
         details.style.color = "#00853e";
-        link.style.color = "#00853e";
     } else {
-        link.style.color = "#BFBFBF";
         details.style.color = "#BFBFBF";
     }
     var delspan = details.appendChild(document.createElement('a'));
     delspan.href = "javascript:void(0);";
     delspan.innerHTML = '<span class="glyphicon glyphicon-trash" style="color:#BFBFBF;float:right;margin-right:8%;"></span>';
+    var state2 = listing.appendChild(document.createElement('div'));
+    state2.className = 'state2';
+    state2.innerHTML = prop.state2;
     //delete
     delspan.addEventListener('click', function (e) {
         var postdata = {"carname": prop.name};
@@ -218,8 +220,7 @@ function buildLocationList(data) {
     link.addEventListener('click', function (e) {
         var clickedListing = data.features[this.dataPosition];
         document.getElementById('map').click();
-        if (clickedListing.geometry.coordinates.length != 0) {
-
+        if (clickedListing.geometry.coordinates.length != 0&& clickedListing.properties.state=="在线") {
             if (22.50352 < clickedListing.geometry.coordinates[1] && clickedListing.geometry.coordinates[1] < 22.5843 && 113.87039 < clickedListing.geometry.coordinates[0] && clickedListing.geometry.coordinates[0] < 114.2445) {
                 map.flyTo({
                     center: clickedListing.geometry.coordinates,
@@ -229,7 +230,6 @@ function buildLocationList(data) {
             else {
                 alert("车辆不在地图范围内，无法定位！")
             }
-
             var activeItem = document.getElementsByClassName('active');
             if (activeItem[0]) {
                 activeItem[0].classList.remove('active');
@@ -356,7 +356,13 @@ function showHistory() {
                             }
                         });
                         mapLine.push(accId + id);
-                        map.flyTo({center: orgin})
+                        if (22.50352 < orgin[1] && orgin[1] < 22.5843 && 113.87039 < orgin[0] && orgin[0] < 114.2445) {
+                                map.flyTo({center: orgin})
+                            }
+                            else {
+                                alert("车辆不在地图范围内，无法定位！")
+                            }
+
                     }
                     else {
                         map.removeLayer("layer" + accId + id);

@@ -48,7 +48,7 @@
                                     <td>{{ carInfo.team }}</td>
                                     <td>
                                         <a class="label label-success"
-                                           href="{{ url_for('home.write',car_id =carInfo.terminalid) }} ">编辑</a>
+                                           href="javascript:void(0);" onclick="a1({{ carInfo.terminalid }})" >编辑</a>
                                         &nbsp
                                         <a class="label label-danger"
                                            onclick="deleteInfo('{{ carInfo.carname }}')">删除</a>
@@ -60,9 +60,9 @@
                         </table>
                             <section class="content-header">
             <button id='add' style="background:#337AB7;color: #fff;display: inline-block;margin: 0 0 0 10px;line-height: 14px;padding: 10px 20px;border: none;cursor: pointer; border-radius: 3px; ">
-                <a href="{{ url_for('home.write',car_id = 'add') }}" style="color:white;" target="view_window">
+{#                <a href="{{ url_for('home.write',car_id = 'add') }}" style="color:white;" target="view_window">#}
                     <span class="glyphicon glyphicon-plus"></span>添加
-                </a>
+{#                </a>#}
             </button>
         </section>
                     </div>
@@ -83,6 +83,26 @@
         <!--内容-->
     </div>
     <script>
+      function a1(terminalid) {
+           $.post("/write/", {'terminalid':terminalid}, function (data) {
+               var dataJson=JSON.parse(data);
+            $("#myModalLabel").text("修改");
+            $("#isAdd").val("no");
+            $("#name").val(dataJson.carname);
+            $("#terminalid2").val(dataJson.terminalid);
+            $("#company2").val(dataJson.company);
+            $("#starttime2").val(dataJson.starttime);
+            $("#endtime2").val(dataJson.endtime);
+            $("#cartype2").val(dataJson.cartype);
+            $("#changeState2").val(dataJson.carstate);
+            $("#driver2").val(dataJson.driver);
+            $("#driverphone2").val(dataJson.driverphone);
+            $("#team2").val(dataJson.team);
+            $("#id").val(dataJson.id);
+            $('#myModal').modal();
+             });
+
+ };
         function deleteInfo(carName) {
             var postdata = {"carname": carName};
             var r = confirm("确认删除!");

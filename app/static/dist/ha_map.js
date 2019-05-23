@@ -129,6 +129,24 @@ map.loadImage(getRootPath()+'Image/ll.png', function(error, ll) {
 	});
 	})
 	map.addLayer({
+		'id': "MarkingArea_12030301_outline",
+		'type': "line",
+		'source': 'CLDSource',
+		'source-layer': 'ha_markingarea',
+		'minzoom': 18,
+		'layout': {
+			"line-join": "round",
+			"line-cap": "round"
+		},
+		'paint': {
+			"line-opacity": 1,
+			"line-color": "#FFDA23",
+			"line-width": 1.5,
+			// "line-gap-width": 1.5
+		},
+		'filter': ["==", "functionco", 12030301]
+	});
+	map.addLayer({
 		'id': "MarkingArea_11020102",
 		'type': "fill",
 		'minzoom': 17,

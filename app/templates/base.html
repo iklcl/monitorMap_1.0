@@ -6,6 +6,7 @@
     <script src="{{ url_for('static',filename='jquery-2.1.4/jquery.min.js') }}"></script>
     <link rel="stylesheet" href="{{ url_for('static',filename='bootstrap-3.3.7-dist/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static',filename='bootstrap-3.3.7-dist/js/bootstrap.min.js') }}">
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     {% block head %}{% endblock %}
     <title>{% block title %}{% endblock %}</title>
     <style>
@@ -22,8 +23,8 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2" style="margin-right: 5%;padding: 0 !important;">
             <ul class="nav navbar-nav" id="lii"  style="height:100%;margin-top: 3px; text-align: center;width: 16.7%;display: block;">
                 <section class="content-header" style="margin-right: 40%">
-                    <h3 style="margin-top: 6px !important;float: right"><a href="{{ url_for('home.index') }}" id="h3" target="view_window" style="text-decoration:none;"><small style="cursor:pointer;color: white;">平台地图</small></a></h3>
-                     <img class="img-circle" src="{{ url_for('static',filename='Image/logo.png') }}" alt=""  style="width:30px;color: white;float: right; margin-top: 6px !important;">
+                    <h3 style="margin-top: 6px !important;float: right"><a href="{{ url_for('home.index') }}" id="h3"  style="text-decoration:none;"><small style="cursor:pointer;color: white;">平台地图</small></a></h3>
+{#                     <img class="img-circle" src="{{ url_for('static',filename='Image/logo.png') }}" alt=""  style="width:30px;color: white;float: right; margin-top: 6px !important;">#}
                 </section>
             </ul>
 {#            <ul class="nav navbar-nav" style="margin-left: 2%;line-height: 50px;">#}
@@ -42,6 +43,142 @@
 </nav>
 <div class="main" style="margin: 0 auto;width: 100%;">
     {% block main %}{% endblock %}
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel" >新增</h4>
+                </div>
+                <form id="form1" onsubmit="return false" action="#" method="post">
+                    <input type="hidden" id="isAdd" name="add" value="">
+                    <input type="hidden" id="id" name="id" value="">
+                <div class="modal-body">
+                        <div class="form-group">
+                                        <label for="input_title">车名</label>
+                                        <input type="text" class="form-control" id="name" name="name" placeholder="请输入车名！（必填）">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="input_area">终端id</label>
+                                        <input type="text" class="form-control" id="terminalid2" name="terminalid" placeholder="请输入id！（必填）">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="input_area">司机</label>
+                                        <input type="text" class="form-control" name="driver" id="driver2" >
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="input_area">电话号码</label>
+                                        <input type="text" class="form-control" name="driverphone" id="driverphone2" >
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="input_area">始发车时间</label>
+                                        <input type="time" class="form-control" name="starttime" id="starttime2" >
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="input_area">末班车时间</label>
+                                        <input type="time" class="form-control" id="endtime2" name="endtime" >
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="input_area">运营单位</label>
+                                        <input type="text" class="form-control" id="company2" name="company" >
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="input_area">型号</label>
+                                        <input type="text" class="form-control" id="cartype2" name="cartype" >
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="input_release_time">车队</label>
+                                        <input type="text" class="form-control" id="team2" name="team">
+                                    </div>
+                                    <div class="form-group">
+                                        <p class="text-succcess" style="float: left">修改状态：</p>
+
+                                            <select id="changeState2" name="state" class="shortselect" >
+                                                <option value="在线">在线</option>
+                                                <option value="离线">离线</option>
+                                            </select>
+                                    </div>
+                </div>
+                </form>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                    <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal" onclick="over()"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+ $("#add").click(function () {
+            $("#myModalLabel").text("添加");
+            $("#isAdd").val("yes");
+            $("#name").val('');
+            $("#terminalid2").val('');
+            $("#company2").val('');
+            $("#starttime2").val('');
+            $("#endtime2").val('');
+            $("#cartype2").val('');
+            $("#changeState2").val('在线');
+            $("#driver2").val('');
+            $("#driverphone2").val('');
+            $("#team2").val('');
+            $("#id").val('');
+            $('#myModal').modal();
+ });
+ function a() {
+            var terminalid = $('#terminalid').text();
+           $.post("/write/", {'terminalid':terminalid}, function (data) {
+               var dataJson=JSON.parse(data);
+            $("#myModalLabel").text("修改");
+            $("#isAdd").val("no");
+            $("#name").val(dataJson.carname);
+            $("#terminalid2").val(dataJson.terminalid);
+            $("#company2").val(dataJson.company);
+            $("#starttime2").val(dataJson.starttime);
+            $("#endtime2").val(dataJson.endtime);
+            $("#cartype2").val(dataJson.cartype);
+            $("#changeState2").val(dataJson.carstate);
+            $("#driver2").val(dataJson.driver);
+            $("#driverphone2").val(dataJson.driverphone);
+            $("#team2").val(dataJson.team);
+            $("#id").val(dataJson.id);
+            $('#myModal').modal();
+             });
+
+ };
+
+ //修改添加完成
+function over(){
+    var param = {};
+    function appendInfo(id) {
+        var formData = $("#" + id).serializeArray();//把form里面的数据序列化成数组
+        formData.forEach(function (e) {
+            if (e.value != '00') {
+                param[e.name] = e.value;
+            }
+        });
+    }
+    appendInfo("form1");
+    if(
+        param.terminalid.replace(/\s*/g, "")==""||param.name.replace(/\s*/g, "")==""
+    ){
+        alert("名称和终端号不能为空！")
+        return false;
+    }
+    var isadd = $("#myModalLabel").text();
+    if (isadd=="添加") {
+        $.post("/add/", param, function (data) {
+            alert("添加"+data);
+            window.location.reload()
+        });
+    }
+    else {
+        $.post("/add/", param, function (data) {
+            alert("修改"+data);
+            window.location.reload()
+        });
+    }
+}
+</script>
 </div>
 
 </body>

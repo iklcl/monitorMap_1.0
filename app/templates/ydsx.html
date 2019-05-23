@@ -13,6 +13,8 @@
     <script src='https://api.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.js'></script>
     <script src="{{ url_for('static',filename = 'dist/MTLLoader.js') }}"></script>
     <link rel="stylesheet" href="{{ url_for('static',filename='bootstrap-3.3.7-dist/css/bootstrap.min.css') }}">
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
     <style>
         html,
         body {
@@ -27,7 +29,7 @@
             z-index: 0;
             position: absolute;
             left: 14.7%;
-            width: 84.9%;
+            width: 84.5%;
             bottom: 1px;
 {#            border-top: #909090 1.5px solid;#}
             background: white;
@@ -35,11 +37,17 @@
             box-shadow: -1px 2px 10px #6575A9 inset !important;
         }
         #map {
-            height: 100%;
+            height: 70%;
             z-index: 0;
             margin-top: 2px;
             margin-right: 2px;
         }
+     #mapdiv{
+         border-top:solid 2px #6575A9 ;
+         width: 100%;
+         height: 30%;
+         overflow-x:auto;
+     }
     </style>
 {% endblock %}
 
@@ -98,27 +106,26 @@
         padding: 1%;
     }
 
-    .mapboxgl-popup-content h3 {
-        background: #D0E9C6;
+    .mapboxgl-popup-content h4 {
+        background: #E0A67E;
         /* color: #fff; */
         margin: 0;
         display: block;
         padding: 5px;
         border-radius: 2px 2px 0 0;
-        font-weight: 300;
+        font-weight: 200;
         /* margin-top: -15px; */
     }
-
     #showNumber p {
         font-size: 18px;
         font-weight: 300;
     }
 
-    .mapboxgl-popup-content h4 {
+    .mapboxgl-popup-content h5{
         margin: 0;
         display: block;
         padding: 5px;
-        font-weight: 300;
+        font-weight: 200;
     }
 
     .mapboxgl-popup-content div {
@@ -180,6 +187,7 @@
         border-bottom: 4px solid #ECECEC;
         padding: 1%;
         text-indent: 10%;
+        height: 70px;
         text-decoration: none;
     }
 
@@ -195,7 +203,9 @@
     .item .title small {
         font-weight: 400;
     }
-    .item1{height: 50%}
+    .item1{height: 33%}
+    .stateA{height:33%}
+    .state2{height:33%}
     .item.active .title,
     .item .title:hover {
         color: #8cc63f;
@@ -241,7 +251,7 @@
     #hide {
         width: 330px;
         float: left;
-        box-shadow: 0 0 10px 2px rgba(31, 51, 73, .1);
+        box-shadow: 0px 1px 5px #6575A9 inset;
         flex-direction: column;
         background: #ECECEC;
         text-indent: 10%;
@@ -275,6 +285,15 @@
         height: 5%;
         float: left;
         border-radius: 100px;
+    }
+    .stateB {
+        float: left;
+        width: 50%;
+
+    }
+    .stateA  a{
+        float: right;
+        margin-right: 8px;
     }
     .others p {margin-bottom: 2px !important;}
     .shortselect {
@@ -311,7 +330,7 @@
             <div class="middle"
                  style="margin-bottom: 10%; margin-top: 10%; border-bottom: #0378AB 1px solid ;border-top: #0378AB 1px solid ; color: black;">
                 <button id='add' style=" margin-top:10% ;margin-bottom: 10%;margin-right: 10%;float: left;" >
-                    <a href="{{url_for('home.write',car_id = 'add')}}" style="color:white;">
+{#                    <a href="{{url_for('home.write',car_id = 'add')}}" style="color:white;">#}
                     <span class="glyphicon glyphicon-plus"></span>添加
                 </a>
                 </button>
@@ -324,17 +343,64 @@
         </div>
         <div>
             <a href="{{ url_for('home.downloads') }}">统计</a>
-{#            <form action="{{ url_for('downloads') }}" method="get" enctype=multipart/form-data >#}
-{#                <input type=submit value=统计>#}
-{#        </form>#}
+
         </div>
         <div id='overlay' class='overlay'>
         </div>
     </div>
 </div>
 <div id="map-box">
-<div id='map'>
-</div>
+    <div id='map'>
+    </div>
+    <div id="mapdiv">
+        <section class="content" id="showcontent">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box-body table-responsive no-padding">
+                        <table class="table table-hover">
+                            <tbody>
+                            <tr style="background:#ECECEC;">
+                                <th></th>
+                                <th>车牌号</th>
+                                <th>终端id</th>
+                                <th>司机</th>
+                                <th>电话号码</th>
+                                <th>始发车时间</th>
+                                <th>末班车时间</th>
+                                <th>运营单位</th>
+                                <th>型号</th>
+                                <th>车队</th>
+                                <th>操作事项</th>
+                            </tr>
+                            {% for carInfo in dataOrder %}
+                                <tr>
+                                   <td></td>
+                                    <td>{{ carInfo.carname }}</td>
+                                    <td>{{ carInfo.terminalid }}</td>
+                                    <td>{{ carInfo.driver }}</td>
+                                    <td>{{ carInfo.driverphone }}</td>
+                                    <td>{{ carInfo.starttime }}</td>
+                                    <td>{{ carInfo.endtime }}</td>
+                                    <td>{{ carInfo.company }}</td>
+                                    <td>{{ carInfo.cartyoe }}</td>
+                                    <td>{{ carInfo.team }}</td>
+                                    <td>
+                                        <a class="label label-success"
+                                           href="javascript:void(0);" onclick="a1({{ carInfo.terminalid }})" >编辑</a>
+                                        &nbsp
+                                        <a class="label label-danger"
+                                           onclick="deleteInfo('{{ carInfo.carname }}')">删除</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 </div>
 <div id="hide" style="position: fixed;left: 14%;top: 1%; display: none;">
     <div class="row1" style="height:5%;border-bottom: #0378AB 1px solid ;margin-left: 3%;margin-top: 5%;">
@@ -357,7 +423,7 @@
 					 </span>
             </a>
             <!-- 编辑按钮 -->
-            <a href="javascript:void(0);" id ="ahref" title="编辑">
+            <a href="javascript:void(0);" id ="ahref" title="编辑" onclick="a()">
 					<span class="glyphicon glyphicon-pencil" style="float: right;margin-right: 4%;">
 					</span>
             </a>
@@ -377,15 +443,15 @@
                 <p class="text-succcess">车速：(km/h)</p>
                 <p id="Speed" class="text-primary">100</p>
             </div>
-            <div>
-                    <p class="text-succcess">修改状态：</p>
-                    <div class="input-group input-group-sm" style="width: 50%; margin-left: 20%;">
-                        <select id="changeState" name="state" class="shortselect">
-                            <option value="在线">在线</option>
-                            <option value="离线">离线</option>
-                        </select>
-                    </div>
-            </div>
+{#            <div>#}
+{#                    <p class="text-succcess">修改状态：</p>#}
+{#                    <div class="input-group input-group-sm" style="width: 50%; margin-left: 20%;">#}
+{#                        <select id="changeState" name="state" class="shortselect">#}
+{#                            <option value="在线">在线</option>#}
+{#                            <option value="离线">离线</option>#}
+{#                        </select>#}
+{#                    </div>#}
+{#            </div>#}
                 <div class="others">
                 <p class="text-succcess">终端号：</p>
                 <p class="text-primary" id="terminalid" >1</p>
@@ -482,6 +548,44 @@
         $('#h3').attr('href','{{ url_for('home.detail') }}')
         $('small').html('平台管理')
     });
+       function a1(terminalid) {
+           $.post("/write/", {'terminalid':terminalid}, function (data) {
+               var dataJson=JSON.parse(data);
+            $("#myModalLabel").text("修改");
+            $("#isAdd").val("no");
+            $("#name").val(dataJson.carname);
+            $("#terminalid2").val(dataJson.terminalid);
+            $("#company2").val(dataJson.company);
+            $("#starttime2").val(dataJson.starttime);
+            $("#endtime2").val(dataJson.endtime);
+            $("#cartype2").val(dataJson.cartype);
+            $("#changeState2").val(dataJson.carstate);
+            $("#driver2").val(dataJson.driver);
+            $("#driverphone2").val(dataJson.driverphone);
+            $("#team2").val(dataJson.team);
+            $("#id").val(dataJson.id);
+            $('#myModal').modal();
+             });
+
+ };
+        function deleteInfo(carName) {
+            var postdata = {"carname": carName};
+            var r = confirm("确认删除!");
+            if (r == true) {
+                $.post("/delete/", postdata, function (data) {
+                    if (data == "删除成功") {
+                        alert("删除成功！")
+                        window.location.reload();
+                    }
+                    else {
+                        alert("删除失败！")
+                    }
+                });
+            }
+            else {
+                return;
+            }
+        }
 </script>
 
 {% endblock %}

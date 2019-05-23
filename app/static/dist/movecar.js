@@ -112,7 +112,8 @@ Car.prototype.run = function () {
                 "company": company,
                 "mileage": "",
                 "Speed": "",
-                "alarm": "无报警"
+                "alarm": "无报警",
+                "state2":''
                 // "angle":reangle,
             },
             "geometry": {
@@ -138,12 +139,12 @@ Car.prototype.run = function () {
             "type": "circle",
             'minzoom': 15,
             "paint": {
-                "circle-radius":{
-			"stops": [
-				[14, 0],
-				[17.5, 10]
-			],
-		},
+                "circle-radius": {
+                    "stops": [
+                        [14, 0],
+                        [17.5, 10]
+                    ],
+                },
                 "circle-color": "#C9021F"
             },
 
@@ -160,48 +161,55 @@ Car.prototype.run = function () {
                 // map.removeLayer(Pointid)
             }
             ;
-            return;
+            // return;
         }
         var tag = point.features[0].properties;
         $.post('/pointlat/', {'terminalid': tag.terminalid, 'i': i}, function (data) {
+            var divta=$('#listing-'+tag.layerid ).contents(".stateA");
+
             if (data == '{}') {
-                point.features[0].properties.state="离线";
-                var param = {"terminalid": point.features[0].properties.terminalid,
-                                "status": "离线"};
-                $.post("/revise/", param, function (data) {
-                   window.location.reload();
-                })
-                return;
-            }
-            var datas = JSON.parse(data);
-            oldCoordinate = datas["coordinates"];
-            i++;
-            point.features[0].geometry.coordinates = oldCoordinate;
-            point.features[0].properties.mileage = datas["mileage"];
-            point.features[0].properties.Speed = datas["speed"];
-            point.features[0].properties.alarm = datas["alarm"];
-            if (datas["alarm"] != "无报警") {
-                point.features[0].properties.alarm = datas["alarm"];
-                document.getElementById("info" + tag.layerid).style.setProperty('color', '#E00000', 'important');
-            }
-            else {
-                if (map.getLayer(Pointid) != undefined) {
-                    document.getElementById("info" + tag.layerid).style.setProperty('color', '#337AB7', 'important');
-                }
-            }
-            if (oldCoordinate != undefined) {
-                if (map.getSource(Pointsour) != undefined) {
-                    map.getSource(Pointsour).setData(point);
-                }
-            }
-            ;
-            counter = 0;
-            if (datas.accstate != 'false' && map.getLayer(Pointid) != undefined) {
-                setTimeout(runEvery10Sec, 1000);
-            }
-            else {
                 isStop = true;
+                point.features[0].properties.state = "离线";
+                divta.contents(".stateB").text("离线");
+                divta.contents(".stateB").css("color","#BFBFBF");
             }
+            else {
+                var datas = JSON.parse(data);
+                if(datas["state"]=="离线"){
+                    divta.contents(".stateB").text("离线");
+                    divta.contents(".stateB").css("color","#BFBFBF");
+                }
+                else{
+                    divta.contents(".stateB").text("在线");
+                    divta.contents(".stateB").css("color","#00853e");
+                }
+                divItem=$('#listing-'+tag.layerid )
+                divItem.contents(".state2").text(datas["devicecount"]);
+                oldCoordinate = datas["coordinates"];
+                i++;
+                point.features[0].geometry.coordinates = oldCoordinate;
+                point.features[0].properties.mileage = datas["mileage"];
+                point.features[0].properties.Speed = datas["speed"];
+                point.features[0].properties.alarm = datas["alarm"];
+                point.features[0].properties.state = datas["state"];
+                point.features[0].properties.state2 = datas["devicecount"]
+                if (datas["alarm"] != "无报警") {
+                    point.features[0].properties.alarm = datas["alarm"];
+                    document.getElementById("info" + tag.layerid).style.setProperty('color', '#E00000', 'important');
+                }
+                else {
+                    if (map.getLayer(Pointid) != undefined) {
+                        document.getElementById("info" + tag.layerid).style.setProperty('color', '#337AB7', 'important');
+                    }
+                }
+                if (oldCoordinate != undefined) {
+                    if (map.getSource(Pointsour) != undefined) {
+                        map.getSource(Pointsour).setData(point);
+                    }
+                }
+                ;
+            }
+            setTimeout(runEvery10Sec, 1000);
         });
     }
 
@@ -234,7 +242,7 @@ Car.prototype.run = function () {
                 center: point.features[0].geometry.coordinates
             });
             popup.setLngLat(features[0].geometry.coordinates)
-                .setHTML('<h3>' + features[0].properties.name + '</h3><h4>' + features[0].properties.alarm + '</h4>')
+                .setHTML('<h4>' + features[0].properties.name + '</h4><h5>' + features[0].properties.state2 + '</h5>')
                 .addTo(map);
             Isstop = 1;
         } else {

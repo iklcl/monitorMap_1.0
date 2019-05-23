@@ -1,13 +1,12 @@
-# Blender MTL File: 'None'
-# Material Count: 1
-
-newmtl Material_#24
-Ns 96.078431
-Ka 1.000000 1.000000 1.000000
-Kd 0.467451 0.467451 0.467451
-Ks 0.449020 0.449020 0.449020
-Ke 0.000000 0.000000 0.000000
-Ni 1.000000
-d 1.000000
+# Max2Mtl Version 4.0 Mar 10th, 2001
+#
+newmtl Material__68
+Ka  0.6 0.6 0.6
+Kd  0.6 0.6 0.6
+Ks  0.9 0.9 0.9
+d  1.0
+Ns  0.0
 illum 2
-map_Kd 64201005.BMP
+map_Kd 64201005.bmp
+#
+# EOF
