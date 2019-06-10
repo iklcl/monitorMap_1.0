@@ -4,9 +4,8 @@ map.on('load',function(){
 		'type': 'vector',
 		'scheme': 'tms',
 		'tiles': [
-			//http://192.168.85.38:8080/geoserver/gwc/service/tms/1.0.0/ydsxdata%3Aydsxdata@EPSG%3A900913@pbf
-			// window.location.protocol + '//' +'1116.77.32.19'+':8080/geoserver/gwc/service/tms/1.0.0/ydsx@EPSG%3A900913@pbf/{z}/{x}/{y}.pbf',
-			'http://192.168.85.38:8080/geoserver/gwc/service/tms/1.0.0/ydsxdb%3Aydsxdb@EPSG%3A900913@pbf/{z}/{x}/{y}.pbf',
+			// 'http://'+getIP()+'/geoserver/gwc/service/tms/1.0.0/projectfor527%3Aproject@EPSG%3A900913@pbf/{z}/{x}/{y}.pbf',
+			'http://192.168.85.38:8080/geoserver/gwc/service/tms/1.0.0/ydsxdb%3Aydsxdb@EPSG%3A900913@pbf/{z}/{x}/{y}.pbf'
 		]
 	}
 	);

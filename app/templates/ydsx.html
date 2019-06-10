@@ -54,6 +54,11 @@
 {% block title %}高精度地图监控平台{% endblock %}
 
 {% block main %}
+ <script>
+ function getIP() {
+     return '{{ ip }}';
+ }
+ </script>
 <style type='text/css'>
     .mapboxgl-popup {
         max-width: 200px;
@@ -370,7 +375,6 @@
                                 <th>运营单位</th>
                                 <th>型号</th>
                                 <th>车队</th>
-                                <th>操作事项</th>
                             </tr>
                             {% for carInfo in dataOrder %}
                                 <tr>
@@ -384,13 +388,7 @@
                                     <td>{{ carInfo.company }}</td>
                                     <td>{{ carInfo.cartyoe }}</td>
                                     <td>{{ carInfo.team }}</td>
-                                    <td>
-                                        <a class="label label-success"
-                                           href="javascript:void(0);" onclick="a1({{ carInfo.terminalid }})" >编辑</a>
-                                        &nbsp
-                                        <a class="label label-danger"
-                                           onclick="deleteInfo('{{ carInfo.carname }}')">删除</a>
-                                    </td>
+
                                 </tr>
                             {% endfor %}
 

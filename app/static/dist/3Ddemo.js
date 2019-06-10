@@ -168,36 +168,36 @@ map.on('load', function () {
         })
     })
     	//公交站名称
-	// 	map.addLayer({
-	// 			'id': 'text_busstation',
-	// 			'source': 'areaSource',
-	// 			'source-layer':'poi_bus',
-	// 			'type': 'symbol',
-	// 			'minzoom':18,
-	// 			// 'maxzoom':18,
-	// 			"layout": {
-	// 				"icon-image": "point",
-	// 				'text-field':"{name}",
-	// 				'text-size':12,
-	// 				'text-font':["MicrosoftYaHeiRegular"],
-	// 				'text-anchor':'top',
-     //                'text-offset':{
-     //                        "stops": [
-     //                            [17, [0,0.5]],
-     //                            [20, [0,2]]
-     //                        ],
-     //                    },
-    //
-	// 			},
-	// 			'paint': {
-	// 				'text-color':'rgb(124,76,174)',
-	// 				'text-halo-color':'rgb(245,245,245)',
-	// 				'text-halo-width':1,
-	// 				'text-halo-blur':1,
-     //                'text-translate':[0,0],
-     //                 'text-translate-anchor':'map'
-	// 			},
-	// })
+		map.addLayer({
+				'id': 'text_busstation',
+				'source': 'areaSource',
+				'source-layer':'poi_bus',
+				'type': 'symbol',
+				'minzoom':18,
+				// 'maxzoom':18,
+				"layout": {
+					"icon-image": "point",
+					'text-field':"{name}",
+					'text-size':14,
+					'text-font':["MicrosoftYaHeiRegular"],
+					'text-anchor':'top',
+                    'text-offset':{
+                            "stops": [
+                                [17, [0,0.5]],
+                                [20, [0,3]]
+                            ],
+                        },
+
+				},
+				'paint': {
+					'text-color':'rgb(124,76,174)',
+					'text-halo-color':'rgb(245,245,245)',
+					'text-halo-width':1,
+					'text-halo-blur':1,
+                    'text-translate':[0,0],
+                     'text-translate-anchor':'map'
+				},
+	})
 })
 map.on('load', function () {
     for (var index in t) {

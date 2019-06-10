@@ -18,7 +18,7 @@ var map = new mapboxgl.Map({
 	zoom: 17,//初始空间层次
 	maxBounds: bounds,
 	minZoom: 11,
-	maxZoom: 20,
+	maxZoom: 21,
 	pitch: 30,
     localIdeographFontFamily: "'Noto Sans', 'Noto Sans CJK SC', sans-serif",
 	style: {
@@ -30,7 +30,8 @@ var map = new mapboxgl.Map({
 				'type': 'vector',
 				'scheme': 'tms',
 				'tiles': [
-					'http://192.168.85.38:8080/geoserver/gwc/service/tms/1.0.0/ydsxdb%3Aydsxdb@EPSG%3A900913@pbf/{z}/{x}/{y}.pbf',
+					// 'http://'+getIP()+'/geoserver/gwc/service/tms/1.0.0/projectfor527%3Aproject@EPSG%3A900913@pbf/{z}/{x}/{y}.pbf',
+                    'http://192.168.85.38:8080/geoserver/gwc/service/tms/1.0.0/ydsxdb%3Aydsxdb@EPSG%3A900913@pbf/{z}/{x}/{y}.pbf'
 				]
 			}
 		},

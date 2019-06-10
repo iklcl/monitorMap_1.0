@@ -97,7 +97,7 @@ function search() {
         var data = keyword.replace(/\s*/g, "").toLowerCase();
         for (i = 0; i < listings.children.length; i++) {
             var item = listings.children[i];
-            var text = item.firstElementChild.firstElementChild.innerText.replace(/\s*/g, "").toLowerCase();
+            var text = item.firstElementChild.children[1].innerText.replace(/\s*/g, "").toLowerCase();
             if (data == "") {
                 item.style.display = 'block';
             }
@@ -220,7 +220,7 @@ function buildLocationList(data) {
     link.addEventListener('click', function (e) {
         var clickedListing = data.features[this.dataPosition];
         document.getElementById('map').click();
-        if (clickedListing.geometry.coordinates.length != 0&& clickedListing.properties.state=="在线") {
+        if (clickedListing.geometry.coordinates.length != 0&& clickedListing.properties.state!="离线") {
             if (22.50352 < clickedListing.geometry.coordinates[1] && clickedListing.geometry.coordinates[1] < 22.5843 && 113.87039 < clickedListing.geometry.coordinates[0] && clickedListing.geometry.coordinates[0] < 114.2445) {
                 map.flyTo({
                     center: clickedListing.geometry.coordinates,
@@ -313,7 +313,7 @@ function showHistory() {
                 link.addEventListener('click', function (e) {
                     id = this.id;
                     var point = datasHistory[id].linejson;
-                    var orgin = point[0].coordinates
+                    var orgin = point[point.length-1].coordinates
                     var coordinates = [];
                     for (il = 0; il < point.length; il++) {
                         coordinates.push(point[il].coordinates);
@@ -360,7 +360,9 @@ function showHistory() {
                                 map.flyTo({center: orgin})
                             }
                             else {
-                                alert("车辆不在地图范围内，无法定位！")
+                                map.removeLayer("layer" + accId + id);
+                                map.removeSource("sour" + accId + id);
+                                alert("不在地图范围内，无法显示！")
                             }
 
                     }

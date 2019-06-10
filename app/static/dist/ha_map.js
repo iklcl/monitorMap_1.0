@@ -5,8 +5,8 @@ map.on('load', function () {
             'type': 'vector',
             'scheme': 'tms',
             'tiles': [
-                // 'http://116.77.32.197:8080/geoserver/gwc/service/tms/1.0.0/ydsx@EPSG%3A900913@pbf/{z}/{x}/{y}.pbf',
-				'http://192.168.85.38:8080/geoserver/gwc/service/tms/1.0.0/ydsxdb%3Aydsxdb@EPSG%3A900913@pbf/{z}/{x}/{y}.pbf',
+                // 'http://'+getIP()+'/geoserver/gwc/service/tms/1.0.0/projectfor527%3Aproject@EPSG%3A900913@pbf/{z}/{x}/{y}.pbf',
+				'http://192.168.85.38:8080/geoserver/gwc/service/tms/1.0.0/ydsxdb%3Aydsxdb@EPSG%3A900913@pbf/{z}/{x}/{y}.pbf'
             ]
         }
     );
@@ -395,6 +395,7 @@ map.loadImage(getRootPath()+'Image/ll.png', function(error, ll) {
 		'source-layer': 'ha_segragate_line',
 		'type': 'line',
 		'minzoom': 17,
+
 		'paint': {
 			'line-width': {
 				"base": 2,
@@ -438,6 +439,11 @@ map.loadImage(getRootPath()+'Image/ll.png', function(error, ll) {
 			// 'filter': ['==', 'extrude', 'true'],
 			'type': 'fill-extrusion',
 			'minzoom': 15,
+			 'filter': [
+			 	'all',
+			["!=", "height", -1],
+			['!=', 'buildingid', 101568319]
+			 	],
 			'paint': {
 			'fill-extrusion-color': '#aaa',
 

@@ -3,14 +3,14 @@
 import sys
 sys.path.append("..")
 from . import home
-from flask import render_template,request,abort,make_response,send_file,send_from_directory,url_for,redirect,session
+from flask import render_template,request,abort,make_response, send_from_directory,url_for,redirect,session
 from app.models import Car,Route,User
 from functools import  wraps
 from app import db
 import json
 import urllib2,urllib
 from lxml import etree
-import codecs,os,datetime,csv,shutil
+import codecs,os,datetime,csv
 
 ALLOWED_EXTENSIONS = set(['db', 'csv', 'py','jpg','rar','txt','xls','doc','zip','pdf','png','xlsx','docx',''])
 path1=os.path.join(os.getcwd(),'data')
@@ -67,6 +67,28 @@ def regist():
                 db.session.commit()
                 return  redirect(url_for('home.login'))
 
+ # 密码修改
+@home.route('/revisepassworld/', methods=['GET', 'POST'])
+def revisepassworld():
+    if request.method == 'GET':
+        return render_template('revise.html')
+    else:
+        username = request.form.get('username')
+        password1 = request.form.get('password1')
+        password2 = request.form.get('password2')
+        user = User.query.filter(User.username == username).first()
+        context={}
+        if user:
+            if password1 != password2:
+                context['data']= u'两次输入密码不相同'
+            else:
+                user.password = password1
+                db.session.commit()
+                context['data'] = u'修改成功！'
+        else:
+            context['data'] = u'用户不存在'
+        return render_template('revise.html', **context)
+
 
 #注销
 @home.route('/logout/',methods=['GET'])
@@ -88,8 +110,8 @@ def my_context_processor():
 
 def get_state(terminalid):
     "接口请求数据"
-    # url = "http://183.62.223.65:3380/LBSCommunicator/UserService.asmx/GetRealtimeData"
-    url="http://116.77.32.199:8080/UserService.asmx/GetRealtimeData"
+    # url="http://116.77.32.199:8080/UserService.asmx/GetRealtimeData"
+    url="http://{0}/UserService.asmx/GetRealtimeData".format(time_x('reload.sh')[4][0].replace('"','').replace('#',''))
     data1 = {
         'userName': 'cld_test',
         'password': '1',
@@ -101,7 +123,6 @@ def get_state(terminalid):
         response = urllib2.urlopen(req)
     except Exception as e:
         return {}
-    # response = urllib2.urlopen(url)
     html = response.read()
     response.close()
     html=etree.HTML(html)
@@ -111,6 +132,8 @@ def get_state(terminalid):
     for i in child:
         # a=etree.tostring(i, pretty_print=True)
         dact[i.tag]=i.text
+    # print dact
+    dact['speed'] = int(dact['speed'])/10
     return dact
 def time_x(filename):
         "读取数据"
@@ -151,6 +174,7 @@ def index():
             w = csv.writer(f)
             w.writerow(line)
     context = {
+        'ip':time_x('reload.sh')[2][0].replace('"','').replace('#',''),
         'dataOrder': Car.query.order_by('id').all()
     }
     return render_template('ydsx.html',**context)
@@ -167,6 +191,10 @@ def pointlat():
     data['coordinates'] = [float(data['longitude'])/3600000,float(data['latitude'])/3600000]
     data['state']=''
     route = Route.query.filter(Route.terminalid == terminalid).order_by(Route.finish_time.desc()).first()
+    route2 = Route.query.filter(Route.terminalid == terminalid).order_by(Route.finish_time.desc())
+    # print route.create_time,len(json.loads(route.linejson)["listData"])
+    if len(json.loads(route.linejson)["listData"])==0:
+        route=route2[1]
     if route==None:
         datas = {"listData": [data]}
         routeadd =Route(linejson=json.dumps(datas), terminalid=terminalid)
@@ -177,6 +205,7 @@ def pointlat():
         if route.finish_time-route.create_time<datetime.timedelta(minutes=30) and datetime.datetime.now()-route.create_time<=datetime.timedelta(minutes=30):
             secondData = json.loads(route.linejson)["listData"]
             if data not in secondData:
+                route = Route.query.filter(Route.terminalid == terminalid).order_by(Route.finish_time.desc()).first()
                 secondData.append(data)
                 datas = {"listData": secondData}
                 route.linejson = json.dumps(datas)
@@ -184,15 +213,22 @@ def pointlat():
                 db.session.commit()
                 data['state'] = '在线'
             else:
+                # print terminalid
                 st = secondData[-1]['timew'].replace("T", ' ').split('.')[0]
                 dateSt = datetime.datetime.strptime(st, "%Y-%m-%d %H:%M:%S")
-                if datetime.datetime.now() -dateSt>datetime.timedelta(seconds=15):
+                if datetime.datetime.now() -route.finish_time>datetime.timedelta(seconds=90):
+                    route = Route.query.filter(Route.terminalid == terminalid).order_by(Route.finish_time.desc()).first()
+                    if len(json.loads(route.linejson)["listData"])!=0:
+                        datas = {"listData": []}
+                        routeadd = Route(linejson=json.dumps(datas), terminalid=terminalid)
+                        db.session.add(routeadd)
+                        db.session.commit()
                     data['state'] = '离线'
         else:
-            if  datetime.datetime.now() - route.create_time <= datetime.timedelta(hours=2):
+            if  datetime.datetime.now() - route.create_time <= datetime.timedelta(minutes=31):
                 lastData = json.loads(route.linejson)["listData"][-1]
             else:
-                lastData=[]
+                lastData={}
             datas = {"listData": [lastData,data]}
             routeadd = Route(linejson=json.dumps(datas), terminalid=terminalid)
             db.session.add(routeadd)
@@ -358,7 +394,8 @@ def showHistory():
         context["create_time"] = obj.create_time.strftime('%Y-%m-%d %H:%M:%S').split(" ")[1]
         context["finish_time"] = obj.finish_time.strftime('%Y-%m-%d %H:%M:%S').split(" ")[1]
         context["linejson"] = json.loads(obj.linejson)["listData"]
-        list.append(context)
+        if len(context["linejson"])>5:
+            list.append(context)
     return json.dumps(list)
 @home.route('/downloads/',methods=['GET'])
 def downloads():
@@ -371,5 +408,3 @@ def downloads():
             # response.headers["Content-Disposition"] = "attachment; filename=count.csv;"
             return response
     abort(404)
-    #     return send_from_directory(os.getcwd(),'data.csv',as_attachment=True)
-    # abort(404)
