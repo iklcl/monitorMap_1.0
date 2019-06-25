@@ -2,22 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="37f56904-995a-40d8-a5c2-f864bde5caad" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/templates/revise.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/reload.sh" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docx/linux部署本地地图瓦片服务.docx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/docx/高精度地图监控平台项目部署.docx" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/pydeal/ha_attachment.json" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/home/views.py" afterPath="$PROJECT_DIR$/app/home/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/static/dist/3Ddemo.js" afterPath="$PROJECT_DIR$/app/static/dist/3Ddemo.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/static/dist/addlist.js" afterPath="$PROJECT_DIR$/app/static/dist/addlist.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/static/dist/area_map.js" afterPath="$PROJECT_DIR$/app/static/dist/area_map.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/static/dist/ha_map.js" afterPath="$PROJECT_DIR$/app/static/dist/ha_map.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/static/dist/roadL.js" afterPath="$PROJECT_DIR$/app/static/dist/roadL.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/detail.html" afterPath="$PROJECT_DIR$/app/templates/detail.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/regist.html" afterPath="$PROJECT_DIR$/app/templates/regist.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/ydsx.html" afterPath="$PROJECT_DIR$/app/templates/ydsx.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/count.csv" afterPath="$PROJECT_DIR$/count.csv" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/manage.py" afterPath="$PROJECT_DIR$/manage.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pydeal/deal.py" afterPath="$PROJECT_DIR$/pydeal/deal.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -32,7 +21,7 @@
     <SUITE FILE_PATH="coverage/map_project$models.coverage" NAME="models Coverage Results" MODIFIED="1553156384834" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app" />
     <SUITE FILE_PATH="coverage/map_project$views.coverage" NAME="views Coverage Results" MODIFIED="1553158136813" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app/home" />
     <SUITE FILE_PATH="coverage/map_project$d.coverage" NAME="d Coverage Results" MODIFIED="1556357148645" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app" />
-    <SUITE FILE_PATH="coverage/map_project$deal.coverage" NAME="deal Coverage Results" MODIFIED="1557911155681" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pydeal" />
+    <SUITE FILE_PATH="coverage/map_project$deal.coverage" NAME="deal Coverage Results" MODIFIED="1560995715563" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pydeal" />
     <SUITE FILE_PATH="coverage/map_project$create_table.coverage" NAME="create_table Coverage Results" MODIFIED="1552033140450" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app" />
     <SUITE FILE_PATH="coverage/map_project$manage.coverage" NAME="manage Coverage Results" MODIFIED="1560148081220" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/map_project$test.coverage" NAME="test Coverage Results" MODIFIED="1559004902864" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app/home" />
@@ -41,64 +30,65 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="addlist.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/static/dist/addlist.js">
+      <file leaf-file-name="3Ddemo.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/static/dist/3Ddemo.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3154">
-              <caret line="166" column="33" lean-forward="false" selection-start-line="166" selection-start-column="33" selection-end-line="166" selection-end-column="33" />
+            <state relative-caret-position="1254">
+              <caret line="128" column="56" lean-forward="false" selection-start-line="128" selection-start-column="56" selection-end-line="128" selection-end-column="56" />
               <folding>
-                <marker date="1559631626128" expanded="true" signature="1105:1129" ph="..." />
-                <marker date="1559631626128" expanded="true" signature="7000:7042" ph="..." />
+                <element signature="n#CustomLayer#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="manage.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/manage.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="114">
-              <caret line="7" column="25" lean-forward="false" selection-start-line="7" selection-start-column="25" selection-end-line="7" selection-end-column="25" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="3Ddemo.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/static/dist/3Ddemo.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3819">
-              <caret line="201" column="0" lean-forward="false" selection-start-line="201" selection-start-column="0" selection-end-line="206" selection-end-column="2" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="area_map.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/static/dist/area_map.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
-              <caret line="38" column="19" lean-forward="true" selection-start-line="38" selection-start-column="19" selection-end-line="38" selection-end-column="19" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/home/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19">
-              <caret line="138" column="14" lean-forward="false" selection-start-line="138" selection-start-column="14" selection-end-line="138" selection-end-column="14" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ha_map.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/static/dist/ha_map.js">
+      <file leaf-file-name="roadL.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/static/dist/roadL.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="285">
-              <caret line="15" column="30" lean-forward="true" selection-start-line="15" selection-start-column="30" selection-end-line="15" selection-end-column="30" />
+              <caret line="15" column="38" lean-forward="false" selection-start-line="15" selection-start-column="38" selection-end-line="15" selection-end-column="38" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GLTFLoader.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/static/dist/GLTFLoader.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="342">
+              <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="deal.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pydeal/deal.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="253">
+              <caret line="49" column="18" lean-forward="true" selection-start-line="49" selection-start-column="18" selection-end-line="49" selection-end-column="18" />
+              <folding>
+                <element signature="e#1370#1514#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="bus_poi.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pydeal/bus_poi.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="19315" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="three_3d.json" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/../SK/app/static/dist/json/three_3d.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-969">
+              <caret line="0" column="1988" lean-forward="false" selection-start-line="0" selection-start-column="1988" selection-end-line="0" selection-end-column="1988" />
               <folding />
             </state>
           </provider>
@@ -108,24 +98,14 @@
         <entry file="file://$PROJECT_DIR$/app/static/dist/roadArrow.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="5244">
-              <caret line="276" column="0" lean-forward="true" selection-start-line="276" selection-start-column="0" selection-end-line="276" selection-end-column="0" />
+              <caret line="276" column="0" lean-forward="false" selection-start-line="276" selection-start-column="0" selection-end-line="276" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="roadL.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/static/dist/roadL.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="399">
-              <caret line="21" column="30" lean-forward="true" selection-start-line="21" selection-start-column="30" selection-end-line="21" selection-end-column="30" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="threebox.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/static/dist/threebox.js">
+      <file leaf-file-name="OBJLoader.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/static/dist/OBJLoader.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -134,12 +114,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="text.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/static/dist/text.js">
+      <file leaf-file-name="movecar.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/static/dist/movecar.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="15" column="19" lean-forward="true" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="19" />
+            <state relative-caret-position="4636">
+              <caret line="244" column="86" lean-forward="false" selection-start-line="244" selection-start-column="78" selection-end-line="244" selection-end-column="86" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="addlist.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/static/dist/addlist.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="6080">
+              <caret line="320" column="22" lean-forward="false" selection-start-line="320" selection-start-column="22" selection-end-line="329" selection-end-column="22" />
+              <folding>
+                <marker date="1559631626128" expanded="true" signature="1105:1129" ph="..." />
+                <marker date="1559631626128" expanded="true" signature="7000:7042" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -158,7 +151,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>tar</find>
       <find>clickfunction</find>
       <find>buildLocationList</find>
       <find>hide</find>
@@ -188,6 +180,7 @@
       <find>create_time</find>
       <find>print</find>
       <find>在线</find>
+      <find>Pointsour</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -222,7 +215,6 @@
         <option value="$PROJECT_DIR$/app/static/dist/json/ha_attachment1.json" />
         <option value="$PROJECT_DIR$/app/static/dist/roadArrow.js" />
         <option value="$PROJECT_DIR$/create_demo.py" />
-        <option value="$PROJECT_DIR$/pydeal/deal.py" />
         <option value="$PROJECT_DIR$/pydeal/ha_attachment1.json" />
         <option value="$PROJECT_DIR$/app/static/3Ddemo/74403007/74403007.mtl" />
         <option value="$PROJECT_DIR$/app/templates/write.html" />
@@ -235,13 +227,14 @@
         <option value="$PROJECT_DIR$/manage.py" />
         <option value="$PROJECT_DIR$/reload.sh" />
         <option value="$PROJECT_DIR$/app/static/dist/3Ddemo.js" />
-        <option value="$PROJECT_DIR$/app/templates/ydsx.html" />
         <option value="$PROJECT_DIR$/app/static/dist/text.js" />
         <option value="$PROJECT_DIR$/app/static/dist/addlist.js" />
         <option value="$PROJECT_DIR$/app/home/views.py" />
         <option value="$PROJECT_DIR$/app/static/dist/area_map.js" />
         <option value="$PROJECT_DIR$/app/static/dist/ha_map.js" />
         <option value="$PROJECT_DIR$/app/static/dist/roadL.js" />
+        <option value="$PROJECT_DIR$/app/templates/ydsx.html" />
+        <option value="$PROJECT_DIR$/pydeal/deal.py" />
       </list>
     </option>
   </component>
@@ -252,8 +245,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
+    <option name="x" value="-499" />
+    <option name="y" value="138" />
     <option name="width" value="1456" />
     <option name="height" value="876" />
   </component>
@@ -273,6 +266,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -282,6 +276,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="map_project" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="map_project" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="map_project" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pydeal" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -339,9 +347,26 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="map_project" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="map_project" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="home" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -352,16 +377,16 @@
     <property name="ToolWindowRun.ShowToolbar" value="false" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\mapbox\map_project\app" />
-      <recent name="D:\mapbox\map_project" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\mapbox\map_project\pydeal" />
       <recent name="D:\mapbox\map_project" />
       <recent name="D:\mapbox\map_project\app\templates" />
       <recent name="D:\mapbox\map_project\app\static\dist\json" />
       <recent name="D:\mapbox\map_project\app\static\Image" />
-      <recent name="D:\mapbox\map_project\app\static\dist" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\mapbox\map_project\app" />
+      <recent name="D:\mapbox\map_project" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -376,7 +401,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.manage">
+  <component name="RunManager" selected="Python.deal">
     <configuration default="false" name="views" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -669,8 +694,8 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.test" />
-        <item index="1" class="java.lang.String" itemvalue="Python.deal" />
+        <item index="0" class="java.lang.String" itemvalue="Python.deal" />
+        <item index="1" class="java.lang.String" itemvalue="Python.test" />
         <item index="2" class="java.lang.String" itemvalue="Python.create_demo" />
         <item index="3" class="java.lang.String" itemvalue="Python.d" />
         <item index="4" class="java.lang.String" itemvalue="Python.views" />
@@ -691,17 +716,18 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1456" height="876" extended-state="0" />
+    <frame x="-499" y="138" width="1456" height="876" extended-state="1" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24444444" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34969324" sideWeight="0.28402779" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34969324" sideWeight="0.2951389" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34969324" sideWeight="0.71597224" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34969324" sideWeight="0.7048611" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24444444" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20858896" sideWeight="0.7513889" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3994778" sideWeight="0.49444443" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -710,7 +736,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20887728" sideWeight="0.75972223" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -758,15 +783,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/static/dist/mapbox-gl.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/static/dist/direction.js" />
-    <entry file="file://$PROJECT_DIR$/app/static/dist/dynamicPoint.js" />
     <entry file="file://$PROJECT_DIR$/app/static/dist/zoom.css" />
     <entry file="file://$PROJECT_DIR$/app/static/dist/jquery.slim.min.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -782,13 +798,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pydeal/ha_attachment.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="73" column="19" lean-forward="false" selection-start-line="73" selection-start-column="9" selection-end-line="73" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/pydeal/ha_attachment.json" />
     <entry file="file://$PROJECT_DIR$/app/static/dist/json/bus_poi.json" />
     <entry file="file://$PROJECT_DIR$/app/static/3Ddemo/20190514/公交站牌.bmp" />
     <entry file="file://$PROJECT_DIR$/app/static/3Ddemo/20190514/公交站台.mtl" />
@@ -821,15 +831,7 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/data.csv" />
-    <entry file="file://$PROJECT_DIR$/pydeal/bus_poi.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="19315" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pydeal/bus_poi1.json" />
-    <entry file="file://$PROJECT_DIR$/pydeal/ha_attachment1.json" />
     <entry file="file://$PROJECT_DIR$/app/static/dist/json/ha_attachment1.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
@@ -841,13 +843,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="380">
           <caret line="20" column="1" lean-forward="true" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/static/dist/GLTFLoader.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="18" column="0" lean-forward="true" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -866,13 +861,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/templates/write.html" />
-    <entry file="file://$PROJECT_DIR$/pydeal/deal.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="51" column="12" lean-forward="false" selection-start-line="51" selection-start-column="12" selection-end-line="51" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/create_demo.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="194">
@@ -935,19 +923,10 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/home/test.py" />
-    <entry file="file://$PROJECT_DIR$/app/static/dist/movecar.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4674">
-          <caret line="246" column="23" lean-forward="false" selection-start-line="246" selection-start-column="23" selection-end-line="246" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="779">
           <caret line="41" column="15" lean-forward="false" selection-start-line="41" selection-start-column="4" selection-end-line="41" selection-end-column="15" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -955,43 +934,41 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="399">
           <caret line="21" column="67" lean-forward="false" selection-start-line="21" selection-start-column="61" selection-end-line="21" selection-end-column="67" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/ydsx.html">
+    <entry file="file://$PROJECT_DIR$/app/static/dist/ha_map.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="10298">
-          <caret line="542" column="0" lean-forward="false" selection-start-line="542" selection-start-column="0" selection-end-line="542" selection-end-column="111" />
-          <folding>
-            <marker date="1559212974968" expanded="false" signature="12971:13000" ph="..." />
-          </folding>
+        <state relative-caret-position="285">
+          <caret line="15" column="30" lean-forward="false" selection-start-line="15" selection-start-column="30" selection-end-line="15" selection-end-column="30" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/static/dist/3Ddemo.js">
+    <entry file="file://$PROJECT_DIR$/../SK/app/static/dist/json/three_3d.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3819">
-          <caret line="201" column="0" lean-forward="false" selection-start-line="201" selection-start-column="0" selection-end-line="206" selection-end-column="2" />
-          <folding />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/static/dist/addlist.js">
+    <entry file="file://$PROJECT_DIR$/app/static/dist/text.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3154">
-          <caret line="166" column="33" lean-forward="false" selection-start-line="166" selection-start-column="33" selection-end-line="166" selection-end-column="33" />
-          <folding>
-            <marker date="1559631626128" expanded="true" signature="1105:1129" ph="..." />
-            <marker date="1559631626128" expanded="true" signature="7000:7042" ph="..." />
-          </folding>
+        <state relative-caret-position="646">
+          <caret line="34" column="26" lean-forward="false" selection-start-line="34" selection-start-column="26" selection-end-line="34" selection-end-column="26" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/home/views.py">
+    <entry file="file://$PROJECT_DIR$/pydeal/tree3d.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="138" column="14" lean-forward="false" selection-start-line="138" selection-start-column="14" selection-end-line="138" selection-end-column="14" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/static/dist/threebox.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="5" column="2436" lean-forward="false" selection-start-line="5" selection-start-column="2436" selection-end-line="5" selection-end-column="2436" />
           <folding />
         </state>
       </provider>
@@ -1000,35 +977,65 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="114">
           <caret line="7" column="25" lean-forward="false" selection-start-line="7" selection-start-column="25" selection-end-line="7" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/home/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2964">
+          <caret line="156" column="21" lean-forward="false" selection-start-line="156" selection-start-column="21" selection-end-line="156" selection-end-column="21" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/templates/ydsx.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2147">
+          <caret line="113" column="22" lean-forward="false" selection-start-line="113" selection-start-column="22" selection-end-line="113" selection-end-column="22" />
+          <folding>
+            <marker date="1560743178942" expanded="false" signature="12848:12877" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/static/dist/area_map.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="38" column="19" lean-forward="true" selection-start-line="38" selection-start-column="19" selection-end-line="38" selection-end-column="19" />
+        <state relative-caret-position="988">
+          <caret line="52" column="14" lean-forward="false" selection-start-line="52" selection-start-column="14" selection-end-line="52" selection-end-column="14" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/static/dist/ha_map.js">
+    <entry file="file://$PROJECT_DIR$/app/static/dist/movecar.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="15" column="30" lean-forward="true" selection-start-line="15" selection-start-column="30" selection-end-line="15" selection-end-column="30" />
+        <state relative-caret-position="4636">
+          <caret line="244" column="86" lean-forward="false" selection-start-line="244" selection-start-column="78" selection-end-line="244" selection-end-column="86" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/static/dist/roadArrow.js">
+    <entry file="file://$PROJECT_DIR$/app/static/dist/addlist.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5244">
-          <caret line="276" column="0" lean-forward="true" selection-start-line="276" selection-start-column="0" selection-end-line="276" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="6080">
+          <caret line="320" column="22" lean-forward="false" selection-start-line="320" selection-start-column="22" selection-end-line="329" selection-end-column="22" />
+          <folding>
+            <marker date="1559631626128" expanded="true" signature="1105:1129" ph="..." />
+            <marker date="1559631626128" expanded="true" signature="7000:7042" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/static/dist/threebox.js">
+    <entry file="file://$PROJECT_DIR$/app/static/dist/3Ddemo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1254">
+          <caret line="128" column="56" lean-forward="false" selection-start-line="128" selection-start-column="56" selection-end-line="128" selection-end-column="56" />
+          <folding>
+            <element signature="n#CustomLayer#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/static/dist/OBJLoader.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -1036,18 +1043,52 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/static/dist/text.js">
+    <entry file="file://$PROJECT_DIR$/app/static/dist/roadArrow.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="15" column="19" lean-forward="true" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="19" />
+        <state relative-caret-position="5244">
+          <caret line="276" column="0" lean-forward="false" selection-start-line="276" selection-start-column="0" selection-end-line="276" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/static/dist/roadL.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="21" column="30" lean-forward="true" selection-start-line="21" selection-start-column="30" selection-end-line="21" selection-end-column="30" />
+        <state relative-caret-position="285">
+          <caret line="15" column="38" lean-forward="false" selection-start-line="15" selection-start-column="38" selection-end-line="15" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/static/dist/GLTFLoader.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pydeal/bus_poi.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="19315" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pydeal/deal.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="49" column="18" lean-forward="true" selection-start-line="49" selection-start-column="18" selection-end-line="49" selection-end-column="18" />
+          <folding>
+            <element signature="e#1370#1514#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../SK/app/static/dist/json/three_3d.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-969">
+          <caret line="0" column="1988" lean-forward="false" selection-start-line="0" selection-start-column="1988" selection-end-line="0" selection-end-column="1988" />
           <folding />
         </state>
       </provider>

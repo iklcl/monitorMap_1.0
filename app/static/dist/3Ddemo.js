@@ -115,7 +115,7 @@ class CustomLayer {
 }
 
 map.on('load', function () {
-    var dataroot = "static/dist/json/ha_attachment1.json";
+    var dataroot = "static/dist/json/three_3d.json";
     $.getJSON(dataroot, function (data) {
         var HA_Attachment2 = data[1];
         var HA_Attachment1 = data[0];
