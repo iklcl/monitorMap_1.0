@@ -299,7 +299,7 @@ function showHistory() {
     if (param.date && param.time1 <= param.time2) {
         $.post("/showHistory/", param, function (data) {
             var datasHistory = JSON.parse(data);
-            for (i = 0; i < datasHistory.length; i++) {
+            for (i = datasHistory.length-1; i>=0 ; i--) {
                 var line = datasHistory[i];
                 var accId = line.terminalid;
                 var listings = document.getElementById('history');
@@ -309,7 +309,7 @@ function showHistory() {
                 var link = listing.appendChild(document.createElement('a'));
                 link.href = "javascript:void(0);";
                 link.id = i;
-                link.innerHTML = line.create_time + "-" + line.finish_time;
+                link.innerHTML = line.create_time.slice(0,5)+ "-" + line.finish_time.slice(0,5);
                 link.addEventListener('click', function (e) {
                     id = this.id;
                     var point = datasHistory[id].linejson;
@@ -364,7 +364,6 @@ function showHistory() {
                                 map.removeSource("sour" + accId + id);
                                 alert("不在地图范围内，无法显示！")
                             }
-
                     }
                     else {
                         map.removeLayer("layer" + accId + id);

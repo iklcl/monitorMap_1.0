@@ -47,7 +47,9 @@
          width: 100%;
          height: 30%;
          overflow-x:auto;
+         position: relative;
      }
+    .alert{margin: auto 4px;}
     </style>
 {% endblock %}
 
@@ -346,25 +348,24 @@
 <div id="map-box">
     <div id='map'>
     </div>
-    <div id="mapdiv">
-        <section class="content" id="showcontent">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="box-body table-responsive no-padding">
-                        <table class="table table-hover">
-                            <tbody>
+    <div id="mapdiv" class="box-body  no-padding">
+
+                        <table class="table table-bordered scrollTable" style="position: absolute">
+                            <thead>
                             <tr style="background:#ECECEC;">
                                 <th></th>
-                                <th>车牌号</th>
-                                <th>终端id</th>
-                                <th>司机</th>
-                                <th>电话号码</th>
-                                <th>始发车时间</th>
-                                <th>末班车时间</th>
-                                <th>运营单位</th>
-                                <th>型号</th>
-                                <th>车队</th>
+                                <th style="width: 11%">车牌号</th>
+                                <th style="width: 14%">终端id</th>
+                                <th style="width: 10%">司机</th>
+                                <th style="width: 13%">电话号码</th>
+                                <th style="width: 10%">始发车时间</th>
+                                <th style="width: 10%">末班车时间</th>
+                                <th style="width: 15%">运营单位</th>
+                                <th style="width: 7%">型号</th>
+                                <th style="width: 10%">车队</th>
                             </tr>
+                            <thead>
+                            <tbody>
                             {% for carInfo in dataOrder %}
                                 <tr>
                                    <td></td>
@@ -375,19 +376,14 @@
                                     <td>{{ carInfo.starttime }}</td>
                                     <td>{{ carInfo.endtime }}</td>
                                     <td>{{ carInfo.company }}</td>
-                                    <td>{{ carInfo.cartyoe }}</td>
+                                    <td>{{ carInfo.cartype }}</td>
                                     <td>{{ carInfo.team }}</td>
-
                                 </tr>
                             {% endfor %}
-
                             </tbody>
                         </table>
-                    </div>
+
                 </div>
-            </div>
-        </section>
-    </div>
 </div>
 <div id="hide" style="position: fixed;left: 14%;top: 1%; display: none;">
     <div class="row1" style="height:5%;border-bottom: #0378AB 1px solid ;margin-left: 3%;margin-top: 5%;">
@@ -533,7 +529,28 @@
 <script type="text/javascript">
  $(document).ready(function(){
         $('#h3').attr('href','{{ url_for('home.detail') }}')
-        $('small').html('平台管理')
+        $('small').html('平台管理');
+        var $fixTable = $('#mapdiv .fixTable');
+        $('#mapdiv').scroll(function() {
+            var id = '#' + this.id;
+            var scrollTop = $(id).scrollTop() || $(id).get(0).scrollTop,
+                style = {
+                    'position': 'absolute',
+                    'left': '0',
+                    'right': '0',
+                    'top': scrollTop + 'px'
+                };
+            if ($fixTable.length) {
+                (scrollTop === 0) ? $fixTable.addClass('hidden') : $fixTable.removeClass('hidden');
+                $fixTable.css(style);
+            } else {
+                var html = $(id + ' .scrollTable thead').get(0).innerHTML;
+                var table = $('<table class="table table-bordered fixTable"><thead>' + html + '</thead></table>');
+                table.css(style);
+                $(id).append(table);
+                $fixTable = $(this).find('.fixTable');
+            }
+        });
     });
        function a1(terminalid) {
            $.post("/write/", {'terminalid':terminalid}, function (data) {

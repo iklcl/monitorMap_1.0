@@ -133,7 +133,6 @@ def get_state(terminalid):
         # a=etree.tostring(i, pretty_print=True)
         dact[i.tag]=i.text
     # print dact
-    dact['speed'] = int(dact['speed'])/10
     return dact
 def time_x(filename):
         "读取数据"
@@ -193,8 +192,11 @@ def pointlat():
     route = Route.query.filter(Route.terminalid == terminalid).order_by(Route.finish_time.desc()).first()
     route2 = Route.query.filter(Route.terminalid == terminalid).order_by(Route.finish_time.desc())
     # print route.create_time,len(json.loads(route.linejson)["listData"])
-    if len(json.loads(route.linejson)["listData"])==0:
-        route=route2[1]
+    try:
+        if len(json.loads(route.linejson)["listData"])==0:
+            route=route2[1]
+    except Exception as e:
+        route == None
     if route==None:
         datas = {"listData": [data]}
         routeadd =Route(linejson=json.dumps(datas), terminalid=terminalid)
@@ -234,6 +236,7 @@ def pointlat():
             db.session.add(routeadd)
             db.session.commit()
             data['state'] = '在线'
+    data['speed'] = int(data['speed']) / 10
     if data['devicecount']=="4":
         data['devicecount']="RTK FIX"
     elif data['devicecount']=="1":
@@ -256,7 +259,7 @@ def add():
     isAdd=request.form.get('add')
     carName = request.form.get('name')
     carId =  request.form.get('id')
-    carState = request.form.get('state')
+    carState = request.form.get('state','在线')
     driver = request.form.get('driver',None)
     driverphone = request.form.get('driverphone',None)
     starttime = request.form.get('starttime')
@@ -276,6 +279,7 @@ def add():
             db.session.commit()
             return u'成功'
     else:
+        print carId
         car = Car.query.filter(Car.id == carId).first()
         # carname = Car.query.filter(Car.carname == carName).first()
         # carterminalid = Car.query.filter(Car.terminalid == terminalid).first()
@@ -283,7 +287,7 @@ def add():
         #     return u'失败,名称或终端id已存在'
         # else:
         car.carname = carName
-        car.carstate = carState
+        # car.carstate = carState
         car.driver = driver
         car.driverphone = driverphone
         car.starttime = starttime
@@ -396,7 +400,7 @@ def showHistory():
         context["linejson"] = json.loads(obj.linejson)["listData"]
         if len(context["linejson"])>5:
             list.append(context)
-    return json.dumps(list)
+    return json.dumps(list )
 @home.route('/downloads/',methods=['GET'])
 def downloads():
     '''下载统计'''

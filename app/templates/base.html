@@ -32,7 +32,7 @@
 {#            </ul>#}
             <ul class="nav navbar-nav navbar-right"  style="height: 1% !important; display: block;">
                 {% if user %}
-                    <li><a href="{{ url_for('home.login') }}">{{ user.username }}</a></li>
+                    <li><a href="javascript:void(0);">{{ user.username }}</a></li>
                     <li><a href="{{ url_for('home.logout') }}">注销</a></li>
                 {% else %}
                     <li><a href="{{ url_for('home.login') }}">登录</a></li>
@@ -55,7 +55,7 @@
                     <input type="hidden" id="id" name="id" value="">
                 <div class="modal-body">
                         <div class="form-group">
-                                        <label for="input_title">车名</label>
+                                        <label for="input_title">车牌号</label>
                                         <input type="text" class="form-control" id="name" name="name" placeholder="请输入车名！（必填）">
                                     </div>
                                     <div class="form-group">
@@ -90,14 +90,14 @@
                                         <label for="input_release_time">车队</label>
                                         <input type="text" class="form-control" id="team2" name="team">
                                     </div>
-                                    <div class="form-group">
-                                        <p class="text-succcess" style="float: left">修改状态：</p>
-
-                                            <select id="changeState2" name="state" class="shortselect" >
-                                                <option value="在线">在线</option>
-                                                <option value="离线">离线</option>
-                                            </select>
-                                    </div>
+{#                                    <div class="form-group">#}
+{#                                        <p class="text-succcess" style="float: left">修改状态：</p>#}
+{##}
+{#                                            <select id="changeState2" name="state" class="shortselect" >#}
+{#                                                <option value="在线">在线</option>#}
+{#                                                <option value="离线">离线</option>#}
+{#                                            </select>#}
+{#                                    </div>#}
                 </div>
                 </form>
                 <div class="modal-footer">
