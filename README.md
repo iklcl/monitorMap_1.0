@@ -3,7 +3,7 @@ YDSX
 
 **环境(python2.7,flask,mysqk,及相应的flask包)**
 
-##目录结构  
+目录结构  
 > ├── app　　　　　　　　　//项目文件       
 > │   ├── home　　　　　　//视图            
 > │   ├── __init__.py　　　　　//初始化app                  
