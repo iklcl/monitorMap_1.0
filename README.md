@@ -1,44 +1,20 @@
 YDSX
 # 高精度地图平台
 
-**环境(python2.7,flask)**
+**环境(python2.7,flask,mysqk,及相应的flask包)**
 
-##目录结构
->├── app
->│   ├── home
->│   ├── __init__.py
->│   ├── models.py
->│   ├── static
->│   └── templates
->├── count.csv
->├── create_demo.py
->├── deal.py
->├── logs
->├── manage.py
->├── manage.pyc
->├── reload.sh
->├── uwsgi.ini
->└── venv
-3 其它
-图片
-![图片名称](http://gitcafe.com/image.png)
-链接
-[链接名称](http://gitcafe.com)
-引用
-> 第一行引用文字
-> 第二行引用文字
-水平线
-***
-代码
-`<hello world>`
-代码块高亮
-```ruby
-  def add(a, b)
-    return a + b
-  end
-```
-表格
-  表头  | 表头
-  ------------- | -------------
- 单元格内容  | 单元格内容
- 单元格内容l  | 单元格内容
+##目录结构  
+> ├── app                      //项目文件       
+> │   ├── home                 //视图            
+> │   ├── __init__.py          //初始化app                  
+> │   ├── models.py            //数据模型表映射对象                
+> │   ├── static               // css静态文件及js地图实现            
+> │   └── templates            //html页面                 
+> ├── count.csv                //统计数据下载表             
+> ├── create_demo.py           //连接mysql创建相应的库                 
+> ├── pydeal                   //对数据处理的python脚本 
+> ├── docx                     //服务器相关配置及部署文档     
+> ├── manage.py                //启动            
+> ├── reload.sh                //ip配置及重启服务           
+> ├── uwsgi.ini                //uwsgi.ini配置           
+> └── venv                     //虚拟环境      
