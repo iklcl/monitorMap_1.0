@@ -17,4 +17,6 @@ YDSX
 > ├── manage.py                //启动            
 > ├── reload.sh                //ip配置及重启服务           
 > ├── uwsgi.ini                //uwsgi.ini配置           
-> └── venv                     //虚拟环境      
+> └── venv                     //虚拟环境    
+**展示图**
+![img](https://github.com/iklcl/YDSX/blob/master/showImg/%E5%B1%95%E7%A4%BA%E8%B4%B4%E5%9B%BE3.png)
